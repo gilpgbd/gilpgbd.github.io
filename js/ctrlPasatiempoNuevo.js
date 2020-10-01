@@ -1,4 +1,4 @@
-import { nuevoFirestore, procesaError } from "./lib.js";
+import { muestraPasatiempos, nuevoFirestore, procesaError } from "./lib.js";
 
 /** @type {HTMLFormElement} inNombre */
 const forma = document["forma"];
@@ -15,7 +15,7 @@ async function guarda(evt) {
     /* Agrega el modelo a la base de datos, genera automáticamente el
      * id y espera a que termine. */
     await nuevoFirestore().collection("PASATIEMPO").add(modelo);
-    location.href = "pasatiempos.html";
+    muestraPasatiempos();
   } catch (e) {
     procesaError(e);
   }

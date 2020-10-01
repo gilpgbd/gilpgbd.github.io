@@ -1,10 +1,19 @@
+/** Usa el patrón Factory. */
 export function nuevoAuth() {
   // @ts-ignore
   return firebase.auth();
 }
+/** Usa el patrón Singleton. */
+let firestore = null;
 export function nuevoFirestore() {
-  // @ts-ignore
-  return firebase.firestore();
+  if (!firestore) {
+    // @ts-ignore
+    firestore = firebase.firestore();
+  }
+  return firestore;
+}
+export function muestraPasatiempos() {
+  location.href = "pasatiempos.html";
 }
 export function procesaError(e) {
   console.log(e);
