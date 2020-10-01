@@ -8,7 +8,10 @@ mi-footer {
   text-align: center;
 }
 mi-nav {
+  display: block;
+}
+mi-nav ul {
   display: flex;
   justify-content: center;
-  margin: 1rem;
+  flex-flow: wrap;
 }
