@@ -1,4 +1,5 @@
-import { muestraPasatiempos, nuevoFirestore, procesaError } from "./lib.js";
+import { nuevoFirestore } from "./fabrica.js";
+import { muestraPasatiempos, procesaError } from "./util.js";
 
 /** @type {HTMLFormElement} inNombre */
 const forma = document["forma"];

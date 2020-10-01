@@ -1,4 +1,5 @@
-import { procesaError, cod, nuevoFirestore } from "./lib.js";
+import { nuevoFirestore } from "./fabrica.js";
+import { cod, procesaError } from "./util.js";
 /** @type {HTMLUListElement} */
 const lista = document.querySelector("#lista");
 muestraLista();
@@ -13,8 +14,7 @@ function muestraLista() {
         inner += /* html */
           `<li>
             <p>
-              <a href="pasatiempo.html?id=${
-                cod(encodeURIComponent(doc.id))}">${cod(data.PAS_NOMBRE)}</a>
+              <a href="pasatiempo.html?id=${cod(encodeURIComponent(doc.id))}">${cod(data.PAS_NOMBRE)}</a>
             </p>
           </li>`});
       lista.innerHTML = inner;

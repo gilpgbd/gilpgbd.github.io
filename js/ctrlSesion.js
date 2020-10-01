@@ -1,4 +1,4 @@
-import { nuevoAuth, procesaError } from "./lib.js";
+import { nuevoAuth, procesaError } from "./util.js";
 /** @type {HTMLButtonElement} */
 const terminarSesión = document.querySelector("#terminarSesión");
 /** @type {HTMLOutputElement} */
