@@ -1,6 +1,7 @@
 import { procesaError, cod } from "./lib.js";
 /** @type {HTMLUListElement} */
 const lista = document.querySelector("#lista");
+muestraLista();
 function muestraLista() {
   /* Pide todos los registros de la colección "PASATIEMPO" ordenados por
    * el campo "PAS_NOMBRE" de forma ascendente. */
@@ -21,6 +22,7 @@ function muestraLista() {
     },
     e => {
       procesaError(e);
+      // Intenta reconectarse.
       muestraLista();
     }
   );
