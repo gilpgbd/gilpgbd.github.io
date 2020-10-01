@@ -4,7 +4,7 @@ export function nuevoAuth() {
 }
 export function nuevoFirestore() {
   // @ts-ignore
-  return firestore.auth();
+  return firebase.firestore();
 }
 export function procesaError(e) {
   console.log(e);
