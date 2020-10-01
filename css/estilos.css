@@ -14,4 +14,8 @@ mi-nav ul {
   display: flex;
   justify-content: center;
   flex-flow: wrap;
+  list-style: none;
+}
+mi-nav ul li {
+  margin: 0.5rem;
 }
