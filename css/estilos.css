@@ -19,3 +19,6 @@ mi-nav ul {
 mi-nav ul li {
   margin: 0.5rem;
 }
+img {
+  max-width: 100%;
+}
