@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pasatiempos</title>
+    <title>Pasatiempo Nuevo</title>
     <!-- Carga el núcleo de Firebase JS SDK -->
     <script
       src="https://www.gstatic.com/firebasejs/7.21.1/firebase-app.js"></script>
@@ -20,15 +20,16 @@
     <link rel="stylesheet" href="css/estilos.css">
   </head>
   <body>
-    <mi-nav></mi-nav>
-    <header>
-      <a href="pasatiempoNuevo.html">Agregar&hellip;</a>
-      <h1>Pasatiempos</h1>
-    </header>
-    <ul id="lista">
-      <li><progress max="100">Cargando…</progress></li>
-    </ul>
-    <mi-footer></mi-footer>
-    <script type="module" src="js/ctrlPasatiempos.js"></script>
+    <form id="forma">
+      <mi-nav></mi-nav>
+      <header>
+        <a href="pasatiempos.html">Cancelar</a>
+        <button type="submit">Guardar</button>
+        <h1>Pasatiempo Nuevo</h1>
+      </header>
+      <p><label>Nombre <input name="nombre" type="text" required></label></p>
+      <mi-footer></mi-footer>
+    </form>
+    <script type="module" src="js/ctrlPasatiempoNuevo.js"></script>
   </body>
 </html>
