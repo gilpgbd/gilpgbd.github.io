@@ -39,23 +39,17 @@ async function calculaCelda(doc) {
     : { exists: false };
   const pasaNombre = pasaDoc.exists ?
     pasaDoc.data().PAS_NOMBRE : "-- Sin Pasatiempo --";
-  // Obtiene los datos de los id de los roles.
-  const rolDocs = (await Promise.all((data.ROL_IDS || [])
-    .map(async rolId =>
-      await firestore.collection("ROL").doc(rolId).get())))
-    .filter(doc => doc.exists);
-  const roles = rolDocs
-    .map(doc => `${doc.id}: ${doc.data().ROL_DESCR}`)
-    .sort();
+  // Concatena los id de los roles.
+  const roles = (data.ROL_IDS || []).sort();
   // url de la imagen. Usan como nombre el id del usuario.
   const url = await storage.ref(doc.id).getDownloadURL();
   return (/* html */
-    `<li class="doc" onclick="muestra('${cod(doc.id)}')">
+    `<li class="doc">
       <figure>
         <img src="${cod(url)}" alt="${cod(doc.id)}">
       </figure>
       <div>
-        <strong>${cod(doc.id)}</strong><br>
+        <a href="usuario.html?id=${cod(encodeURIComponent(doc.id))}">${cod(doc.id)}</a><br>
         ${cod(pasaNombre)}<br>
         ${roles.map(cod).join("<br>")}
       </div>
