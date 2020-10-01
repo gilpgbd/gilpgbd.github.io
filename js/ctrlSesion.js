@@ -1,10 +1,13 @@
 import { procesaError } from "./lib.js";
+/** @type {HTMLButtonElement} */
+const terminarSesión = document.querySelector("#terminarSesión");
 /** @type {HTMLOutputElement} */
 const email = document.querySelector("#email");
 /** @type {HTMLOutputElement} */
 const nombre = document.querySelector("#nombre");
 /** @type {HTMLImageElement} */
 const avatar = document.querySelector("#avatar");
+terminarSesión.addEventListener("click", terminaSesión);
 /** Conexión al sistema de autenticación de Firebase. */
 // @ts-ignore
 const auth = firebase.auth();
