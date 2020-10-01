@@ -14,131 +14,18 @@
     <script
       src="https://www.gstatic.com/firebasejs/7.21.1/firebase-firestore.js"></script>
     <!-- Configura la app usando la información del sitio de Firebase. -->
-    <script src="/__/firebase/init.js"></script>
+    <script src="js/init.js"></script>
+    <script type="module" src="cmp/mi-nav.js"></script>
     <script type="module" src="cmp/mi-footer.js"></script>
     <link rel="stylesheet" href="css/estilos.css">
   </head>
   <body>
-    <form action="javascript:guarda()">
-      <header>
-        <button id="agregar" type="button" onclick="alta();">Agregar...</button>
-        <button type="submit">Guardar</button>
-        <button id="eliminar" type="button"
-          onclick="elimina();">Eliminar</button>
-        <h1>Pasatiempos</h1>
-      </header>
-      <p><input id="nombre" type="text" placeholder="Nombre" required></p>
-      <ul id="lista">
-        <li><progress max="100">Cargando…</progress></li>
-      </ul>
-      <mi-footer></mi-footer>
-    </form>
+    <mi-nav></mi-nav>
+    <ul id="lista">
+      <li><progress max="100">Cargando…</progress></li>
+    </ul>
+    <mi-footer></mi-footer>
     <script>
-      /** Id del objeto seleccionado en la lista. */
-      let id = "";
-      const firestore = firebase.firestore();
-      muestraLista();
-      alta();
-      function muestraLista() {
-        /* Pide todos los registros de la colección "PASATIEMPO" ordenados por
-         * el campo "PAS_NOMBRE" de forma ascendente. */
-        firestore.collection("PASATIEMPO").orderBy("PAS_NOMBRE").onSnapshot(
-          documentos => {
-            let inner = "";
-            documentos.forEach(doc =>
-              inner += /* html */
-              `<li>
-                <button type=button onclick="muestra('${cod(doc.id)}')">
-                  ${cod(doc.data().PAS_NOMBRE)}
-                </button>
-              </li>`);
-            lista.innerHTML = inner;
-          },
-          e => {
-            procesaError(e);
-            muestraLista();
-          }
-        );
-      }
-      /** Prepara la forma para capturar un pasatiempo nuevo. */
-      function alta() {
-        agregar.disabled = true; // Deshabilita el botón "agregar".
-        eliminar.disabled = true; // Deshabilita el botón "eliminar".
-        id = ""; // Pone en blanco el id, porque todavía no agregamos a la BD.
-        nombre.value = ""; // Pone en blanco los datos porque todavía no hay.
-      }
-      /** Prepara la forma para modificar el documento que corresponde al
-       * id seleccionado en el listado.
-       * @param {string} idSel id del documento seleccionado en el listado. */
-      async function muestra(idSel) {
-        try {
-          agregar.disabled = false; // Habilita el botón "agregar".
-          eliminar.disabled = false; // Habilita el botón "eliminar".
-          /* Recupera el documento con el id seleccionado en la colección
-           * "PASATIEMPO". */
-          let doc = await firestore.collection("PASATIEMPO").doc(idSel).get();
-          if (doc.exists) {
-            id = doc.id;
-            let data = doc.data();
-            nombre.value = data.PAS_NOMBRE || "";
-          } else {
-            alert("El pasatiempo selecionado no está registrado.");
-            alta();
-          }
-        } catch (e) {
-          procesaError(e);
-        }
-      }
-      async function guarda() {
-        try {
-          const modelo = {
-            PAS_NOMBRE: nombre.value.trim()
-          };
-          if (id) {
-            /* Modifica el modelo en la base de datos en base al id y espera a
-             * que termine. */
-            await firestore.collection("PASATIEMPO").doc(id).set(modelo);
-          } else {
-            /* Agrega el modelo a la base de datos, genera automáticamente el
-             * id y espera a que termine. */
-            await firestore.collection("PASATIEMPO").add(modelo);
-          }
-          alta();
-        } catch (e) {
-          procesaError(e);
-        }
-      }
-      async function elimina() {
-        try {
-          /* Elimina el documento en la base de datos usando el id y espera a
-           * que termine. */
-          await firestore.collection("PASATIEMPO").doc(id).delete();
-          alta();
-        } catch (e) {
-          procesaError(e);
-        }
-      }
-      function procesaError(e) {
-        console.log(e);
-        alert(e.message);
-      }
-      /** Codifica la información textual para que no inyecte código HTML.
-       * @param {any} valor información a codificar.
-       * @returns {string} el texto transformado. */
-      function cod(valor) {
-        return (valor || "").toString()
-          .replace(/[<>"']/g,
-            /** @param {string} letra */
-            letra => {
-              switch (letra) {
-                case "<": return "&lt;";
-                case ">": return "&gt;";
-                case '"': return "&quot;";
-                case "'": return "&#039;";
-                default: return letra;
-              }
-            });
-      }
     </script>
   </body>
 </html>
