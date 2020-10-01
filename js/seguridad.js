@@ -31,7 +31,7 @@ export function protege(privilegio, acciónDeEscape, acción) {
           urlFoto: usuarioAuth.photoURL || "",
         };
         if (privilegio) {
-          const usuario = await buscaUsuario(usuarioAuth);
+          const usuario = await buscaUsuario(usuarioAuth.email);
           if (usuario) {
             const set = new Set(usuario.privilegios.map(p => p.id))
             if (set.has(privilegio)) {
