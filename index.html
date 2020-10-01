@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat</title>
+    <script type="module" src="cmp/mi-footer.js"></script>
+    <script type="module" src="cmp/mi-nav.js"></script>
+    <link rel="stylesheet" href="css/estilos.css">
+    <!-- Carga el núcleo de Firebase JS SDK -->
+    <script
+      src="https://www.gstatic.com/firebasejs/7.21.1/firebase-app.js"></script>
+    <!-- Agrega el manejo de autenticación. -->
+    <script
+      src="https://www.gstatic.com/firebasejs/7.21.1/firebase-auth.js"></script>
+    <!-- Configura la app usando la información del sitio de Firebase. -->
+    <script src="js/init.js"></script>
+  </head>
+  <body>
+    <header>
+      <mi-nav></mi-nav>
+      <button id=terminarSesión type="button" onclick="terminaSesión()">
+        Terminar Sesión
+      </button>
+      <h1>Sesión</h1>
+    </header>
+    <figure><img id=avatar src="" alt=Avatar></figure>
+    <p><label>Email <output id=email></output></label></p>
+    <p><label><output id=nombre></output></label></p>
+    <mi-footer></mi-footer>
+    <script type="module" src="js/ctrlSesion.js"></script>
+  </body>
+</html>

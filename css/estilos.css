@@ -1,0 +1,14 @@
+body {
+    font-family: sans-serif;
+}
+mi-footer {
+  display: block;
+  margin: 1rem;
+  font-size: small;
+  text-align: center;
+}
+mi-nav {
+  display: flex;
+  justify-content: center;
+  margin: 1rem;
+}
