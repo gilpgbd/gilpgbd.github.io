@@ -11,8 +11,6 @@ terminarSesión.addEventListener("click", terminaSesión);
 /** Conexión al sistema de autenticación de Firebase. */
 // @ts-ignore
 const auth = firebase.auth();
-/** Función para desconectar la recepción del listado. */
-let desconecta = null;
 /** Tipo de autenticación de usuarios. En este caso es con Google. */
 // @ts-ignore
 const provider = new firebase.auth.GoogleAuthProvider();
@@ -40,13 +38,8 @@ auth.onAuthStateChanged(
   // Función que se invoca si hay un error al verificar el usuario.
   procesaError
 );
-// @ts-ignore
 async function terminaSesión() {
   try {
-    if (desconecta) {
-      desconecta();
-      desconecta = null;
-    }
     await auth.signOut();
   } catch (e) {
     procesaError(e);
