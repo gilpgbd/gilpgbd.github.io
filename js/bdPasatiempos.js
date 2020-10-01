@@ -45,7 +45,8 @@ export async function agregaPasatiempo(modelo) {
  * @param {string} id
  * @returns {Promise<InfoPasatiempo>} */
 export async function buscaPasatiempo(id) {
-  let doc = await firestore.collection("PASATIEMPO").doc(id).get();
+  let doc = id ? await firestore.collection("PASATIEMPO").doc(id).get()
+    : { exists: false };
   if (doc.exists) {
     let data = doc.data();
     return {
