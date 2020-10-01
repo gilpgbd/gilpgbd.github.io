@@ -1,6 +1,6 @@
-import { buscaUsuario } from "./bdUsuarios";
-import { nuevoAuth, nuevoProvider } from "./fabrica";
-import { procesaError } from "./util";
+import { buscaUsuario } from "./bdUsuarios.js";
+import { nuevoAuth, nuevoProvider } from "./fabrica.js";
+import { procesaError } from "./util.js";
 
 const auth = nuevoAuth();
 

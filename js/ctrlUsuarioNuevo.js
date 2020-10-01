@@ -2,7 +2,9 @@ import { subeAStorage } from "./accesaStorage.js";
 import { agregaUsuario } from "./bdUsuarios.js";
 import { cargaPasatiempos, cargaPrivilegios } from "./ctrlForaneas.js";
 import { protege } from "./seguridad.js";
-import { fileSeleccionado, muestraSesion, muestraUsuarios, procesaError } from "./util.js";
+import {
+  fileSeleccionado, muestraSesion, muestraUsuarios, procesaError
+} from "./util.js";
 
 /** @type {HTMLFormElement} */
 const forma = document["forma"];

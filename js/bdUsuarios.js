@@ -1,6 +1,6 @@
-import { buscaPasatiempo } from "./bdPasatiempos";
-import { buscaPrivilegios } from "./bdPrivilegios";
-import { nuevoFirestore } from "./fabrica";
+import { buscaPasatiempo } from "./bdPasatiempos.js";
+import { buscaPrivilegios } from "./bdPrivilegios.js";
+import { nuevoFirestore } from "./fabrica.js";
 
 const firestore = nuevoFirestore();
 

@@ -1,6 +1,6 @@
-import { consultaPasatiempos } from "./bdPasatiempos";
-import { consultaPrivilegios } from "./bdPrivilegios";
-import { cod, procesaError } from "./util";
+import { consultaPasatiempos } from "./bdPasatiempos.js";
+import { consultaPrivilegios } from "./bdPrivilegios.js";
+import { cod, procesaError } from "./util.js";
 
 /** @param {HTMLSelectElement} select
  * @param {string} valor */

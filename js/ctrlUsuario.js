@@ -1,8 +1,12 @@
-import { eliminaDeStorage, subeAStorage, urlDeStorage } from "./accesaStorage.js";
+import {
+  eliminaDeStorage, subeAStorage, urlDeStorage
+} from "./accesaStorage.js";
 import { buscaUsuario, eliminaUsuario, modificaUsuario } from "./bdUsuarios.js";
 import { cargaPasatiempos, cargaPrivilegios } from "./ctrlForaneas.js";
 import { protege } from "./seguridad.js";
-import { fileSeleccionado, muestraSesion, muestraUsuarios, procesaError } from "./util.js";
+import {
+  fileSeleccionado, muestraSesion, muestraUsuarios, procesaError
+} from "./util.js";
 
 /** @type {HTMLFormElement} inNombre */
 const forma = document["forma"];
