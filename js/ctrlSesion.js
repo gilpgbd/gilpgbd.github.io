@@ -1,4 +1,4 @@
-import { procesaError } from "./lib.js";
+import { nuevoAuth, procesaError } from "./lib.js";
 /** @type {HTMLButtonElement} */
 const terminarSesión = document.querySelector("#terminarSesión");
 /** @type {HTMLOutputElement} */
@@ -9,8 +9,7 @@ const nombre = document.querySelector("#nombre");
 const avatar = document.querySelector("#avatar");
 terminarSesión.addEventListener("click", terminaSesión);
 /** Conexión al sistema de autenticación de Firebase. */
-// @ts-ignore
-const auth = firebase.auth();
+const auth = nuevoAuth();
 /** Tipo de autenticación de usuarios. En este caso es con Google. */
 // @ts-ignore
 const provider = new firebase.auth.GoogleAuthProvider();

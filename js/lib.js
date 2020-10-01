@@ -1,3 +1,11 @@
+export function nuevoAuth() {
+  // @ts-ignore
+  return firebase.auth();
+}
+export function nuevoFirestore() {
+  // @ts-ignore
+  return firestore.auth();
+}
 export function procesaError(e) {
   console.log(e);
   alert(e.message);
