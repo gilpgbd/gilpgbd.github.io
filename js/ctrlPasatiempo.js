@@ -1,24 +1,24 @@
-import { nuevoFirestore } from "./fabrica.js";
-import { muestraPasatiempos, procesaError } from "./util.js";
+import {
+  buscaPasatiempo, eliminaPasatiempo, modificaPasatiempo
+} from "./bdPasatiempos.js";
+import { protege } from "./seguridad.js";
+import { muestraPasatiempos, muestraSesion, procesaError } from "./util.js";
 
 /** @type {HTMLFormElement} */
 const forma = document["forma"];
 /** @type {HTMLButtonElement} */
 const eliminar = forma["eliminar"];
-const firestore = nuevoFirestore();
-const params = new URLSearchParams(location.search?.substring(1))
+const params = new URL(location.href).searchParams;
 const id = params.get("id");
 
-muestra();
-/** Prepara la forma para modificar el documento que corresponde al
- * id recibido. */
-async function muestra() {
+protege("Pasatiempos", muestraSesion, busca);
+
+/** Busca y muestra los datos que corresponden al id recibido. */
+async function busca() {
   try {
-    /* Recupera el documento con el id recibido en la colección "PASATIEMPO". */
-    let doc = await firestore.collection("PASATIEMPO").doc(id).get();
-    if (doc.exists) {
-      let data = doc.data();
-      forma["nombre"].value = data.PAS_NOMBRE || "";
+    const modelo = await buscaPasatiempo(id);
+    if (modelo) {
+      forma["nombre"].value = modelo.nombre;
       forma.addEventListener("submit", guarda);
       eliminar.addEventListener("click", elimina);
     } else {
@@ -35,23 +35,20 @@ async function guarda(evt) {
   try {
     evt.preventDefault();
     const data = new FormData(forma);
-    const modelo = {
-      PAS_NOMBRE: data.get("nombre").toString().trim()
-    };
-    /* Modifica el modelo en la base de datos en base al id y espera a que
-     * termine. */
-    await firestore.collection("PASATIEMPO").doc(id).set(modelo);
+    await modificaPasatiempo({
+      id,
+      nombre: data.get("nombre").toString().trim()
+    });
     muestraPasatiempos();
   } catch (e) {
     procesaError(e);
   }
 }
+
 async function elimina() {
   try {
     if (confirm("Confirmar la eliminación")) {
-      /* Elimina el documento en la base de datos usando el id y espera a que
-       * termine. */
-      await firestore.collection("PASATIEMPO").doc(id).delete();
+      await eliminaPasatiempo(id);
       muestraPasatiempos();
     }
   } catch (e) {

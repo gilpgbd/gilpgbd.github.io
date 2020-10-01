@@ -17,16 +17,17 @@
     <script src="js/init.js"></script>
     <script type="module" src="cmp/mi-nav.js"></script>
     <script type="module" src="cmp/mi-footer.js"></script>
+    <script type="module" src="cmp/mi-progreso.js"></script>
     <link rel="stylesheet" href="css/estilos.css">
   </head>
   <body>
     <mi-nav></mi-nav>
     <header>
-      <a href="pasatiempoNuevo.html">Agregar&hellip;</a>
+      <a href="pasatiempoNuevo.html">Agregar…</a>
       <h1>Pasatiempos</h1>
     </header>
     <ul id="lista">
-      <li><progress max="100">Cargando…</progress></li>
+      <li><mi-progreso></mi-progreso></li>
     </ul>
     <mi-footer></mi-footer>
     <script type="module" src="js/ctrlPasatiempos.js"></script>

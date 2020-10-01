@@ -4,32 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Usuarios</title>
-    <!-- Carga el núcleo de Firebase JS SDK -->
     <script
       src="https://www.gstatic.com/firebasejs/7.21.1/firebase-app.js"></script>
-    <!-- Agrega el manejo de autenticación. -->
     <script
       src="https://www.gstatic.com/firebasejs/7.21.1/firebase-auth.js"></script>
+    <script
+      src="https://www.gstatic.com/firebasejs/7.21.1/firebase-firestore.js"></script>
     <!-- Agrega el manejo de storage. -->
     <script
       src="https://www.gstatic.com/firebasejs/7.21.1/firebase-storage.js"></script>
-    <!-- Agrega el manejo de bases de datos. -->
-    <script
-      src="https://www.gstatic.com/firebasejs/7.21.1/firebase-firestore.js"></script>
-    <!-- Configura la app usando la información del sitio de Firebase. -->
     <script src="js/init.js"></script>
     <script type="module" src="cmp/mi-nav.js"></script>
     <script type="module" src="cmp/mi-footer.js"></script>
+    <script type="module" src="cmp/mi-progreso.js"></script>
     <link rel="stylesheet" href="css/estilos.css">
   </head>
   <body>
     <mi-nav></mi-nav>
     <header>
-      <a href="usuarioNuevo.html">Agregar&hellip;</a>
+      <a href="usuarioNuevo.html">Agregar…</a>
       <h1>Usuarios</h1>
     </header>
-    <ul id="lista">
-      <li><progress max="100">Cargando…</progress></li>
+    <ul id="lista" class="con_imagen">
+      <li><mi-progreso></mi-progreso></li>
     </ul>
     <mi-footer></mi-footer>
     <script type="module" src="js/ctrlUsuarios.js"></script>
