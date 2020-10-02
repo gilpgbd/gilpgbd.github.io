@@ -11,7 +11,12 @@ export async function subeAStorage(nombre, archivo) {
 /** @param {string} nombre nombre del archivo.
  * @returns {Promise<string>} */
 export async function urlDeStorage(nombre) {
-  return await storage.ref(nombre).getDownloadURL();
+  try {
+    return await storage.ref(nombre).getDownloadURL();
+  } catch (e) {
+    console.log(e);
+    return "";
+  }
 }
 
 /** @param {string} nombre nombre del archivo. */
