@@ -1,6 +1,6 @@
 import { agregaUsuario } from "./bdUsuarios.js";
 import { cargaPasatiempos, cargaPrivilegios } from "./ctrlForaneas.js";
-import { muestraSesion } from "./fabrica.js";
+import { muestraSesion, muestraUsuarios } from "./fabrica.js";
 import { protege } from "./seguridad.js";
 import { procesaError } from "./util.js";
 
