@@ -26,7 +26,7 @@ export function cargaPrivilegios(elemento, valor) {
         `<li>
           <label>
             <input type="checkbox" name="privilegios"
-                value="${cod(p.id)}${checked}">
+                value="${cod(p.id)}" ${checked}>
             <span>${renderPrivilegio(p)}</span>
           </label>
         </li>`)
