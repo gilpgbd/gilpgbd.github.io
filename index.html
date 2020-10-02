@@ -17,6 +17,7 @@
     <script src="js/init.js"></script>
     <script type="module" src="cmp/mi-nav.js"></script>
     <script type="module" src="cmp/mi-footer.js"></script>
+    <script type="module" src="cmp/mi-progreso.js"></script>
     <link rel="stylesheet" href="css/estilos.css">
   </head>
   <body>
@@ -26,7 +27,14 @@
       <h1>Sesión</h1>
     </header>
     <figure><img id=avatar src="" alt=Avatar></figure>
-    <p><label>Email <output id=email></output></label></p>
+    <p>
+      <label>
+        Email
+        <output id=email>
+          <mi-progreso></mi-progreso>
+        </output>
+      </label>
+    </p>
     <p><label><output id=nombre></output></label></p>
     <mi-footer></mi-footer>
     <script type="module" src="js/ctrlSesion.js"></script>
