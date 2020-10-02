@@ -57,18 +57,15 @@ export async function buscaUsuario(id) {
 /** Agrega el modelo a la base de datos y espera a que termine.
  * @param {InfoUsuario} modelo */
 export async function agregaUsuario(modelo) {
-  await firestore.collection("USUARIO").doc(modelo.id).set({
-    PAS_ID: modelo.pasatiempo,
-    PRIV_IDS: modelo.privilegios
-  });
+  await modificaUsuario(modelo);
 }
 
 /** Modifica el modelo en la base de datos en base al id y espera a que termine.
  * @param {InfoUsuario} modelo */
 export async function modificaUsuario(modelo) {
   await firestore.collection("USUARIO").doc(modelo.id).set({
-    PAS_ID: modelo.pasatiempo,
-    PRIV_IDS: modelo.privilegios
+    PAS_ID: modelo.pasatiempo.id,
+    PRIV_IDS: modelo.privilegios.map(p => p.id)
   });
 }
 
