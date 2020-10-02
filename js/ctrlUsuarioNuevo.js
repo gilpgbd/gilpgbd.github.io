@@ -1,15 +1,10 @@
-import { subeAStorage } from "./accesaStorage.js";
 import { agregaUsuario } from "./bdUsuarios.js";
 import { cargaPasatiempos, cargaPrivilegios } from "./ctrlForaneas.js";
 import { protege } from "./seguridad.js";
-import {
-  fileSeleccionado, muestraSesion, muestraUsuarios, procesaError
-} from "./util.js";
+import { muestraSesion, muestraUsuarios, procesaError } from "./util.js";
 
 /** @type {HTMLFormElement} */
 const forma = document["forma"];
-/** @type {HTMLInputElement} */
-const avatar = forma["avatar"];
 const privilegios = document.getElementById("privilegios");
 
 protege("Usuarios", muestraSesion,
@@ -24,21 +19,17 @@ async function guarda(evt) {
   try {
     evt.preventDefault();
     const data = new FormData(forma);
-    const email = data.get("cue").toString().trim();
     const idPasatiempo = data.get("pasatiempo").toString();
-    const pasatiempo = { id: idPasatiempo || null, nombre: null };
     const privilegios = data.getAll("privilegios").
-      map(id => ({ id: id.toString(), descripcion: null }));
+      map(id => ({ nombre: id.toString(), descripcion: null }));
     /**@type {import("./bdUsuarios.js").InfoUsuario} */
     const modelo = {
-      id: email,
-      pasatiempo,
+      email: data.get("cue").toString().trim(),
+      avatar: data.get("avatar"),
+      urlDeAvatar: null,
+      pasatiempo: { id: idPasatiempo || null, nombre: null },
       privilegios
     };
-    /* Si se ha seleccionado un archivo para el avatar, se agrega a Storage. */
-    if (fileSeleccionado(avatar)) {
-      await subeAStorage(email, avatar.files[0]);
-    }
     await agregaUsuario(modelo);
     muestraUsuarios();
   } catch (e) {

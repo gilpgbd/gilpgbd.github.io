@@ -3,7 +3,7 @@ import { nuevoFirestore } from "./fabrica.js";
 const firestore = nuevoFirestore();
 
 /** @typedef {Object} InfoPrivilegio
- * @property {string} id
+ * @property {string} nombre
  * @property {string} descripcion */
 
 /** @param {(e: Object) => void} fnError
@@ -17,7 +17,7 @@ export function consultaPrivilegios(fnError, callback) {
       documentos.forEach(doc => {
         const data = doc.data();
         privilegios.push({
-          id: doc.id,
+          nombre: doc.id,
           descripcion: data.PRIV_DESCR
         });
       });

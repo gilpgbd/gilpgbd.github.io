@@ -1,16 +1,10 @@
-import {
-  eliminaDeStorage, subeAStorage, urlDeStorage
-} from "./accesaStorage.js";
 import { buscaUsuario, eliminaUsuario, modificaUsuario } from "./bdUsuarios.js";
 import { cargaPasatiempos, cargaPrivilegios } from "./ctrlForaneas.js";
 import { protege } from "./seguridad.js";
-import {
-  fileSeleccionado, muestraSesion, muestraUsuarios, procesaError
-} from "./util.js";
+import { muestraSesion, muestraUsuarios, procesaError } from "./util.js";
 
 /** @type {HTMLFormElement} inNombre */
 const forma = document["forma"];
-const avatar = forma["avatar"];
 const privilegios = document.getElementById("privilegios");
 /** @type {HTMLButtonElement} */
 const eliminar = forma["eliminar"];
@@ -27,12 +21,12 @@ async function busca() {
     const modelo = await buscaUsuario(id);
     if (modelo) {
       forma["cue"].value = id;
-      const pasatiempoId = modelo.pasatiempo ? modelo.pasatiempo.id  : "";
+      const pasatiempoId = modelo.pasatiempo ? modelo.pasatiempo.id : "";
       cargaPasatiempos(forma["pasatiempo"], pasatiempoId);
-      cargaPrivilegios(privilegios, modelo.privilegios.map(p => p.id));
+      cargaPrivilegios(privilegios, modelo.privilegios.map(p => p.nombre));
       forma.addEventListener("submit", guarda);
       eliminar.addEventListener("click", elimina);
-      img.src = await urlDeStorage(id);
+      img.src = modelo.urlDeAvatar;
     } else {
       alert("El usuario selecionado no está registrado.");
       muestraUsuarios();
@@ -48,18 +42,16 @@ async function guarda(evt) {
     evt.preventDefault();
     const data = new FormData(forma);
     const idPasatiempo = data.get("pasatiempo").toString();
-    const pasatiempo = { id: idPasatiempo || null, nombre: null };
     const privilegios = data.getAll("privilegios").
-      map(id => ({ id: id.toString(), descripcion: null }));
+      map(id => ({ nombre: id.toString(), descripcion: null }));
     /**@type {import("./bdUsuarios.js").InfoUsuario} */
     const modelo = {
-      id,
-      pasatiempo,
+      email: id,
+      avatar: data.get("avatar"),
+      urlDeAvatar: null,
+      pasatiempo: { id: idPasatiempo || null, nombre: null },
       privilegios
     };
-    if (fileSeleccionado(avatar)) {
-      await subeAStorage(id, avatar.files[0]);
-    }
     await modificaUsuario(modelo);
     muestraUsuarios();
   } catch (e) {
@@ -71,7 +63,6 @@ async function elimina() {
   try {
     if (confirm("Confirmar la eliminación")) {
       await eliminaUsuario(id);
-      eliminaDeStorage(id);
       muestraUsuarios();
     }
   } catch (e) {

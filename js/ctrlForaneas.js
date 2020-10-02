@@ -21,12 +21,12 @@ export function cargaPrivilegios(elemento, valor) {
   const set = new Set(valor || []);
   consultaPrivilegios(procesaError, privilegios =>
     elemento.innerHTML = privilegios.map(p => {
-      const checked = set.has(p.id) ? "checked" : "";
+      const checked = set.has(p.nombre) ? "checked" : "";
       return (/* html */
         `<li>
           <label>
             <input type="checkbox" name="privilegios"
-                value="${cod(p.id)}" ${checked}>
+                value="${cod(p.nombre)}" ${checked}>
             <span>${renderPrivilegio(p)}</span>
           </label>
         </li>`)
@@ -36,6 +36,6 @@ export function cargaPrivilegios(elemento, valor) {
 /**@param {import("./bdPrivilegios").InfoPrivilegio} privilegio */
 export function renderPrivilegio(privilegio) {
   return (/* html */
-    `<em>${cod(privilegio.id)}</em><br>
+    `<em>${cod(privilegio.nombre)}</em><br>
     ${cod(privilegio.descripcion)}`)
 }

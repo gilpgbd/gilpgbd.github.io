@@ -33,7 +33,7 @@ export function protege(privilegio, acciónDeEscape, acción) {
         if (privilegio) {
           const usuario = await buscaUsuario(usuarioAuth.email);
           if (usuario) {
-            const set = new Set(usuario.privilegios.map(p => p.id))
+            const set = new Set(usuario.privilegios.map(p => p.nombre))
             if (set.has(privilegio)) {
               acción(usuarioAutorizado);
             } else {

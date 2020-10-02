@@ -3,7 +3,7 @@ import { nuevoStorage } from "./fabrica.js";
 const storage = nuevoStorage();
 
 /** @param {string} nombre nombre con que se sube el archivo.
- * @param {File} archivo archivo a subir. */
+ * @param {FormDataEntryValue} archivo archivo a subir. */
 export async function subeAStorage(nombre, archivo) {
   await storage.ref(nombre).put(archivo);
 }
