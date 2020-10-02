@@ -1,4 +1,4 @@
-import { muestraSesion } from "./navegacion";
+import { muestraSesion } from "./navegacion.js";
 import { protege, terminaSesión } from "./seguridad.js";
 /** @type {HTMLButtonElement} */
 const terminarSesión = document.querySelector("#terminarSesión");
