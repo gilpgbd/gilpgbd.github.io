@@ -57,7 +57,7 @@ dl {
   margin: 1rem 0;
 }
 
-.con_imagen>div>div {
+.con_imagen>div {
   padding: 1rem;
   display: grid;
   grid-template-columns: 30% auto;
