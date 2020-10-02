@@ -1,10 +1,10 @@
 import { eliminaDeStorage, subeAStorage, urlDeStorage } from "./accesaStorage.js";
 import { buscaPasatiempo } from "./bdPasatiempos.js";
 import { buscaPrivilegios } from "./bdPrivilegios.js";
-import { nuevoFirestore, nuevoStorage } from "./fabrica.js";
+import { nuevoFirestore } from "./fabrica.js";
+import { paraTodos } from "./util.js";
 
 const firestore = nuevoFirestore();
-const storage = nuevoStorage();
 
 /** @typedef {Object} InfoUsuario
  * @property {string} email
@@ -17,16 +17,8 @@ const storage = nuevoStorage();
  * @param {(usuarios: InfoUsuario[]) => void} callback */
 export function consultaUsuarios(fnError, callback) {
   firestore.collection("USUARIO").onSnapshot(
-    async querySnapshot => {
-      /* Genera un listado de Promise que descargan datos de la base de
-       * datos y espera a que todas terminen. */
-      /** @type {Promise<InfoUsuario>[]} */
-      const promesas = [];
-      // Agrega una Promise al erreglo.
-      querySnapshot.forEach(doc => promesas.push(joinUsuario(doc)));
-      // Espera a que todas las Promise terminen.
-      callback(await Promise.all(promesas));
-    },
+    async querySnapshot =>
+      callback(await Promise.all(paraTodos(querySnapshot, cargaUsuario))),
     e => {
       fnError(e);
       consultaUsuarios(fnError, callback);
@@ -34,30 +26,30 @@ export function consultaUsuarios(fnError, callback) {
   );
 }
 
-/** Crea un usuario y le agrega los objetos asociados.
+/** Crea un usuario a partir de un documento y le agrega los objetos asociados.
  * @return {Promise<InfoUsuario>} */
-async function joinUsuario(doc) {
+async function cargaUsuario(doc) {
   const data = doc.data();
-  return {
-    email: doc.id,
-    avatar: null,
-    urlDeAvatar: await urlDeStorage(doc.id),
-    pasatiempo: await buscaPasatiempo(data.PAS_ID),
-    privilegios: await buscaPrivilegios(data.PRIV_IDS)
-  };
+  if (doc.exists) {
+    return {
+      email: doc.id,
+      avatar: null,
+      urlDeAvatar: await urlDeStorage(doc.id),
+      pasatiempo: await buscaPasatiempo(data.PAS_ID),
+      privilegios: await buscaPrivilegios(data.PRIV_IDS)
+    };
+  } else {
+    return null;
+  }
 }
 
 /** Busca un pasatiempo en base a su id.
  * @param {string} id
  * @returns {Promise<InfoUsuario>} */
 export async function buscaUsuario(id) {
-  let doc = await firestore.collection("USUARIO").doc(id).get();
-  if (doc.exists) {
-    return joinUsuario(doc);
-  } else {
-    return null;
-  }
-
+  let doc = id ? await firestore.collection("USUARIO").doc(id).get()
+    : { exists: false };
+  return cargaUsuario(doc);
 }
 
 /** Agrega el modelo a la base de datos y espera a que termine.

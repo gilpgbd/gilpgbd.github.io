@@ -1,7 +1,8 @@
 import { buscaUsuario, eliminaUsuario, modificaUsuario } from "./bdUsuarios.js";
 import { cargaPasatiempos, cargaPrivilegios } from "./ctrlForaneas.js";
+import { muestraSesion, muestraUsuarios } from "./fabrica.js";
 import { protege } from "./seguridad.js";
-import { muestraSesion, muestraUsuarios, procesaError } from "./util.js";
+import { procesaError } from "./util.js";
 
 /** @type {HTMLFormElement} inNombre */
 const forma = document["forma"];

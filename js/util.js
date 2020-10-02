@@ -1,20 +1,9 @@
-export function muestraSesion() {
-  location.href = "index.html";
-}
-
-export function muestraPasatiempos() {
-  location.href = "pasatiempos.html";
-}
-
-export function muestraUsuarios() {
-  location.href = "usuarios.html";
-}
-
-/** Indica si un input type="file" tiene un archivo seleccionado.
- * @param {HTMLInputElement} file input que se analiza.
- * @returns {File} devuelve el archivo seleccionado; en otro caso, false. */
-export function fileSeleccionado(file) {
-  return file.files && file.files[0];
+/** param {{forEach:(doc:Object)=>void}} usaForEach
+ * @param {(doc: Object) => Object} funcion */
+export function paraTodos(usaForEach, funcion){
+  const arr = [];
+  usaForEach.forEach(doc => arr.push(funcion(doc)));
+  return arr;
 }
 
 /** Procesa un error. Muestra el objeto en la consola y un cuadro de

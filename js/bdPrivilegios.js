@@ -1,4 +1,5 @@
 import { nuevoFirestore } from "./fabrica.js";
+import { paraTodos } from "./util.js";
 
 const firestore = nuevoFirestore();
 
@@ -11,18 +12,7 @@ const firestore = nuevoFirestore();
 export function consultaPrivilegios(fnError, callback) {
   /* Pide todos los documentos de la colección "PRIVILEGIO". */
   firestore.collection("PRIVILEGIO").onSnapshot(
-    documentos => {
-      /** @type {InfoPrivilegio[]} */
-      const privilegios = [];
-      documentos.forEach(doc => {
-        const data = doc.data();
-        privilegios.push({
-          nombre: doc.id,
-          descripcion: data.PRIV_DESCR
-        });
-      });
-      callback(privilegios);
-    },
+    querySnapshot => callback(paraTodos(querySnapshot, cargaPasatiempo)),
     e => {
       fnError(e);
       // Intenta reconectarse.
@@ -31,18 +21,33 @@ export function consultaPrivilegios(fnError, callback) {
   );
 }
 
+/** Crea un privilegio a partir de un documento.
+ * @return {InfoPrivilegio} */
+function cargaPasatiempo(doc) {
+  const data = doc.data();
+  if (doc.exists) {
+    return {
+      nombre: doc.id,
+      descripcion: data.PRIV_DESCR || ""
+    };
+  } else {
+    return null;
+  }
+}
+
 /** Busca un privilegio en base a su id.
  * @param {string[]} ids
  * @returns {Promise<InfoPrivilegio[]>} */
 export async function buscaPrivilegios(ids) {
   ids = ids || [];
   let docs = await Promise.all(ids.map(
-    id => firestore.collection("PRIVILEGIO").doc(id).get()));
+    id => id ? firestore.collection("PRIVILEGIO").doc(id).get()
+      : { exists: false }));
   return docs.map(doc => {
     if (doc.exists) {
       let data = doc.data();
       return {
-        id: doc.id,
+        nombre: doc.id,
         descripcion: data.PRIV_DESCR || ""
       };
     } else {

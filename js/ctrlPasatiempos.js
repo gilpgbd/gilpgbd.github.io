@@ -1,6 +1,7 @@
 import { consultaPasatiempos } from "./bdPasatiempos.js";
+import { muestraSesion } from "./fabrica.js";
 import { protege } from "./seguridad.js";
-import { cod, muestraSesion, procesaError } from "./util.js";
+import { cod, procesaError } from "./util.js";
 const lista = document.getElementById("lista");
 protege("Pasatiempos", muestraSesion,
   () => consultaPasatiempos(procesaError, muestraPasatiempos));

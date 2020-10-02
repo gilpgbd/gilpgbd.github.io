@@ -1,6 +1,7 @@
 import { agregaPasatiempo } from "./bdPasatiempos.js";
+import { muestraPasatiempos, muestraSesion } from "./fabrica.js";
 import { protege } from "./seguridad.js";
-import { muestraPasatiempos, muestraSesion, procesaError } from "./util.js";
+import { procesaError } from "./util.js";
 
 /** @type {HTMLFormElement} */
 const forma = document["forma"];

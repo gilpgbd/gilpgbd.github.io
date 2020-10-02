@@ -1,7 +1,8 @@
 import { agregaUsuario } from "./bdUsuarios.js";
 import { cargaPasatiempos, cargaPrivilegios } from "./ctrlForaneas.js";
+import { muestraSesion } from "./fabrica.js";
 import { protege } from "./seguridad.js";
-import { muestraSesion, muestraUsuarios, procesaError } from "./util.js";
+import { procesaError } from "./util.js";
 
 /** @type {HTMLFormElement} */
 const forma = document["forma"];
