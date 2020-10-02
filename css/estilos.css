@@ -43,11 +43,11 @@ ul.lista {
   margin: 0.75rem 1rem;
 }
 
-li label {
+.lista li label {
   display: flex;
 }
 
-dl {
+dl.lista {
   margin: 1rem 0;
 }
 
@@ -62,12 +62,12 @@ dl {
     "img dd";
 }
 
-dt {
+.lista dt {
   grid-area: dt;
   font-weight: bold;
 }
 
-dd {
+.lista dd {
   margin: 0;
 }
 
@@ -80,6 +80,6 @@ dd {
   grid-area: img;
 }
 
-dd:nth-child(3) img {
+.con_imagen :nth-child(3) img {
   width: 100%;
 }
