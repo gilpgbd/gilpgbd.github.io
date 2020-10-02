@@ -46,6 +46,7 @@ ul.lista {
 
 .lista li a,
 .lista li label {
+  display: block;
   padding: 0.75rem 1rem;
 }
 
