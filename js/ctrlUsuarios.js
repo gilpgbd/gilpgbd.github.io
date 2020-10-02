@@ -20,7 +20,7 @@ async function muestraUsuarios(usuarios) {
           ${cod(nombre)}<br>
           ${u.privilegios.map(p => renderPrivilegio(p)).join("<br>")}
         </dd>
-        <dd><img src="${cod(url)}" alt="${cod(u.email)}"></dd>
+        <dd><img src="${cod(url)}" alt="Falta el Avatar"></dd>
       </div>`);
   }));
   lista.innerHTML = lis.join("");
