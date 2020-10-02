@@ -1,5 +1,5 @@
 import { agregaPasatiempo } from "./bdPasatiempos.js";
-import { muestraPasatiempos, muestraSesion } from "./fabrica.js";
+import { muestraPasatiempos, muestraSesion } from "./navegacion.js";
 import { protege } from "./seguridad.js";
 import { procesaError } from "./util.js";
 

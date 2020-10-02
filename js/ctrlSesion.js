@@ -1,4 +1,4 @@
-import { muestraSesion } from "./fabrica.js";
+import { muestraSesion } from "./navegacion";
 import { protege, terminaSesión } from "./seguridad.js";
 /** @type {HTMLButtonElement} */
 const terminarSesión = document.querySelector("#terminarSesión");

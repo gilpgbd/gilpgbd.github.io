@@ -1,5 +1,5 @@
 import { consultaPasatiempos } from "./bdPasatiempos.js";
-import { muestraSesion } from "./fabrica.js";
+import { muestraSesion } from "./navegacion.js";
 import { protege } from "./seguridad.js";
 import { cod, procesaError } from "./util.js";
 const lista = document.getElementById("lista");

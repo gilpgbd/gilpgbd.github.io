@@ -1,7 +1,7 @@
 import { urlDeStorage } from "./accesaStorage.js";
 import { consultaUsuarios } from "./bdUsuarios.js";
 import { renderPrivilegio } from "./ctrlForaneas.js";
-import { muestraSesion } from "./fabrica.js";
+import { muestraSesion } from "./navegacion.js";
 import { protege } from "./seguridad.js";
 import { cod, procesaError } from "./util.js";
 const lista = document.getElementById("lista");
