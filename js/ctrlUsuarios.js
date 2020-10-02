@@ -22,5 +22,5 @@ async function muestraUsuarios(usuarios) {
         <dd><img src="${cod(url)}" alt="${cod(u.id)}"></dd>
       </div>`);
   }));
-  lista.innerHTML = lis.join();
+  lista.innerHTML = lis.join("");
 }

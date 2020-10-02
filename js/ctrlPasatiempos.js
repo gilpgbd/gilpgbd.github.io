@@ -10,5 +10,5 @@ function muestraPasatiempos(pasatiempos) {
     `<li>
       <a href="pasatiempo.html?id=${cod(encodeURIComponent(p.id))}">${cod(p.nombre)}</a>
     </li>`
-  ).join();
+  ).join("");
 }

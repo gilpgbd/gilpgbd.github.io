@@ -30,7 +30,7 @@ export function cargaPrivilegios(elemento, valor) {
             <span>${renderPrivilegio(p)}</span>
           </label>
         </li>`)
-    }).join());
+    }).join(""));
 }
 
 /**@param {import("./bdPrivilegios").InfoPrivilegio} privilegio */
