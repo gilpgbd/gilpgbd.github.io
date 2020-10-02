@@ -19,7 +19,7 @@ const img = document.querySelector("#img");
 const params = new URL(location.href).searchParams;
 const id = params.get("id");
 
-protege("Pasatiempos", muestraSesion, busca);
+protege("Usuarios", muestraSesion, busca);
 
 /** Busca y muestra los datos que corresponden al id recibido. */
 async function busca() {

@@ -12,7 +12,7 @@ const forma = document["forma"];
 const avatar = forma["avatar"];
 const privilegios = document.getElementById("privilegios");
 
-protege("Pasatiempos", muestraSesion,
+protege("Usuarios", muestraSesion,
   () => {
     cargaPasatiempos(forma["pasatiempo"], null);
     cargaPrivilegios(privilegios, []);

@@ -4,7 +4,7 @@ import { renderPrivilegio } from "./ctrlForaneas.js";
 import { protege } from "./seguridad.js";
 import { cod, muestraSesion, procesaError } from "./util.js";
 const lista = document.getElementById("lista");
-protege("Pasatiempos", muestraSesion,
+protege("Usuarios", muestraSesion,
   () => consultaUsuarios(procesaError, muestraUsuarios));
 /** @param {import("./bdUsuarios.js").InfoUsuario[]} usuarios */
 async function muestraUsuarios(usuarios) {
