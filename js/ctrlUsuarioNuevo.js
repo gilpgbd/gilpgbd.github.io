@@ -9,7 +9,7 @@ import {
 /** @type {HTMLFormElement} */
 const forma = document["forma"];
 /** @type {HTMLInputElement} */
-const avatar = document["avatar"];
+const avatar = forma["avatar"];
 const privilegios = document.getElementById("privilegios");
 
 protege("Pasatiempos", muestraSesion,
@@ -25,7 +25,8 @@ async function guarda(evt) {
     evt.preventDefault();
     const data = new FormData(forma);
     const email = data.get("cue").toString().trim();
-    const pasatiempo = { id: data.get("pasatiempo").toString(), nombre: null };
+    const idPasatiempo = data.get("pasatiempo").toString();
+    const pasatiempo = { id: idPasatiempo || null, nombre: null };
     const privilegios = data.getAll("privilegios").
       map(id => ({ id: id.toString(), descripcion: null }));
     /**@type {import("./bdUsuarios.js").InfoUsuario} */
