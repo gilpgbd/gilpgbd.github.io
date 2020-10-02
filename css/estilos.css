@@ -1,5 +1,6 @@
 :root {
   font-family: sans-serif;
+  --color-active: #4646462c;
 }
 
 mi-footer {
@@ -40,7 +41,12 @@ ul.lista {
 }
 
 .lista li {
-  margin: 0.75rem 1rem;
+  margin: 0;
+}
+
+.lista li a,
+.lista li label {
+  padding: 0.75rem 1rem;
 }
 
 .lista li label {
@@ -52,7 +58,7 @@ dl.lista {
 }
 
 .con_imagen>div {
-  margin: 0.75rem 1rem;
+  padding: 0.75rem 1rem;
   display: grid;
   grid-template-columns: 30% auto;
   grid-template-rows: auto 1fr;
