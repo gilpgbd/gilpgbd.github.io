@@ -58,6 +58,10 @@ dl.lista {
   margin: 1rem 0;
 }
 
+.lista a:active {
+  background-color: var(--color-active);
+}
+
 .con_imagen>div {
   padding: 0.75rem 1rem;
   display: grid;
