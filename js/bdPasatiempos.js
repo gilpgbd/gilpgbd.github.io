@@ -25,8 +25,8 @@ export function consultaPasatiempos(fnError, callback) {
 /** Crea un pasatiempo a partir de un documento.
  * @return {InfoPasatiempo} */
 function cargaPasatiempo(doc) {
-  const data = doc.data();
   if (doc.exists) {
+    const data = doc.data();
     return {
       id: doc.id,
       nombre: data.PAS_NOMBRE

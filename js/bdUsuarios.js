@@ -29,8 +29,8 @@ export function consultaUsuarios(fnError, callback) {
 /** Crea un usuario a partir de un documento y le agrega los objetos asociados.
  * @return {Promise<InfoUsuario>} */
 async function cargaUsuario(doc) {
-  const data = doc.data();
   if (doc.exists) {
+    const data = doc.data();
     return {
       email: doc.id,
       avatar: null,

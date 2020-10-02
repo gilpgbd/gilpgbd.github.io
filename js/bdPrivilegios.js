@@ -12,7 +12,7 @@ const firestore = nuevoFirestore();
 export function consultaPrivilegios(fnError, callback) {
   /* Pide todos los documentos de la colección "PRIVILEGIO". */
   firestore.collection("PRIVILEGIO").onSnapshot(
-    querySnapshot => callback(paraTodos(querySnapshot, cargaPasatiempo)),
+    querySnapshot => callback(paraTodos(querySnapshot, cargaPrivilegio)),
     e => {
       fnError(e);
       // Intenta reconectarse.
@@ -23,9 +23,9 @@ export function consultaPrivilegios(fnError, callback) {
 
 /** Crea un privilegio a partir de un documento.
  * @return {InfoPrivilegio} */
-function cargaPasatiempo(doc) {
-  const data = doc.data();
+function cargaPrivilegio(doc) {
   if (doc.exists) {
+    const data = doc.data();
     return {
       nombre: doc.id,
       descripcion: data.PRIV_DESCR || ""
