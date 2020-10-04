@@ -35,6 +35,7 @@ mi-nav {
 mi-nav ul {
   display: flex;
   justify-content: center;
+  align-items: center;
   flex-flow: wrap;
   list-style: none;
 }
@@ -86,7 +87,7 @@ ul.lista {
 }
 
 .con_imagen a {
-  justify-content: flex-start;
+  align-items: initial;
 }
 
 .con_imagen img {
