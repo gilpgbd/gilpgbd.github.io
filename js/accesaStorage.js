@@ -1,4 +1,4 @@
-import { nuevoStorage } from "./fabrica.js";
+import { nuevoStorage } from "./XFabrica.js";
 
 const storage = nuevoStorage();
 

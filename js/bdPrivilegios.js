@@ -1,4 +1,4 @@
-import { nuevoFirestore } from "./fabrica.js";
+import { nuevoFirestore } from "./XFabrica.js";
 import { paraTodos } from "./util.js";
 
 const firestore = nuevoFirestore();

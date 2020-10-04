@@ -40,6 +40,14 @@
     </p>
     <p><label><output id=nombre></output></label></p>
     <mi-footer></mi-footer>
-    <script type="module" src="js/ctrlSesion.js"></script>
+    <script type="module">
+      import { Fabrica } from "./Fabrica.js";
+      terminarSesión.addEventListener("click", terminaSesión);
+      protege("", muestraSesion, usuarioAutorizado => {
+        email.value = usuarioAutorizado.email;
+        nombre.value = usuarioAutorizado.nombre || "";
+        avatar.src = usuarioAutorizado.urlFoto || "";
+      });
+    </script>
   </body>
 </html>

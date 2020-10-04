@@ -1,7 +1,7 @@
 import { eliminaDeStorage, subeAStorage, urlDeStorage } from "./accesaStorage.js";
 import { buscaPasatiempo } from "./bdPasatiempos.js";
 import { buscaPrivilegios } from "./bdPrivilegios.js";
-import { nuevoFirestore } from "./fabrica.js";
+import { nuevoFirestore } from "./XFabrica.js";
 import { paraTodos } from "./util.js";
 
 const firestore = nuevoFirestore();
