@@ -47,7 +47,7 @@
       const id = params.get("id");
 
       protege();
-      function protege() {
+      async function protege() {
         try {
           await ctrlSesión.protege("Pasatiempos");
           busca();

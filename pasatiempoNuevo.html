@@ -38,7 +38,7 @@
       const ctrlPasatiempos = Fábrica.instancia.ctrlPasatiempos;
 
       protege();
-      function protege() {
+      async function protege() {
         try {
           await ctrlSesión.protege("Pasatiempos");
           forma.addEventListener("submit", guarda);

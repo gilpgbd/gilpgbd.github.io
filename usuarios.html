@@ -41,7 +41,7 @@
       const foráneas = Fábrica.instancia.foráneasDeUsuarios;
 
       protege();
-      function protege() {
+      async function protege() {
         try {
           await ctrlSesión.protege("Usuarios");
           ctrlUsuarios.consulta(muestraError, muestraUsuarios);
