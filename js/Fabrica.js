@@ -23,8 +23,6 @@ export class Fábrica {
     /* Configura el proveedor de Google para que permita seleccionar el
      * nombre de usuario en una lista. */
     provider.setCustomParameters({ prompt: "select_account" });
-    // @ts-ignore
-    this.storage = firebase.storage();
     this.daoStorage = new DaoStorage(storage);
     this.daoPasatiempos = new DaoPasatiempos(firestore);
     this.daoPrivilegios = new DaoPrivilegios(firestore);

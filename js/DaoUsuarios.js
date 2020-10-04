@@ -19,7 +19,7 @@ export class DaoUsuarios {
   }
   /** Crea un pasatiempo a partir de un documento.
  * @return {Promise<InfoUsuario>} */
-  async cargaUsuario(doc) {
+  async _cargaUsuario(doc) {
     if (doc.exists) {
       const data = doc.data();
       return new InfoUsuario({
@@ -39,7 +39,7 @@ export class DaoUsuarios {
   consulta(callbackError, callback) {
     this._colección.onSnapshot(
       async querySnapshot => callback(await Promise.all(
-        paraTodos(querySnapshot, doc => this.cargaUsuario(doc)))),
+        paraTodos(querySnapshot, doc => this._cargaUsuario(doc)))),
       /** @param {Error} error */
       error => {
         callbackError(error);
@@ -51,7 +51,7 @@ export class DaoUsuarios {
    * @returns {Promise<InfoUsuario>} */
   async busca(id) {
     let doc = id ? await this._colección.doc(id).get() : { exists: false };
-    return this.cargaUsuario(doc);
+    return this._cargaUsuario(doc);
   }
   /** @param {InfoUsuario} modelo
    * @returns {Promise<void>} */

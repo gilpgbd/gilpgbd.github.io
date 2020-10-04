@@ -11,8 +11,8 @@ export class CtrlSesión {
    * @param {Object} provider Proveedor de autenticación de Firebase.
    * @param {DaoUsuarios} daoUsuarios */
   constructor(auth, provider, daoUsuarios) {
-    this._provider = provider;
     this._auth = auth;
+    this._provider = provider;
     this._daoUsuarios = daoUsuarios;
   }
 

@@ -1,4 +1,4 @@
-customElements.define("mi-nav", class extends HTMLElement {
+class MiNav extends HTMLElement {
   connectedCallback() {
     this.innerHTML = /* html */
       `<ul>
@@ -7,4 +7,5 @@ customElements.define("mi-nav", class extends HTMLElement {
         <li><a href="usuarios.html">Usuarios</a></li>
       </ul>`;
   }
-});
+}
+customElements.define("mi-nav", MiNav);
