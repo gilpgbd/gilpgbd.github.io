@@ -99,7 +99,7 @@
           });
           const privilegios = data.getAll("privilegios").
             map(id => new InfoPrivilegio({
-              nombre,
+              nombre: id,
               descripción: null
             }));
           /**@type {InfoUsuario} */
