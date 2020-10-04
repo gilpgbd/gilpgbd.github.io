@@ -1,10 +1,10 @@
-import { CtrlAbc } from "../lib/CtrlAbc";
-import { DaoPasatiempos } from "./DaoPasatiempos";
-import { DaoPrivilegios } from "./DaoPrivilegios";
-import { DaoUsuarios } from "./DaoUsuarios";
-import { InfoPasatiempo } from "./InfoPasatiempo";
-import { InfoPrivilegio } from "./InfoPrivilegio";
-import { InfoUsuario } from "./InfoUsuario";
+import { CtrlAbc } from "../lib/CtrlAbc.js";
+import { DaoPasatiempos } from "./DaoPasatiempos.js";
+import { DaoPrivilegios } from "./DaoPrivilegios.js";
+import { DaoUsuarios } from "./DaoUsuarios.js";
+import { InfoPasatiempo } from "./InfoPasatiempo.js";
+import { InfoPrivilegio } from "./InfoPrivilegio.js";
+import { InfoUsuario } from "./InfoUsuario.js";
 
 /** @extends {CtrlAbc<InfoUsuario>} */
 export class CtrlUsuarios extends CtrlAbc {

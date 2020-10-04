@@ -1,4 +1,4 @@
-import { Fábrica } from "./fabrica.js";
+import { Fábrica } from "./Fabrica.js";
 
 /** @typedef {Object} UsuarioAutorizado
  * @property {string} email

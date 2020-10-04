@@ -1,4 +1,3 @@
-
 export class DaoStorage {
   constructor(storage) {
     this._storage = storage;
