@@ -11,8 +11,6 @@ import { ForáneasDeUsuarios } from "./ForaneasDeUsuarios.js";
 export class Fábrica {
   constructor() {
     // @ts-ignore
-    const auth = firebase.auth();
-    // @ts-ignore
     const firestore = firebase.firestore();
     // @ts-ignore
     const storage = firebase.storage();
