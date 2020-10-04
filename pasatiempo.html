@@ -45,13 +45,16 @@
 
       const params = new URL(location.href).searchParams;
       const id = params.get("id");
-      
-      try {
-        ctrlSesión.protege("Pasatiempos");
-        busca();
-      } catch (error) {
-        muestraError(error)
-        muestraSesión();
+
+      protege();
+      function protege() {
+        try {
+          await ctrlSesión.protege("Pasatiempos");
+          busca();
+        } catch (error) {
+          muestraError(error)
+          muestraSesión();
+        }
       }
 
       /** Busca y muestra los datos que corresponden al id recibido. */

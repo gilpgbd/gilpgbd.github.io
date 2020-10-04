@@ -69,12 +69,15 @@
       const params = new URL(location.href).searchParams;
       const id = params.get("id");
 
-      try {
-        ctrlSesión.protege("Pasatiempos");
-        busca();
-      } catch (error) {
-        muestraError(error)
-        muestraSesión();
+      protege();
+      function protege() {
+        try {
+          await ctrlSesión.protege("Pasatiempos");
+          busca();
+        } catch (error) {
+          muestraError(error)
+          muestraSesión();
+        }
       }
 
       /** Busca y muestra los datos que corresponden al id recibido. */
@@ -108,7 +111,7 @@
         const privilegioIds = modelo.privilegios.map(p => p.nombre);
         foráneas.muestraPrivilegios(privilegios, privilegioIds, privs);
       }
-      
+
       /** @param {Event} evt */
       async function guarda(evt) {
         try {
@@ -136,7 +139,7 @@
           muestraError(error);
         }
       }
-      
+
       async function elimina() {
         try {
           if (confirm("Confirmar la eliminación")) {

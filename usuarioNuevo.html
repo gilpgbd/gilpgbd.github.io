@@ -66,14 +66,17 @@
       const ctrlUsuarios = Fábrica.instancia.ctrlUsuarios;
       const foráneas = Fábrica.instancia.foráneasDeUsuarios;
 
-      try {
-        ctrlSesión.protege("Pasatiempos");
-        forma.addEventListener("submit", guarda);
-        ctrlUsuarios.
-          foráneas(muestraError, muestraPasatiempos, muestraPrivilegios);
-      } catch (error) {
-        muestraError(error)
-        muestraSesión();
+      protege();
+      function protege() {
+        try {
+          await ctrlSesión.protege("Pasatiempos");
+          forma.addEventListener("submit", guarda);
+          ctrlUsuarios.
+            foráneas(muestraError, muestraPasatiempos, muestraPrivilegios);
+        } catch (error) {
+          muestraError(error)
+          muestraSesión();
+        }
       }
 
       /** @param {InfoPasatiempo[]} pasatiempos */
@@ -85,7 +88,7 @@
       function muestraPrivilegios(privs) {
         foráneas.muestraPrivilegios(privilegios, [], privs);
       }
-      
+
       /** @param {Event} evt */
       async function guarda(evt) {
         try {

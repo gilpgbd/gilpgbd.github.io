@@ -36,13 +36,16 @@
 
       const ctrlSesión = Fábrica.instancia.ctrlSesión;
       const ctrlPasatiempos = Fábrica.instancia.ctrlPasatiempos;
-      
-      try {
-        ctrlSesión.protege("Pasatiempos");
-        forma.addEventListener("submit", guarda);
-      } catch (error) {
-        muestraError(error)
-        muestraSesión();
+
+      protege();
+      function protege() {
+        try {
+          await ctrlSesión.protege("Pasatiempos");
+          forma.addEventListener("submit", guarda);
+        } catch (error) {
+          muestraError(error)
+          muestraSesión();
+        }
       }
 
       /** @param {Event} evt */

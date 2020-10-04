@@ -39,12 +39,15 @@
       const ctrlSesión = Fábrica.instancia.ctrlSesión;
       const ctrlPasatiempos = Fábrica.instancia.ctrlPasatiempos;
 
-      try {
-        ctrlSesión.protege("Pasatiempos");
-        ctrlPasatiempos.consulta(muestraError, muestraPasatiempos);
-      } catch (error) {
-        muestraError(error)
-        muestraSesión();
+      protege();
+      function protege() {
+        try {
+          await ctrlSesión.protege("Pasatiempos");
+          ctrlPasatiempos.consulta(muestraError, muestraPasatiempos);
+        } catch (error) {
+          muestraError(error)
+          muestraSesión();
+        }
       }
 
       /** @param {InfoPasatiempo[]} pasatiempos */

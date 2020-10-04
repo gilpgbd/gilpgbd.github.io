@@ -43,16 +43,21 @@
     <script type="module">
       import { Fábrica } from "./js/Fabrica.js";
       import { muestraError } from "./lib/util.js";
-      try {
-        const ctrlSesión = Fábrica.instancia.ctrlSesión;
-        const usuarioAutorizado = ctrlSesión.protege("");
-        terminarSesión.addEventListener("click",
-          () => ctrlSesión.terminaSesión);
-        email.value = usuarioAutorizado.email;
-        nombre.value = usuarioAutorizado.nombre || "";
-        avatar.src = usuarioAutorizado.urlFoto || "";
-      } catch (error) {
-        muestraError(error)
+      
+      const ctrlSesión = Fábrica.instancia.ctrlSesión;
+
+      protege();
+      function protege() {
+        try {
+          const usuarioAutorizado = await ctrlSesión.protege("");
+          terminarSesión.addEventListener("click",
+            () => ctrlSesión.terminaSesión);
+          email.value = usuarioAutorizado.email;
+          nombre.value = usuarioAutorizado.nombre || "";
+          avatar.src = usuarioAutorizado.urlFoto || "";
+        } catch (error) {
+          muestraError(error)
+        }
       }
     </script>
   </body>
