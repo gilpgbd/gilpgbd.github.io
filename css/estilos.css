@@ -3,6 +3,17 @@
   --color-active: #4646462c;
 }
 
+header {
+  display: flex;
+  flex-flow: wrap;
+  position: sticky;
+  top: 0;
+}
+
+h1 {
+  margin: 0 auto 0 0;
+}
+
 mi-footer {
   display: block;
   margin: 1rem;
@@ -12,6 +23,8 @@ mi-footer {
 
 mi-nav {
   display: block;
+  position: sticky;
+  bottom: 0;
 }
 
 mi-nav ul {
