@@ -25,12 +25,12 @@ export class Fábrica {
     provider.setCustomParameters({ prompt: "select_account" });
     // @ts-ignore
     this.storage = firebase.storage();
-    this.ctrlSesión = new CtrlSesión(auth, provider);
     this.daoStorage = new DaoStorage(storage);
     this.daoPasatiempos = new DaoPasatiempos(firestore);
     this.daoPrivilegios = new DaoPrivilegios(firestore);
     this.daoUsuarios = new DaoUsuarios(firestore, this.daoPasatiempos,
       this.daoPrivilegios, this.daoStorage);
+    this.ctrlSesión = new CtrlSesión(auth, provider, this.daoUsuarios);
     this.ctrlPasatiempos =
       new CtrlAbc("No se encontró el Pasatiempo.", this.daoPasatiempos);
     this.ctrlUsuarios = new CtrlUsuarios("No se encontró el Pasatiempo.",

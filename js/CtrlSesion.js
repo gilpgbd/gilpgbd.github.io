@@ -1,3 +1,4 @@
+import { DaoUsuarios } from "./DaoUsuarios.js";
 import { Fábrica } from "./Fabrica.js";
 
 /** @typedef {Object} UsuarioAutorizado
@@ -8,17 +9,18 @@ import { Fábrica } from "./Fabrica.js";
 
 export class CtrlSesión {
   /** @param {Object} auth Sistema de autenticación de Firebase.
-   * @param {Object} provider Proveedor de autenticación de Firebase. */
-  constructor(auth, provider) {
+   * @param {Object} provider Proveedor de autenticación de Firebase.
+   * @param {DaoUsuarios} daoUsuarios */
+  constructor(auth, provider, daoUsuarios) {
     this._provider = provider;
     this._auth = auth;
+    this._daoUsuarios = daoUsuarios;
   }
 
   /**
    * @param {string} privilegio
    * @returns {Promise<UsuarioAutorizado>}  */
   async protege(privilegio) {
-    const ctrlUsuarios = Fábrica.instancia.ctrlUsuarios;
     return new Promise((resolve, reject) => {
       /* Escucha cambios de usuario. Recibe una función que se invoca cada que
        * hay un cambio en la autenticación y recibe el modelo con las
@@ -28,7 +30,7 @@ export class CtrlSesión {
           // Usuario aceptado.
           /** @type {Set<string>} */
           let privilegios = new Set();
-          const usuario = await ctrlUsuarios.busca(usuarioAuth.email);
+          const usuario = await this._daoUsuarios.busca(usuarioAuth.email);
           if (usuario) {
             if (!privilegio) {
               resolve({
