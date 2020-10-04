@@ -45,13 +45,12 @@
       import { muestraError } from "./lib/util.js";
 
       const ctrlSesión = Fábrica.instancia.ctrlSesión;
+      terminarSesión.addEventListener("click", () => ctrlSesión.terminaSesión);
 
       protege();
       async function protege() {
         try {
           const usuarioAutorizado = await ctrlSesión.protege("");
-          terminarSesión.addEventListener("click",
-            () => ctrlSesión.terminaSesión);
           email.value = usuarioAutorizado.email;
           nombre.value = usuarioAutorizado.nombre || "";
           avatar.src = usuarioAutorizado.urlFoto || "";
