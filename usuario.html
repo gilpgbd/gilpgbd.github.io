@@ -92,24 +92,23 @@
             eliminar.addEventListener("click", elimina);
             img.src = modelo.urlDeAvatar;
           }
+          /** @param {InfoUsuario} modelo
+           * @param {InfoPasatiempo[]} pasatiempos */
+          function muestraPasatiempos(pasatiempos) {
+            const pasatiempoId = modelo.pasatiempo ? modelo.pasatiempo.id : "";
+            foráneas.muestraPasatiempos(forma.pasatiempo, pasatiempoId,
+              pasatiempos);
+          }
+          /** @param {InfoUsuario} modelo
+           * @param {InfoPrivilegio[]} privs */
+          function muestraPrivilegios(privs) {
+            const privilegioIds = modelo.privilegios.map(p => p.nombre);
+            foráneas.muestraPrivilegios(privilegios, privilegioIds, privs);
+          }
         } catch (e) {
           muestraError(e);
           muestraUsuarios();
         }
-      }
-
-      /** @param {InfoUsuario} modelo
-       * @param {InfoPasatiempo[]} pasatiempos */
-      function muestraPasatiempos(modelo, pasatiempos) {
-        const pasatiempoId = modelo.pasatiempo ? modelo.pasatiempo.id : "";
-        foráneas.muestraPasatiempos(forma.pasatiempo, pasatiempoId, pasatiempos);
-      }
-
-      /** @param {InfoUsuario} modelo
-       * @param {InfoPrivilegio[]} privs */
-      function muestraPrivilegios(privs) {
-        const privilegioIds = modelo.privilegios.map(p => p.nombre);
-        foráneas.muestraPrivilegios(privilegios, privilegioIds, privs);
       }
 
       /** @param {Event} evt */
