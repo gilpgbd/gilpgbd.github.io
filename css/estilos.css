@@ -1,6 +1,7 @@
 :root {
   font-family: sans-serif;
   --color-active: #4646462c;
+  --color-nav: white;
 }
 
 header {
@@ -25,6 +26,7 @@ mi-nav {
   display: block;
   position: sticky;
   bottom: 0;
+  background-color: var(--color-nav);
 }
 
 mi-nav ul {
