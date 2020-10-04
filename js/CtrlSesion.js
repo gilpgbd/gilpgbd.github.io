@@ -1,5 +1,4 @@
 import { DaoUsuarios } from "./DaoUsuarios.js";
-import { Fábrica } from "./Fabrica.js";
 
 /** @typedef {Object} UsuarioAutorizado
  * @property {string} email
@@ -38,7 +37,7 @@ export class CtrlSesión {
               resolve({
                 email: usuarioAuth.email,
                 nombre: usuarioAuth.displayName || "",
-                urlFoto: usuarioAuth.photoURL || "",
+                urlFoto: usuario.urlDeAvatar || usuarioAuth.photoURL || "",
                 privilegios
               });
             } else if (privilegios.has(privilegio)) {
