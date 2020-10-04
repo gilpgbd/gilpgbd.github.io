@@ -58,7 +58,8 @@
           parámetros.append("id", p);
           return (/* html */
             `<li>
-              <a href="pasatiempo.html?${parámetros}">${cod(p.nombre)}</a>
+              <a href="pasatiempo.html?${parámetros.toString()}"
+                >${cod(p.nombre)}</a>
             </li>`);
         }).join("");
       }
