@@ -28,6 +28,34 @@
       <p><label>Nombre <input name="nombre" type="text" required></label></p>
       <mi-footer></mi-footer>
     </form>
-    <script type="module" src="js/ctrlPasatiempoNuevo.js"></script>
+    <script type="module">
+      import { Fábrica } from "./js/Fabrica.js";
+      import { muestraError } from "./lib/util.js";
+      import { InfoPasatiempo } from "./js/InfoPasatiempo.js";
+      import { muestraPasatiempos, muestraSesión } from "./navegacion.js";
+      try {
+        Fábrica.instancia.ctrlSesión.protege("Pasatiempos");
+        forma.addEventListener("submit", guarda);
+      } catch (error) {
+        muestraError(error)
+        muestraSesión();
+      }
+
+      /** @param {Event} evt */
+      async function guarda(evt) {
+        try {
+          evt.preventDefault();
+          const data = new FormData(forma);
+          const modelo = new InfoPasatiempo({
+            id: null,
+            nombre: data.get("nombre").toString().trim()
+          });
+          await Fábrica.instancia.ctrlPasatiempos.agrega(modelo);
+          muestraPasatiempos();
+        } catch (error) {
+          muestraError(error);
+        }
+      }
+    </script>
   </body>
 </html>

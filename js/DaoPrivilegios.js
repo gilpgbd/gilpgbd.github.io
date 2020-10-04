@@ -22,7 +22,7 @@ export class DaoPrivilegios {
   }
 
   /** @param {(error: Error)=>void} callbackError
-   * @param {(modelos:InfoPasatiempo[])=>void} callback */
+   * @param {(modelos:InfoPrivilegio[])=>void} callback */
   consulta(callbackError, callback) {
     /* Pide todos los documentos de la colección "PRIVILEGIO". */
     this.colección.onSnapshot(

@@ -34,6 +34,63 @@
       </p>
       <mi-footer></mi-footer>
     </form>
-    <script type="module" src="js/ctrlPasatiempo.js"></script>
+    <script type="module">
+      import { Fábrica } from "./js/Fabrica.js";
+      import { muestraError } from "./lib/util.js";
+      import { InfoPasatiempo } from "./js/InfoPasatiempo.js";
+      import { muestraPasatiempos, muestraSesión } from "./navegacion.js";
+      const params = new URL(location.href).searchParams;
+      const id = params.get("id");
+      try {
+        Fábrica.instancia.ctrlSesión.protege("Pasatiempos");
+      } catch (error) {
+        muestraError(error)
+        muestraSesión();
+      }
+
+      /** Busca y muestra los datos que corresponden al id recibido. */
+      async function busca() {
+        try {
+          const modelo = await Fábrica.instancia.ctrlPasatiempos.busca(id);
+          if (modelo) {
+            forma.nombre.value = modelo.nombre;
+            forma.addEventListener("submit", guarda);
+            eliminar.addEventListener("click", elimina);
+          } else {
+            alert("El pasatiempo selecionado no está registrado.");
+            muestraPasatiempos();
+          }
+        } catch (e) {
+          procesaError(e);
+        }
+      }
+      
+      /** @param {Event} evt */
+      async function guarda(evt) {
+        try {
+          evt.preventDefault();
+          const data = new FormData(forma);
+          const modelo = new InfoPasatiempo({
+            id,
+            nombre: data.get("nombre").trim()
+          });
+          await Fábrica.instancia.ctrlPasatiempos.modifica(modelo);
+          muestraPasatiempos();
+        } catch (error) {
+          muestraError(error);
+        }
+      }
+
+      async function elimina() {
+        try {
+          if (confirm("Confirmar la eliminación")) {
+            await Fábrica.instancia.ctrlPasatiempos.elimina(id);
+            muestraPasatiempos();
+          }
+        } catch (e) {
+          procesaError(e);
+        }
+      }
+    </script>
   </body>
 </html>

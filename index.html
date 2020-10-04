@@ -45,9 +45,9 @@
       import { muestraError } from "./lib/util.js";
       try {
         const ctrlSesión = Fábrica.instancia.ctrlSesión;
+        const usuarioAutorizado = ctrlSesión.protege("");
         terminarSesión.addEventListener("click",
           () => ctrlSesión.terminaSesión);
-        const usuarioAutorizado = ctrlSesión.protege("");
         email.value = usuarioAutorizado.email;
         nombre.value = usuarioAutorizado.nombre || "";
         avatar.src = usuarioAutorizado.urlFoto || "";
