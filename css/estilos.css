@@ -9,8 +9,11 @@ header {
   display: flex;
   flex-flow: wrap;
   position: sticky;
-  top: 0;
+  top: 0.5rem;
   background-color: var(--color-header);
+}
+
+header a {
   vertical-align: middle;
 }
 
