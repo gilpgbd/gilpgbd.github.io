@@ -5,10 +5,6 @@
   --color-nav: white;
 }
 
-body {
-  margin: 0;
-}
-
 header {
   display: flex;
   flex-flow: wrap;
