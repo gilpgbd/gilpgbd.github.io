@@ -45,7 +45,8 @@
       import { muestraError } from "./lib/util.js";
 
       const ctrlSesión = Fábrica.instancia.ctrlSesión;
-      terminarSesión.addEventListener("click", () => ctrlSesión.terminaSesión);
+      terminarSesión.addEventListener("click",
+        () => ctrlSesión.terminaSesión());
 
       protege();
       async function protege() {
