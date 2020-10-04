@@ -68,13 +68,13 @@ export class DaoUsuarios {
    * @returns {Promise<void>} */
   async agrega(modelo) {
     modelo.validaAlAgregar();
-    this._modificaInterno(modelo);
+    await this._modificaInterno(modelo);
   }
   /** @param {InfoUsuario} modelo
    * @returns {Promise<void>} */
   async modifica(modelo) {
     modelo.validaAlModificar();
-    this._modificaInterno(modelo);
+    await this._modificaInterno(modelo);
   }
   /** @param {string} id
    * @returns {Promise<void>} */
