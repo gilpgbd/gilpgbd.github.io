@@ -18,7 +18,7 @@ export class Fábrica {
     const storage = firebase.storage();
     /** Tipo de autenticación de usuarios. En este caso es con Google. */
     // @ts-ignore
-    const provider = firebase.auth();
+    const auth = firebase.auth();
     /** Tipo de autenticación de usuarios. En este caso es con Google. */
     // @ts-ignore
     const provider = new firebase.auth.GoogleAuthProvider();
