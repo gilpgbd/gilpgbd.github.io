@@ -1,8 +1,8 @@
-import { eliminaDeStorage, subeAStorage, urlDeStorage } from "./accesaStorage.js";
-import { buscaPasatiempo } from "./bdPasatiempos.js";
+import { eliminaDeStorage, subeAStorage, urlDeStorage } from "./DaoStorage.js";
+import { buscaPasatiempo } from "./DaoPasatiempos.js";
 import { buscaPrivilegios } from "./bdPrivilegios.js";
-import { nuevoFirestore } from "./XFabrica.js";
-import { paraTodos } from "./util.js";
+import { nuevoFirestore } from "./Fabrica.js";
+import { paraTodos } from "../lib/util.js";
 
 const firestore = nuevoFirestore();
 
@@ -10,7 +10,7 @@ const firestore = nuevoFirestore();
  * @property {string} email
  * @property {FormDataEntryValue} avatar
  * @property {string} urlDeAvatar
- * @property {import("./bdPasatiempos").InfoPasatiempo} pasatiempo
+ * @property {import("./DaoPasatiempos").InfoPasatiempo} pasatiempo
  * @property {import("./bdPrivilegios").InfoPrivilegio[]} privilegios */
 
 /** @param {(e: Object) => void} fnError

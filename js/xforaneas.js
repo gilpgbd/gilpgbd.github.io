@@ -1,6 +1,4 @@
-import { consultaPasatiempos } from "./bdPasatiempos.js";
-import { consultaPrivilegios } from "./bdPrivilegios.js";
-import { cod, procesaError } from "./util.js";
+import { InfoPrivilegio } from "./InfoPrivilegio.js";
 
 /** @param {HTMLSelectElement} select
  * @param {string} valor */
@@ -10,7 +8,7 @@ export function cargaPasatiempos(select, valor) {
       `<option value="">-- Sin Pasatiempo --</option>`;
     select.innerHTML = opPasatiempoNoDefinido +
       pasatiempos.map(p => /* html */
-        `<option value="${cod(p.id)}">${cod(p.nombre)}</option>`).join();
+        `<option value="${cod(p.id)}">${cod(p.nombre)}</option>`).join("");
     select.value = valor || "";
   });
 }
@@ -33,9 +31,9 @@ export function cargaPrivilegios(elemento, valor) {
     }).join(""));
 }
 
-/**@param {import("./bdPrivilegios").InfoPrivilegio} privilegio */
+/**@param {InfoPrivilegio} privilegio */
 export function renderPrivilegio(privilegio) {
   return (/* html */
     `<em>${cod(privilegio.nombre)}</em><br>
-    ${cod(privilegio.descripcion)}`)
+    ${cod(privilegio.descripción)}`)
 }

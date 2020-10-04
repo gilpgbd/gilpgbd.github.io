@@ -1,7 +1,7 @@
-import { CtrlSesion } from "./ctrlSesion";
+import { CtrlSesión } from "./CtrlSesion.js";
 
 /** Usa el patrón Singleton. */
-export class Fabrica {
+export class Fábrica {
   constructor() {
     // @ts-ignore
     const auth = firebase.auth();
@@ -13,6 +13,7 @@ export class Fabrica {
     provider.setCustomParameters({ prompt: "select_account" });
     // @ts-ignore
     this.storage = firebase.storage();
-    this.ctrlSesion = new CtrlSesion(auth, provider);
+    this.ctrlSesion = new CtrlSesión(auth, provider);
   }
 }
+Fábrica.instancia = Object.freeze(new Fábrica());

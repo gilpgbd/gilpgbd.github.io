@@ -1,6 +1,6 @@
 import {
   buscaPasatiempo, eliminaPasatiempo, modificaPasatiempo
-} from "./bdPasatiempos.js";
+} from "./DaoPasatiempos.js";
 import { muestraPasatiempos, muestraSesion } from "./navegacion.js";
 import { protege } from "./seguridad.js";
 import { procesaError } from "./util.js";

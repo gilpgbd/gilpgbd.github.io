@@ -41,13 +41,19 @@
     <p><label><output id=nombre></output></label></p>
     <mi-footer></mi-footer>
     <script type="module">
-      import { Fabrica } from "./Fabrica.js";
-      terminarSesión.addEventListener("click", terminaSesión);
-      protege("", muestraSesion, usuarioAutorizado => {
+      import { Fabrica } from "./js/Fabrica.js";
+      import { muestraError } from "./lib/util.js";
+      try {
+        const ctrlSesión = Fábrica.instancia.ctrlSesión;
+        terminarSesión.addEventListener("click",
+          () => ctrlSesión.terminaSesión);
+        const usuarioAutorizado = ctrlSesión.protege("");
         email.value = usuarioAutorizado.email;
         nombre.value = usuarioAutorizado.nombre || "";
         avatar.src = usuarioAutorizado.urlFoto || "";
-      });
+      } catch (error) {
+        muestraError(error)
+      }
     </script>
   </body>
 </html>

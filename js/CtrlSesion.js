@@ -6,7 +6,7 @@ import { buscaUsuario } from "./bdUsuarios.js";
  * @property {string} urlFoto
  * @property {Set<string>} privilegios  */
 
-export class CtrlSesion {
+export class CtrlSesión {
   /** @param {Object} auth Sistema de autenticación de Firebase.
    * @param {Object} provider Proveedor de autenticación de Firebase. */
   constructor(auth, provider) {
