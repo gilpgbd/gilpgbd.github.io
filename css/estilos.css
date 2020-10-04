@@ -5,12 +5,16 @@
   --color-nav: white;
 }
 
+body {
+  margin: 0;
+}
+
 header {
   display: flex;
   flex-flow: wrap;
   align-items: center;
   position: sticky;
-  top: 0.5rem;
+  top: 0;
   background-color: var(--color-header);
 }
 
