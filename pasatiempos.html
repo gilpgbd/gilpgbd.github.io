@@ -55,11 +55,10 @@
       function muestraPasatiempos(pasatiempos) {
         lista.innerHTML = pasatiempos.map(p => {
           const parámetros = new URLSearchParams();
-          parámetros.append("id", p);
+          parámetros.append("id", p.id);
           return (/* html */
             `<li>
-              <a href="pasatiempo.html?${parámetros.toString()}"
-                >${cod(p.nombre)}</a>
+              <a href="pasatiempo.html?${parámetros}">${cod(p.nombre)}</a>
             </li>`);
         }).join("");
       }
