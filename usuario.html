@@ -19,14 +19,14 @@
     <link rel="stylesheet" href="css/estilos.css">
   </head>
   <body>
-    <form name="forma">
+    <form id="forma">
       <mi-nav></mi-nav>
       <header>
         <a href="usuarios.html">Cancelar</a>
         <button type="submit">Guardar</button>
-        <button name="eliminar" type="button">Eliminar</button>
-        <h1><output name="cue">Usuario <mi-progreso></mi-progreso></output></h1>
+        <button id="eliminar" type="button">Eliminar</button>
       </header>
+      <h1><output name="cue">Usuario <mi-progreso></mi-progreso></output></h1>
       <figure id="figure"><img id="img" alt="Falta el Avatar"></figure>
       <p>
         <label>
@@ -47,11 +47,106 @@
       <fieldset>
         <legend>Privilegios</legend>
         <ul id="privilegios" class="lista">
-          <li><mi-progreso></mi-progreso></li>
+          <li>
+            <mi-progreso></mi-progreso>
+          </li>
         </ul>
       </fieldset>
       <mi-footer></mi-footer>
     </form>
-    <script type="module" src="js/ctrlUsuario.js"></script>
+    <script type="module">
+      import { muestraError } from "./lib/util.js";
+      import { Fábrica } from "./js/Fabrica.js";
+      import { InfoPasatiempo } from "./js/InfoPasatiempo.js";
+      import { InfoPrivilegio } from "./js/InfoPrivilegio.js";
+      import { InfoUsuario } from "./js/InfoUsuario.js";
+      import { muestraSesión, muestraUsuarios } from "./js/navegacion.js";
+
+      const ctrlSesión = Fábrica.instancia.ctrlSesión;
+      const ctrlUsuarios = Fábrica.instancia.ctrlUsuarios;
+      const foráneas = Fábrica.instancia.foráneasDeUsuarios;
+
+      const params = new URL(location.href).searchParams;
+      const id = params.get("id");
+
+      try {
+        ctrlSesión.protege("Pasatiempos");
+        busca();
+      } catch (error) {
+        muestraError(error)
+        muestraSesión();
+      }
+
+      /** Busca y muestra los datos que corresponden al id recibido. */
+      async function busca() {
+        try {
+          const modelo = await ctrlUsuarios.busca(id);
+          if (modelo) {
+            forma.cue.value = id;
+            ctrlUsuarios.
+              foráneas(muestraError, muestraPasatiempos, muestraPrivilegios);
+            forma.addEventListener("submit", guarda);
+            eliminar.addEventListener("click", elimina);
+            img.src = modelo.urlDeAvatar;
+          }
+        } catch (e) {
+          muestraError(e);
+          muestraUsuarios();
+        }
+      }
+
+      /** @param {InfoUsuario} modelo
+       * @param {InfoPasatiempo[]} pasatiempos */
+      function muestraPasatiempos(modelo, pasatiempos) {
+        const pasatiempoId = modelo.pasatiempo ? modelo.pasatiempo.id : "";
+        foráneas.muestraPasatiempos(forma.pasatiempo, pasatiempoId, pasatiempos);
+      }
+
+      /** @param {InfoUsuario} modelo
+       * @param {InfoPrivilegio[]} privs */
+      function muestraPrivilegios(privs) {
+        const privilegioIds = modelo.privilegios.map(p => p.nombre);
+        foráneas.muestraPrivilegios(privilegios, privilegioIds, privs);
+      }
+      
+      /** @param {Event} evt */
+      async function guarda(evt) {
+        try {
+          evt.preventDefault();
+          const data = new FormData(forma);
+          const pasatiempo = new InfoPasatiempo({
+            id: data.get("pasatiempo"),
+            nombre: null
+          });
+          const privilegios = data.getAll("privilegios").
+            map(id => new InfoPrivilegio({
+              nombre: id,
+              descripción: null
+            }));
+          const modelo = new InfoUsuario({
+            email: id,
+            avatar: data.get("avatar"),
+            urlDeAvatar: null,
+            pasatiempo,
+            privilegios
+          });
+          await ctrlUsuarios.modifica(modelo);
+          muestraUsuarios();
+        } catch (error) {
+          muestraError(error);
+        }
+      }
+      
+      async function elimina() {
+        try {
+          if (confirm("Confirmar la eliminación")) {
+            await ctrlUsuarios.elimina(id);
+            muestraUsuarios();
+          }
+        } catch (e) {
+          muestraError(e);
+        }
+      }
+    </script>
   </body>
 </html>

@@ -1,5 +1,6 @@
 import { CtrlAbc } from "../lib/CtrlAbc.js";
 import { CtrlSesión } from "./CtrlSesion.js";
+import { CtrlUsuarios } from "./CtrlUsuarios.js";
 import { DaoPasatiempos } from "./DaoPasatiempos.js";
 import { DaoPrivilegios } from "./DaoPrivilegios.js";
 import { DaoStorage } from "./DaoStorage.js";
@@ -32,8 +33,10 @@ export class Fábrica {
     this.daoPrivilegios = new DaoPrivilegios(firestore);
     this.daoUsuarios = new DaoUsuarios(firestore, this.daoPasatiempos,
       this.daoPrivilegios, this.daoStorage);
-    this.ctrlPasatiempos = new CtrlAbc(this.daoPasatiempos);
-    this.ctrlUsuarios = new CtrlAbc(this.daoUsuarios);
+    this.ctrlPasatiempos =
+      new CtrlAbc("No se encontró el Pasatiempo.", this.daoPasatiempos);
+    this.ctrlUsuarios = new CtrlUsuarios("No se encontró el Pasatiempo.",
+      this.daoUsuarios, this.daoPasatiempos, this.daoPrivilegios);
     this.foráneasDeUsuarios =
       new ForáneasDeUsuarios(this.daoPasatiempos, this.daoPrivilegios);
   }

@@ -1,11 +1,10 @@
 import { paraTodos } from "../lib/util.js";
-import { InfoPasatiempo } from "./InfoPasatiempo.js";
 import { InfoPrivilegio } from "./InfoPrivilegio.js";
 
 export class DaoPrivilegios {
   /** @param {{collection: (col: string) => any; }} firestore */
   constructor(firestore) {
-    this.colección = firestore.collection("PRIVILEGIO");
+    this._colección = firestore.collection("PRIVILEGIO");
   }
   /** Crea un pasatiempo a partir de un documento.
  * @return {InfoPrivilegio} */
@@ -25,7 +24,7 @@ export class DaoPrivilegios {
    * @param {(modelos:InfoPrivilegio[])=>void} callback */
   consulta(callbackError, callback) {
     /* Pide todos los documentos de la colección "PRIVILEGIO". */
-    this.colección.onSnapshot(
+    this._colección.onSnapshot(
       querySnapshot => callback(
         paraTodos(querySnapshot, doc => this.cargaPrivilegio(doc))),
       /** @param {Error} error */
@@ -42,7 +41,7 @@ export class DaoPrivilegios {
   async buscaMuchos(ids) {
     ids = ids || [];
     let docs = await Promise.all(ids.map(
-      id => id ? this.colección.doc(id).get() : { exists: false }));
+      id => id ? this._colección.doc(id).get() : { exists: false }));
     return docs.map(doc => {
       if (doc.exists) {
         let data = doc.data();

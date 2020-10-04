@@ -18,13 +18,13 @@
     <link rel="stylesheet" href="css/estilos.css">
   </head>
   <body>
-    <form name="forma">
+    <form id="forma">
       <mi-nav></mi-nav>
       <header>
         <a href="pasatiempos.html">Cancelar</a>
         <button type="submit">Guardar</button>
-        <h1>Pasatiempo Nuevo</h1>
       </header>
+      <h1>Pasatiempo Nuevo</h1>
       <p><label>Nombre <input name="nombre" type="text" required></label></p>
       <mi-footer></mi-footer>
     </form>
@@ -33,8 +33,12 @@
       import { muestraError } from "./lib/util.js";
       import { InfoPasatiempo } from "./js/InfoPasatiempo.js";
       import { muestraPasatiempos, muestraSesión } from "./navegacion.js";
+
+      const ctrlSesión = Fábrica.instancia.ctrlSesión;
+      const ctrlPasatiempos = Fábrica.instancia.ctrlPasatiempos;
+      
       try {
-        Fábrica.instancia.ctrlSesión.protege("Pasatiempos");
+        ctrlSesión.protege("Pasatiempos");
         forma.addEventListener("submit", guarda);
       } catch (error) {
         muestraError(error)
@@ -48,9 +52,9 @@
           const data = new FormData(forma);
           const modelo = new InfoPasatiempo({
             id: null,
-            nombre: data.get("nombre").toString().trim()
+            nombre: data.get("nombre")
           });
-          await Fábrica.instancia.ctrlPasatiempos.agrega(modelo);
+          await ctrlPasatiempos.agrega(modelo);
           muestraPasatiempos();
         } catch (error) {
           muestraError(error);

@@ -22,8 +22,8 @@
     <mi-nav></mi-nav>
     <header>
       <a href="usuarioNuevo.html">Agregar…</a>
-      <h1>Usuarios</h1>
     </header>
+    <h1>Usuarios</h1>
     <dl id="lista" class="lista con_imagen">
       <li>
         <mi-progreso></mi-progreso>
@@ -35,29 +35,35 @@
       import { cod, muestraError } from "./lib/util.js";
       import { InfoUsuario } from "./js/InfoUsuario.js";
       import { muestraSesión } from "./js/navegacion.js";
+
+      const ctrlSesión = Fábrica.instancia.ctrlSesión;
+      const ctrlUsuarios = Fábrica.instancia.ctrlUsuarios;
+      const foráneas = Fábrica.instancia.foráneasDeUsuarios;
+
       try {
-        Fábrica.instancia.ctrlSesión.protege("Usuarios");
-        Fábrica.instancia.ctrlUsuarios.consulta(muestraError, muestraUsuarios);
+        ctrlSesión.protege("Usuarios");
+        ctrlUsuarios.consulta(muestraError, muestraUsuarios);
       } catch (error) {
         muestraError(error);
         muestraSesión();
       }
+      
       /** @param {InfoUsuario[]} usuarios */
       async function muestraUsuarios(usuarios) {
-        const foráneas = Fábrica.instancia.foráneasDeUsuarios;
         const lis = await Promise.all(usuarios.map(async u => {
-          const codId = cod(encodeURIComponent(u.email))
+          const parámetros = new URLSearchParams();
+          parámetros.append("id", u.email);
           const nombre = u.pasatiempo ? u.pasatiempo.nombre : "";
+          const privilegios =
+            u.privilegios.map(p => foráneas.renderPrivilegio(p)).join("<br>");
           return (/* html */
-            `<div>
-              <dt><a href="usuario.html?id=${codId}">${cod(u.email)}</a></dt>
-              <dd>
-                ${cod(nombre)}<br>
-                ${u.privilegios.
-              map(p => foráneas.renderPrivilegio(p)).join("<br>")}
-              </dd>
-              <dd><img src="${cod(u.urlDeAvatar)}" alt="Falta el Avatar"></dd>
-            </div>`);
+            `<li>
+              <a href="usuario.html?${parámetros}">
+                <img src="${cod(u.urlDeAvatar)}" alt="Falta el Avatar">
+                <strong>${cod(u.email)}</strong>
+                <span>${cod(nombre)}<br>${privilegios}</span>
+              </a>
+            </li>`);
         }));
         lista.innerHTML = lis.join("");
       }

@@ -18,14 +18,14 @@
     <link rel="stylesheet" href="css/estilos.css">
   </head>
   <body>
-    <form name="forma">
+    <form id="forma">
       <mi-nav></mi-nav>
       <header>
         <a href="pasatiempos.html">Cancelar</a>
         <button type="submit">Guardar</button>
-        <button name="eliminar" type="button">Eliminar</button>
-        <h1>Pasatiempo</h1>
+        <button id="eliminar" type="button">Eliminar</button>
       </header>
+      <h1>Pasatiempo</h1>
       <p>
         <label>
           Nombre
@@ -39,10 +39,16 @@
       import { muestraError } from "./lib/util.js";
       import { InfoPasatiempo } from "./js/InfoPasatiempo.js";
       import { muestraPasatiempos, muestraSesión } from "./navegacion.js";
+
+      const ctrlSesión = Fábrica.instancia.ctrlSesión;
+      const ctrlPasatiempos = Fábrica.instancia.ctrlPasatiempos;
+
       const params = new URL(location.href).searchParams;
       const id = params.get("id");
+      
       try {
-        Fábrica.instancia.ctrlSesión.protege("Pasatiempos");
+        ctrlSesión.protege("Pasatiempos");
+        busca();
       } catch (error) {
         muestraError(error)
         muestraSesión();
@@ -51,20 +57,15 @@
       /** Busca y muestra los datos que corresponden al id recibido. */
       async function busca() {
         try {
-          const modelo = await Fábrica.instancia.ctrlPasatiempos.busca(id);
-          if (modelo) {
-            forma.nombre.value = modelo.nombre;
-            forma.addEventListener("submit", guarda);
-            eliminar.addEventListener("click", elimina);
-          } else {
-            alert("El pasatiempo selecionado no está registrado.");
-            muestraPasatiempos();
-          }
+          const modelo = await ctrlPasatiempos.busca(id);
+          forma.nombre.value = modelo.nombre;
+          forma.addEventListener("submit", guarda);
+          eliminar.addEventListener("click", elimina);
         } catch (e) {
-          procesaError(e);
+          muestraError(e);
         }
       }
-      
+
       /** @param {Event} evt */
       async function guarda(evt) {
         try {
@@ -72,9 +73,9 @@
           const data = new FormData(forma);
           const modelo = new InfoPasatiempo({
             id,
-            nombre: data.get("nombre").trim()
+            nombre: data.get("nombre")
           });
-          await Fábrica.instancia.ctrlPasatiempos.modifica(modelo);
+          await ctrlPasatiempos.modifica(modelo);
           muestraPasatiempos();
         } catch (error) {
           muestraError(error);
