@@ -60,7 +60,8 @@ export class DaoUsuarios {
       PAS_ID: modelo.pasatiempo ? (modelo.pasatiempo.id || null) : "",
       PRIV_IDS: modelo.privilegios.map(p => p.nombre)
     });
-    if (modelo.avatar) {
+    // @ts-ignore
+    if (modelo.avatar && modelo.avatar.size > 0) {
       await this._daoStorage.sube(modelo.email, modelo.avatar);
     }
   }
