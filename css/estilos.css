@@ -8,13 +8,10 @@
 header {
   display: flex;
   flex-flow: wrap;
+  align-items: center;
   position: sticky;
   top: 0.5rem;
   background-color: var(--color-header);
-}
-
-header a {
-  vertical-align: middle;
 }
 
 h1 {
