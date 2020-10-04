@@ -34,7 +34,7 @@ export class CtrlSesión {
           if (usuario) {
             const arrPrivilegios = usuario.privilegios.map(p => p.nombre);
             privilegios = new Set(arrPrivilegios);
-          if (!privilegio) {
+            if (!privilegio) {
               resolve({
                 email: usuarioAuth.email,
                 nombre: usuarioAuth.displayName || "",
