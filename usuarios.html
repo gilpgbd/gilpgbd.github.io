@@ -24,11 +24,11 @@
       <a href="usuarioNuevo.html">Agregar…</a>
     </header>
     <h1>Usuarios</h1>
-    <dl id="lista" class="lista con_imagen">
+    <ul id="lista" class="lista con_imagen">
       <li>
         <mi-progreso></mi-progreso>
       </li>
-    </dl>
+    </ul>
     <mi-footer></mi-footer>
     <script type="module">
       import { Fábrica } from "./js/Fabrica.js";
@@ -63,8 +63,11 @@
             `<li>
               <a href="usuario.html?${parámetros}">
                 <img src="${cod(u.urlDeAvatar)}" alt="Falta el Avatar">
-                <strong>${cod(u.email)}</strong>
-                <span>${cod(nombre)}<br>${privilegios}</span>
+                <span>
+                  <strong>${cod(u.email)}</strong><br>
+                  ${cod(nombre)}<br>
+                  ${privilegios}
+                </span>
               </a>
             </li>`);
         }));

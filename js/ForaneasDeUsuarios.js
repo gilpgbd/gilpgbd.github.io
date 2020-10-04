@@ -18,7 +18,7 @@ export class ForáneasDeUsuarios {
   renderPrivilegio(privilegio) {
     return (/* html */
       `<em>${cod(privilegio.nombre)}</em><br>
-      ${cod(privilegio.descripción)}`)
+      ${cod(privilegio.descripción)}`);
   }
   /** @param {HTMLSelectElement} select
    * @param {string} valor
