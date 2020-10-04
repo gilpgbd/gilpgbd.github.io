@@ -62,7 +62,9 @@
           return (/* html */
             `<li>
               <a href="usuario.html?${parámetros}">
-                <img src="${cod(u.urlDeAvatar)}" alt="Falta el Avatar">
+                <span class="marco">
+                  <img src="${cod(u.urlDeAvatar)}" alt="Falta el Avatar">
+                </span>
                 <span>
                   <strong>${cod(u.email)}</strong><br>
                   ${cod(nombre)}<br>
