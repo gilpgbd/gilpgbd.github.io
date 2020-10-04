@@ -32,7 +32,9 @@ export class CtrlSesión {
           let privilegios = new Set();
           const usuario = await this._daoUsuarios.busca(usuarioAuth.email);
           if (usuario) {
-            if (!privilegio) {
+            const arrPrivilegios = usuario.privilegios.map(p => p.nombre);
+            privilegios = new Set(arrPrivilegios);
+          if (!privilegio) {
               resolve({
                 email: usuarioAuth.email,
                 nombre: usuarioAuth.displayName || "",
@@ -40,8 +42,6 @@ export class CtrlSesión {
                 privilegios
               });
             } else if (privilegios.has(privilegio)) {
-              const arrPrivilegios = usuario.privilegios.map(p => p.nombre);
-              privilegios = new Set(arrPrivilegios);
               resolve({
                 email: usuarioAuth.email,
                 nombre: usuarioAuth.displayName || "",
