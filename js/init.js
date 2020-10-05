@@ -1,4 +1,5 @@
-//  Initializa Firebase con la configuración del proyecto.
+/*  Initializa Firebase con la configuración del proyecto. Revisa la
+ * configuración en tu servidor de Firebase. */
 // @ts-ignore
 firebase.initializeApp({
   apiKey: "AIzaSyAJgnkfV60cI3782eCRC6Q47Uw0l6G9ydU",

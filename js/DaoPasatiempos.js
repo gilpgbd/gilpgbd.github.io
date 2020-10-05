@@ -10,7 +10,7 @@ export class DaoPasatiempos {
   }
   /** Crea un pasatiempo a partir de un documento.
  * @return {InfoPasatiempo} */
-  cargaPasatiempo(doc) {
+  _cargaPasatiempo(doc) {
     if (doc.exists) {
       const data = doc.data();
       return new InfoPasatiempo({
@@ -29,7 +29,7 @@ export class DaoPasatiempos {
      * el campo "PAS_NOMBRE" de forma ascendente. */
     this._colección.orderBy("PAS_NOMBRE").onSnapshot(
       querySnapshot => callback(
-        paraTodos(querySnapshot, doc => this.cargaPasatiempo(doc))),
+        paraTodos(querySnapshot, doc => this._cargaPasatiempo(doc))),
       /** @param {Error} error */
       error => {
         callbackError(error);
@@ -42,7 +42,7 @@ export class DaoPasatiempos {
    * @returns {Promise<InfoPasatiempo>} */
   async busca(id) {
     let doc = id ? await this._colección.doc(id).get() : { exists: false };
-    return this.cargaPasatiempo(doc);
+    return this._cargaPasatiempo(doc);
   }
   /** @param {InfoPasatiempo} modelo
    * @returns {Promise<void>} */

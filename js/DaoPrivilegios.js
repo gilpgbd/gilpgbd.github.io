@@ -6,9 +6,9 @@ export class DaoPrivilegios {
   constructor(firestore) {
     this._colección = firestore.collection("PRIVILEGIO");
   }
-  /** Crea un pasatiempo a partir de un documento.
+  /** Crea un privilegio a partir de un documento.
  * @return {InfoPrivilegio} */
-  cargaPrivilegio(doc) {
+  _cargaPrivilegio(doc) {
     if (doc.exists) {
       const data = doc.data();
       return new InfoPrivilegio({
@@ -26,7 +26,7 @@ export class DaoPrivilegios {
     /* Pide todos los documentos de la colección "PRIVILEGIO". */
     this._colección.onSnapshot(
       querySnapshot => callback(
-        paraTodos(querySnapshot, doc => this.cargaPrivilegio(doc))),
+        paraTodos(querySnapshot, doc => this._cargaPrivilegio(doc))),
       /** @param {Error} error */
       error => {
         callbackError(error);
@@ -42,16 +42,6 @@ export class DaoPrivilegios {
     ids = ids || [];
     let docs = await Promise.all(ids.map(
       id => id ? this._colección.doc(id).get() : { exists: false }));
-    return docs.map(doc => {
-      if (doc.exists) {
-        let data = doc.data();
-        return new InfoPrivilegio({
-          nombre: doc.id,
-          descripción: data.PRIV_DESCR || ""
-        });
-      } else {
-        return null;
-      }
-    }).filter(Boolean);
+    return docs.map(doc => this._cargaPrivilegio(doc)).filter(Boolean);
   }
 }

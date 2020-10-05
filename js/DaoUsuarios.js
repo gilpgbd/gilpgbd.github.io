@@ -17,7 +17,7 @@ export class DaoUsuarios {
     this._daoPrivilegios = daoPrivilegios;
     this._daoStorage = daoStorage;
   }
-  /** Crea un pasatiempo a partir de un documento.
+  /** Crea un usuario a partir de un documento.
  * @return {Promise<InfoUsuario>} */
   async _cargaUsuario(doc) {
     if (doc.exists) {
