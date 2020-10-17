@@ -58,7 +58,7 @@
           parámetros.append("id", p.id);
           return (/* html */
             `<li>
-              <a href="pasatiempo.html?${parámetros}">${cod(p.nombre)}</a>
+              <a href="pasatiempo.html?${parámetros}"><strong>${cod(p.nombre)}</strong></a>
             </li>`);
         }).join("");
       }
