@@ -73,6 +73,10 @@ p label>* {
   display: block;
 }
 
+p label output {
+  font-weight: normal;
+}
+
 ul.lista {
   list-style-type: none;
   padding: 0;
