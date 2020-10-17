@@ -5,6 +5,22 @@
   --color-nav: white;
 }
 
+mi-nav {
+  background-color: var(--color-nav);
+}
+
+mi-nav ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: wrap;
+  list-style: none;
+}
+
+mi-nav ul li {
+  margin: 0.5rem;
+}
+
 header {
   display: flex;
   flex-flow: wrap;
@@ -24,25 +40,6 @@ mi-footer {
   margin: 1rem;
   font-size: small;
   text-align: center;
-}
-
-mi-nav {
-  display: block;
-  position: sticky;
-  bottom: 0;
-  background-color: var(--color-nav);
-}
-
-mi-nav ul {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-flow: wrap;
-  list-style: none;
-}
-
-mi-nav ul li {
-  margin: 0.5rem;
 }
 
 figure img {

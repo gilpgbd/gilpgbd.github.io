@@ -6,16 +6,16 @@
     <title>Sesión</title>
     <!-- Carga el núcleo de Firebase JS SDK -->
     <script
-      src="https://www.gstatic.com/firebasejs/7.21.1/firebase-app.js"></script>
+      src="https://www.gstatic.com/firebasejs/7.24.0/firebase-app.js"></script>
     <!-- Agrega el manejo de autenticación. -->
     <script
-      src="https://www.gstatic.com/firebasejs/7.21.1/firebase-auth.js"></script>
+      src="https://www.gstatic.com/firebasejs/7.24.0/firebase-auth.js"></script>
     <!-- Agrega el manejo de bases de datos. -->
     <script
-      src="https://www.gstatic.com/firebasejs/7.21.1/firebase-firestore.js"></script>
+      src="https://www.gstatic.com/firebasejs/7.24.0/firebase-firestore.js"></script>
     <!-- Agrega el manejo de storage. -->
     <script
-      src="https://www.gstatic.com/firebasejs/7.21.1/firebase-storage.js"></script>
+      src="https://www.gstatic.com/firebasejs/7.24.0/firebase-storage.js"></script>
     <!-- Configura la app usando la información del sitio de Firebase. -->
     <script src="js/init.js"></script>
     <script type="module" src="cmp/mi-nav.js"></script>
@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="css/estilos.css">
   </head>
   <body>
+    <mi-nav></mi-nav>
     <header>
       <h1>Sesión</h1>
       <button id=terminarSesión type="button">Terminar Sesión</button>
@@ -39,7 +40,6 @@
     </p>
     <p><label><output id=nombre></output></label></p>
     <mi-footer></mi-footer>
-    <mi-nav></mi-nav>
     <script type="module">
       import { Fábrica } from "./js/Fabrica.js";
       import { muestraError } from "./lib/util.js";

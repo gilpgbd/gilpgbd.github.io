@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Usuario Nuevo</title>
     <script
-      src="https://www.gstatic.com/firebasejs/7.21.1/firebase-app.js"></script>
+      src="https://www.gstatic.com/firebasejs/7.24.0/firebase-app.js"></script>
     <script
-      src="https://www.gstatic.com/firebasejs/7.21.1/firebase-auth.js"></script>
+      src="https://www.gstatic.com/firebasejs/7.24.0/firebase-auth.js"></script>
     <script
-      src="https://www.gstatic.com/firebasejs/7.21.1/firebase-firestore.js"></script>
+      src="https://www.gstatic.com/firebasejs/7.24.0/firebase-firestore.js"></script>
     <script
-      src="https://www.gstatic.com/firebasejs/7.21.1/firebase-storage.js"></script>
+      src="https://www.gstatic.com/firebasejs/7.24.0/firebase-storage.js"></script>
     <script src="js/init.js"></script>
     <script type="module" src="cmp/mi-nav.js"></script>
     <script type="module" src="cmp/mi-footer.js"></script>
@@ -20,6 +20,7 @@
   </head>
   <body>
     <form id="forma">
+      <mi-nav></mi-nav>
       <header>
         <a href="usuarios.html">Cancelar</a>
         <h1>Usuario Nuevo</h1>
@@ -52,7 +53,6 @@
       </fieldset>
     </form>
     <mi-footer></mi-footer>
-    <mi-nav></mi-nav>
     <script type="module">
       import { muestraError } from "./lib/util.js";
       import { Fábrica } from "./js/Fabrica.js";

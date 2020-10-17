@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pasatiempos</title>
     <script
-      src="https://www.gstatic.com/firebasejs/7.21.1/firebase-app.js"></script>
+      src="https://www.gstatic.com/firebasejs/7.24.0/firebase-app.js"></script>
     <script
-      src="https://www.gstatic.com/firebasejs/7.21.1/firebase-auth.js"></script>
+      src="https://www.gstatic.com/firebasejs/7.24.0/firebase-auth.js"></script>
     <script
-      src="https://www.gstatic.com/firebasejs/7.21.1/firebase-firestore.js"></script>
+      src="https://www.gstatic.com/firebasejs/7.24.0/firebase-firestore.js"></script>
     <script
-      src="https://www.gstatic.com/firebasejs/7.21.1/firebase-storage.js"></script>
+      src="https://www.gstatic.com/firebasejs/7.24.0/firebase-storage.js"></script>
     <script src="js/init.js"></script>
     <script type="module" src="cmp/mi-nav.js"></script>
     <script type="module" src="cmp/mi-footer.js"></script>
@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="css/estilos.css">
   </head>
   <body>
+    <mi-nav></mi-nav>
     <header>
       <h1>Pasatiempos</h1>
       <a href="pasatiempoNuevo.html">Agregar…</a>
@@ -29,7 +30,6 @@
       </li>
     </ul>
     <mi-footer></mi-footer>
-    <mi-nav></mi-nav>
     <script type="module">
       import { Fábrica } from "./js/Fabrica.js";
       import { cod, muestraError } from "./lib/util.js";
