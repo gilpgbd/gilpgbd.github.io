@@ -62,6 +62,7 @@ figure img {
   max-width: 100%;
 }
 
+legend,
 p label {
   font-weight: bold;
   font-size: 0.7rem;
