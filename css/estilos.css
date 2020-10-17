@@ -26,6 +26,7 @@ header {
   flex-flow: wrap;
   align-items: center;
   align-content: flex-end;
+  justify-content: flex-end;
   position: sticky;
   top: 0;
   background-color: var(--color-header);
