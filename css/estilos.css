@@ -75,6 +75,7 @@ p label>* {
 
 p label output {
   font-weight: normal;
+  font-size: 1rem;
 }
 
 ul.lista {
