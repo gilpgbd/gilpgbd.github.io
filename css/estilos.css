@@ -42,6 +42,11 @@ header a:first-child {
   margin-right: 0.5rem;
 }
 
+header button,
+header a:last-child {
+  margin-left: 0.5rem;
+}
+
 h1 {
   margin: 0 auto 0 0;
 }
