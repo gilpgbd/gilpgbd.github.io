@@ -38,6 +38,10 @@ header {
   background-color: var(--color-header);
 }
 
+header a:first-child {
+  margin-right: 0.5rem;
+}
+
 h1 {
   margin: 0 auto 0 0;
 }
