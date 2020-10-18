@@ -4,7 +4,7 @@ class MiNav extends HTMLElement {
       `<ul>
         <li><a href="index.html">Sesión</a></li>
       </ul>`;
-    this.ul = this.querySelector("li");
+    this.ul = this.querySelector("ul");
   }
   /**
    * @param {Set<string>} privilegios
