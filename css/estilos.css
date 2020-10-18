@@ -64,16 +64,13 @@ figure img {
 
 legend,
 p label {
+  display: block;
   font-weight: bold;
   font-size: 0.7rem;
 }
 
-p label,
 p label>* {
   display: block;
-}
-
-p label>* {
   font-weight: normal;
   font-size: 1rem;
 }
