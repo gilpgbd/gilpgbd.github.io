@@ -79,23 +79,28 @@ p label>* {
   width: 100%;
 }
 
-ul.lista {
+ul.lista,
+ul.checks {
   list-style-type: none;
   padding: 0;
+}
+ul.lista {
   margin: 1rem 0;
 }
 
+.checks li,
 .lista li {
   margin: 0;
 }
 
 .lista a,
-.lista label {
+.checks label {
   display: block;
   padding: 1rem;
 }
 
-.lista a {
+.lista a,
+.checks label {
   font-size: 0.75rem;
 }
 
@@ -103,11 +108,11 @@ ul.lista {
   background-color: var(--color-active);
 }
 
-.lista strong {
+.lista strong,
+.checks em {
   font-size: 1rem;
 }
 
-.lista li label,
 .con_imagen a {
   display: flex;
 }
