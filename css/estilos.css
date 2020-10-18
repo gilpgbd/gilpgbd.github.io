@@ -73,6 +73,8 @@ p label>* {
   display: block;
   font-weight: normal;
   font-size: 1rem;
+  box-sizing: border-box;
+  width: 100%;
 }
 
 ul.lista {
