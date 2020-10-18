@@ -84,8 +84,9 @@ ul.checks {
   list-style-type: none;
   padding: 0;
 }
-ul.lista {
-  margin: 1rem 0;
+
+ul.checks {
+  margin: 0;
 }
 
 .checks li,
