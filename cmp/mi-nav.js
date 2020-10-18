@@ -3,9 +3,21 @@ class MiNav extends HTMLElement {
     this.innerHTML = /* html */
       `<ul>
         <li><a href="index.html">Sesión</a></li>
-        <li><a href="pasatiempos.html">Pasatiempos</a></li>
-        <li><a href="usuarios.html">Usuarios</a></li>
       </ul>`;
+    this.ul = this.querySelector("li");
+  }
+  /**
+   * @param {Set<string>} privilegios
+   */
+  protege(privilegios) {
+    let html = "";
+    if (privilegios.has("Pasatiempos")) {
+      html += /* html */ `<li><a href="pasatiempos.html">Pasatiempos</a></li>`;
+    }
+    if (privilegios.has("Usuarios")) {
+      html += /* html */ `<li><a href="usuarios.html">Usuarios</a></li>`;
+    }
+    this.ul.innerHTML += html;
   }
 }
 customElements.define("mi-nav", MiNav);

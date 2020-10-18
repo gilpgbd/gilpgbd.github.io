@@ -20,7 +20,7 @@
   </head>
   <body>
     <form id="forma">
-      <mi-nav></mi-nav>
+      <mi-nav id="miNav"></mi-nav>
       <header>
         <a href="usuarios.html">Cancelar</a>
         <h1><output name="cue">Usuario <mi-progreso></mi-progreso></output></h1>
@@ -72,7 +72,8 @@
       protege();
       async function protege() {
         try {
-          await ctrlSesión.protege("Pasatiempos");
+          const usuarioAutorizado = await ctrlSesión.protege("Pasatiempos");
+          miNav.protege(usuarioAutorizado.privilegios);
           busca();
         } catch (error) {
           muestraError(error)

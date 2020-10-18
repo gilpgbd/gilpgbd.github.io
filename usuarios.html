@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="css/estilos.css">
   </head>
   <body>
-    <mi-nav></mi-nav>
+    <mi-nav id="miNav"></mi-nav>
     <header>
       <h1>Usuarios</h1>
       <a href="usuarioNuevo.html">Agregar…</a>
@@ -43,7 +43,8 @@
       protege();
       async function protege() {
         try {
-          await ctrlSesión.protege("Usuarios");
+          const usuarioAutorizado = await ctrlSesión.protege("Usuarios");
+          miNav.protege(usuarioAutorizado.privilegios);
           ctrlUsuarios.consulta(muestraError, muestraUsuarios);
         } catch (error) {
           muestraError(error);

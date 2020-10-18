@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="css/estilos.css">
   </head>
   <body>
-    <mi-nav></mi-nav>
+    <mi-nav id="miNav"></mi-nav>
     <header>
       <h1>Sesión</h1>
       <button id=terminarSesión type="button">Terminar Sesión</button>
@@ -59,9 +59,10 @@
       async function protege() {
         try {
           const usuarioAutorizado = await ctrlSesión.protege("");
+          miNav.protege(usuarioAutorizado.privilegios);
           email.value = usuarioAutorizado.email;
-          nombre.value = usuarioAutorizado.nombre || "";
-          avatar.src = usuarioAutorizado.urlFoto || "";
+          nombre.value = usuarioAutorizado.nombre;
+          avatar.src = usuarioAutorizado.urlFoto;
         } catch (error) {
           muestraError(error)
         }
