@@ -53,8 +53,8 @@
       }
 
       /** @param {InfoUsuario[]} usuarios */
-      async function muestraUsuarios(usuarios) {
-        lista.innerHTML = usuarios.map(async u => {
+      function muestraUsuarios(usuarios) {
+        lista.innerHTML = usuarios.map(u => {
           const parámetros = new URLSearchParams();
           parámetros.append("id", u.email);
           const nombre = u.pasatiempo ? u.pasatiempo.nombre : "";
