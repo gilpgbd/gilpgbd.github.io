@@ -4,7 +4,7 @@ import { InfoPrivilegio } from "./InfoPrivilegio.js";
 
 /** @typedef {Object} ParamUsuario
  * @property {string} email
- * @property {FormDataEntryValue} avatar
+ * @property {File} avatar
  * @property {string} urlDeAvatar
  * @property {InfoPasatiempo} pasatiempo
  * @property {InfoPrivilegio[]} privilegios */
@@ -19,7 +19,8 @@ export class InfoUsuario {
   }
   validaAlAgregar() {
     valida(this.email, "Falta proporcionar el email.");
-    valida(this.avatar, "Falta proporcionar el avatar.");
+    valida(this.avatar && this.avatar.size > 0,
+       "Falta proporcionar el avatar.");
   }
   validaAlModificar() {
     valida(this.email, "Falta proporcionar el email.");

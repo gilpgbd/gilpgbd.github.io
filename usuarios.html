@@ -54,7 +54,7 @@
 
       /** @param {InfoUsuario[]} usuarios */
       async function muestraUsuarios(usuarios) {
-        const lis = await Promise.all(usuarios.map(async u => {
+        lista.innerHTML = usuarios.map(async u => {
           const parámetros = new URLSearchParams();
           parámetros.append("id", u.email);
           const nombre = u.pasatiempo ? u.pasatiempo.nombre : "";
@@ -73,8 +73,7 @@
                 </span>
               </a>
             </li>`);
-        }));
-        lista.innerHTML = lis.join("");
+        }).join("");
       }
     </script>
   </body>
