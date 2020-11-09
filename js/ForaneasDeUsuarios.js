@@ -1,6 +1,4 @@
 import { cod } from "../lib/util.js";
-import { DaoPasatiempos } from "./DaoPasatiempos.js";
-import { DaoPrivilegios } from "./DaoPrivilegios.js";
 import { InfoPasatiempo } from "./InfoPasatiempo.js";
 import { InfoPrivilegio } from "./InfoPrivilegio.js";
 
