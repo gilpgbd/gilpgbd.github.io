@@ -8,12 +8,6 @@ const SIN_PASATIEMPO = /* html */
   `<option value="">-- Sin Pasatiempo --</option>`;
 
 export class ForáneasDeUsuarios {
-  /** @param {DaoPasatiempos} daoPasatiempos
-   * @param {DaoPrivilegios} daoPrivilegios */
-  constructor(daoPasatiempos, daoPrivilegios) {
-    this._daoPasatiempos = daoPasatiempos;
-    this._daoPrivilegios = daoPrivilegios;
-  }
   /**@param {InfoPrivilegio} privilegio */
   renderPrivilegio(privilegio) {
     return (/* html */

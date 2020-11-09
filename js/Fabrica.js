@@ -33,8 +33,7 @@ export class Fábrica {
       new CtrlAbc("No se encontró el Pasatiempo.", this.daoPasatiempos);
     this.ctrlUsuarios = new CtrlUsuarios("No se encontró el Pasatiempo.",
       this.daoUsuarios, this.daoPasatiempos, this.daoPrivilegios);
-    this.foráneasDeUsuarios =
-      new ForáneasDeUsuarios(this.daoPasatiempos, this.daoPrivilegios);
+    this.foráneasDeUsuarios = new ForáneasDeUsuarios();
   }
 }
 Fábrica.instancia = Object.freeze(new Fábrica());
