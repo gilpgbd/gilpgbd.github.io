@@ -89,7 +89,7 @@
       async function elimina() {
         try {
           if (confirm("Confirmar la eliminación")) {
-            await Fábrica.instancia.ctrlPasatiempos.elimina(id);
+            await ctrlPasatiempos.elimina(id);
             muestraPasatiempos();
           }
         } catch (e) {

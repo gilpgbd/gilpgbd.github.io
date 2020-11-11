@@ -68,7 +68,7 @@
       protege();
       async function protege() {
         try {
-          const usuarioAutorizado = await ctrlSesión.protege("Pasatiempos");
+          const usuarioAutorizado = await ctrlSesión.protege("Usuarios");
           miNav.protege(usuarioAutorizado.privilegios);
           forma.addEventListener("submit", guarda);
           ctrlUsuarios.

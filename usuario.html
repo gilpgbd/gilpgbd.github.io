@@ -72,7 +72,7 @@
       protege();
       async function protege() {
         try {
-          const usuarioAutorizado = await ctrlSesión.protege("Pasatiempos");
+          const usuarioAutorizado = await ctrlSesión.protege("Usuarios");
           miNav.protege(usuarioAutorizado.privilegios);
           busca();
         } catch (error) {
