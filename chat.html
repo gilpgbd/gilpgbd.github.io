@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat</title>
+    <script
+      src="https://www.gstatic.com/firebasejs/8.2.3/firebase-app.js"></script>
+    <script
+      src="https://www.gstatic.com/firebasejs/8.2.3/firebase-auth.js"></script>
+    <script
+      src="https://www.gstatic.com/firebasejs/8.2.3/firebase-firestore.js"></script>
+    <script src="js/init.js"></script>
+    <script type="module" src="cmp/mi-nav.js"></script>
+    <script type="module" src="cmp/mi-footer.js"></script>
+    <script type="module" src="cmp/mi-progreso.js"></script>
+    <link rel="stylesheet" href="css/estilos.css">
+  </head>
+  <body>
+    <mi-nav></mi-nav>
+    <header>
+      <h1>Chat</h1>
+    </header>
+    <form id="forma">
+      <p><label>Mensaje<input type="text" name="texto" required></label></p>
+      <p><button>Enviar</button></p>
+    </form>
+    <ul id="mensajes" class="lista">
+      <li>
+        <mi-progreso></mi-progreso>
+      </li>
+    </ul>
+    <mi-footer></mi-footer>
+    <script type="module">
+      import { cod, muestraError } from "./js/util.js";
+      import {
+        iniciaSesión, cargaRoles, noAutorizado
+      } from "./js/seguridad.js";
+      /** Nombre de usuario atenticado por Firebase. */
+      let usuario = "";
+      const auth = firebase.auth();
+      const firestore = firebase.firestore();
+      auth.onAuthStateChanged(usuarioAutorizado => {
+        if (usuarioAutorizado && usuarioAutorizado.email) {
+          usuario = usuarioAutorizado.email;
+          const roles = cargaRoles(usuario);
+          if (roles.has("Cliente")) {
+            muestraMensajes()
+            forma.addEventListener("submit", agrega);
+          } else {
+            noAutorizado();
+          }
+        } else {
+          iniciaSesión();
+        }
+      },
+        muestraError);
+
+      /** Agrega un usuario a la base de datos.
+       * @param {Event} evt */
+      async function agrega(evt) {
+        try {
+          evt.preventDefault();
+          const formData = new FormData(forma);
+          /* "Mensaje" es el nombre de la colección a la que se agregan los datos.
+           * "usuario", "texto" y "timestamp" son los nombres de los campos en el
+           * documento.
+           * El timestamp contiene la fecha y hora en que se agrega el registro.*/
+          const modelo = {
+            usuario,
+            texto: formData.get("texto").trim(),
+            timestamp: firebase.firestore.FieldValue.serverTimestamp()
+          };
+          await firestore.collection("Mensaje").add(modelo);
+          forma.texto.value = "";
+        } catch (e) {
+          muestraError(e);
+        }
+      }
+      /** Muestra los mensaje almacenados en la collection "Mensaje". Se
+       * actualiza automáticamente. */
+      function muestraMensajes() {
+        /* Consulta que se actualiza automáticamente. Pide todos los registros
+         * de la colección "Mensaje" ordenados por el campo "timestamp" de forma
+         * descendente. */
+        firestore.collection("Mensaje").orderBy("timestamp", "desc")
+          .onSnapshot(
+            /** Función que muestra los datos enviados por el servidor. Si los
+             * datos cambian en el servidor, se vuelve a invocar esta función y
+             * recibe los datos actualizados.
+             * @param {Object} querySnapshot estructura parecida a un Array, que
+             * contiene una copia de los datos en el servidor. */
+            querySnapshot => {
+              let html = "";
+              if (querySnapshot.size > 0) {
+                /* Cuando el número de registros devueltos por la consulta es
+                 * mayor que 0, Revisa uno por uno los registros de la consulta
+                 * y los muestra. El iterador "doc" apunta a un registro de la
+                 * base de datos. */
+                querySnapshot.forEach(doc => {
+                  // recupera los datos almacenados en el registro.
+                  const data = doc.data();
+                  /* Agrega un li con los datos del registro, que se codifican
+                   * para evitar inyección de código. */
+                  html += /* html */
+                    `<li><b>${cod(data.usuario)}</b><br>${cod(data.texto)}</li>`;
+                });
+              } else {
+                /* Cuando el número de registros devueltos por la consulta es
+                 * mayor que 0, agrega un texto HTML. */
+                html += /* html */
+                  `<li>No hay mensajes registrados.</li>`;
+              }
+              mensajes.innerHTML = html;
+            },
+            /* Función que se invoca cuando hay un error. Muestra el error. Al
+             * invocar esta función la conexión se cancela. Por lo mismo, se
+             * vuelve a conectar. */
+            e => {
+              procesaError(e);
+              // Intenta conectarse otra vez.
+              muestraMensajes();
+            }
+          );
+      }
+    </script>
+  </body>
+</html>
