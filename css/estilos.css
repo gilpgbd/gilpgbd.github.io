@@ -23,7 +23,7 @@ mi-nav ul {
   flex-flow: wrap;
   list-style: none;
   padding: 0;
-  margin: 0.5rem;
+  margin: 0;
 }
 
 mi-nav ul li {
