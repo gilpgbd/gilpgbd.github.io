@@ -86,7 +86,7 @@
         const dataUsu = docUsu.data();
         const img = urlStorage(docUsu.id);
         const pasatiempo = await renderPasatiempo(dataUsu.pasId)
-        const privilegios = await renderPrivilegios(dataUsu.privIds),
+        const privilegios = await renderPrivilegios(dataUsu.privIds);
         const parámetros = new URLSearchParams();
         parámetros.append("id", docUsu.id);
         return (/* html */
