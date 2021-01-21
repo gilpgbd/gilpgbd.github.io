@@ -16,7 +16,7 @@ export function renderPrivilegio(docPriv) {
 export function renderPasatiempos(select, valor) {
   const firestore = firebase.firestore();
   valor = valor || "";
-  firestore.collection("Pasatiempo").orderBy(nombre).onSnapshot(
+  firestore.collection("Pasatiempo").orderBy("nombre").onSnapshot(
     querySnapshot => {
       let html = SIN_PASATIEMPO;
       querySnapshot.forEach(docPas => {
