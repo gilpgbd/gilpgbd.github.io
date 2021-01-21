@@ -14,8 +14,7 @@ export function iniciaSesión() {
 }
 
 /**
- * @param {string} email 
- * @returns {Set<string>} */
+ * @param {string} email */
 export async function cargaRoles(email) {
   const firestore = firebase.firestore();
   let doc = await firestore.collection("Usuario").doc(email).get();
