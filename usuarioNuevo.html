@@ -22,15 +22,18 @@
     <form id="forma">
       <mi-nav></mi-nav>
       <header>
-        <a href="usuarios.html">Cancelar</a>
         <h1>Usuario Nuevo</h1>
-        <button type="submit">Guardar</button>
+        <div class="herramientas">
+          <a href="usuarios.html">Cancelar</a>
+          <button type="submit">Guardar</button>
+        </div>
       </header>
       <p><label>Cue <input name="cue" type="email" required></label></p>
       <p>
         <label>
           Avatar
-          <input name="avatar" type="file" required accept=".png,.jpg,.jpeg,.gif">
+          <input name="avatar" type="file" required
+            accept=".png,.jpg,.jpeg,.gif">
         </label>
       </p>
       <!-- Maneja una asociación a uno. -->
