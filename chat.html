@@ -103,7 +103,12 @@
                   /* Agrega un li con los datos del registro, que se codifican
                    * para evitar inyección de código. */
                   html += /* html */
-                    `<li><b>${cod(data.usuario)}</b><br>${cod(data.texto)}</li>`;
+                    `<li>
+                      <span class="mensaje">
+                        <strong>${cod(data.usuario)}</strong><br>
+                        ${cod(data.texto)}
+                      </span>
+                    </li>`;
                 });
               } else {
                 /* Cuando el número de registros devueltos por la consulta es

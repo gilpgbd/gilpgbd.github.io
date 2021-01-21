@@ -98,14 +98,11 @@ ul.checks {
   margin: 0;
 }
 
+.lista .mensaje,
 .lista a,
 .checks label {
   display: block;
   padding: 1rem;
-}
-
-.lista a,
-.checks label {
   font-size: 0.75rem;
 }
 

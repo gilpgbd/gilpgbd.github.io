@@ -24,7 +24,9 @@ export function renderPasatiempos(select, valor) {
         const selected = docPas.id === valor ? "selected" : "";
         const data = docPas.data();
         html += /* html */
-          `<option value="${cod(docPas.id)}" ${selected}>${cod(data.nombre)}</option>`;
+          `<option value="${cod(docPas.id)}" ${selected}>
+            ${cod(data.nombre)}
+          </option>`;
       });
       select.innerHTML = html;
     },
@@ -48,12 +50,12 @@ export function renderRoles(elemento, valor) {
           const checked = set.has(docRol.id) ? "checked" : "";
           html += /* html */
             `<li>
-            <label>
-              <input type="checkbox" name="rolIds"
-                  value="${cod(docRol.id)}" ${checked}>
-              <span>${renderRol(docRol)}</span>
-            </label>
-          </li>`;
+              <label>
+                <input type="checkbox" name="rolIds"
+                    value="${cod(docRol.id)}" ${checked}>
+                <span>${renderRol(docRol)}</span>
+              </label>
+            </li>`;
         });
       } else {
         html += /* html */
