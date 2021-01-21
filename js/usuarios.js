@@ -82,7 +82,7 @@ export async function guardaUsuario(evt, formData, id) {
     });
     const avatar = formData.get("avatar");
     if (avatar && avatar.size > 0) {
-      await subeStorage(id, modelo.avatar);
+      await subeStorage(id, avatar);
     }
     muestraUsuarios();
   } catch (error) {
