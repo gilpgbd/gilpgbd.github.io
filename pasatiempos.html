@@ -32,7 +32,6 @@
     <mi-footer></mi-footer>
     <script type="module">
       import { cod, muestraError } from "./js/util.js";
-      import { muestraPasatiempos } from "./js/navegacion.js";
       import {
         iniciaSesión, cargaRoles, noAutorizado
       } from "./js/seguridad.js";
@@ -42,7 +41,7 @@
         if (usuario && usuario.email) {
           const roles = cargaRoles(usuario.email);
           if (roles.has("Administrador")) {
-            muestraPasatiempos();
+            renderPasatiempos();
           } else {
             noAutorizado();
           }
@@ -51,7 +50,7 @@
         }
       },
         muestraError);
-      function muestraPasatiempos() {
+      function renderPasatiempos() {
         firestore.collection("Pasatiempo").orderBy("nombre")
           .onSnapshot(
             querySnapshot => {
