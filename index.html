@@ -46,7 +46,7 @@
     <mi-footer></mi-footer>
     <script type="module">
       import { muestraError } from "./js/util.js";
-      import { iniciaSesión } from "./js/seguridad.js";
+      import { iniciaSesión, terminaSesión } from "./js/seguridad.js";
       /** Conexión al sistema de autenticación de Firebase. */
       const auth = firebase.auth();
       /** Escucha cambios de usuario. Recibe una función que se invoca cada que
