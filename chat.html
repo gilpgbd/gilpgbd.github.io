@@ -37,13 +37,13 @@
         iniciaSesión, cargaRoles, noAutorizado
       } from "./js/seguridad.js";
       /** Nombre de usuario atenticado por Firebase. */
-      let usuario = "";
+      let usuarioChat = "";
       const auth = firebase.auth();
       const firestore = firebase.firestore();
-      auth.onAuthStateChanged(usuarioAutorizado => {
-        if (usuarioAutorizado && usuarioAutorizado.email) {
-          usuario = usuarioAutorizado.email;
-          const roles = await cargaRoles(usuario);
+      auth.onAuthStateChanged(usuario => {
+        if (usuario && usuario.email) {
+          usuarioChat = usuario.email;
+          const roles = await cargaRoles(usuarioChat);
           if (roles.has("Cliente")) {
             muestraMensajes()
             forma.addEventListener("submit", agrega);
@@ -67,7 +67,7 @@
            * documento.
            * El timestamp contiene la fecha y hora en que se agrega el registro.*/
           const modelo = {
-            usuario,
+            usuario: usuarioChat,
             texto: formData.get("texto").trim(),
             timestamp: firebase.firestore.FieldValue.serverTimestamp()
           };
