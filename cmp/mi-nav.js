@@ -1,4 +1,4 @@
-import { muestraError, cargaRoles } from "./js/util.js";
+import { muestraError, cargaRoles } from "../js/util.js";
 
 class MiNav extends HTMLElement {
   connectedCallback() {
