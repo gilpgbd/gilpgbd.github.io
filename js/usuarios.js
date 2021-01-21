@@ -69,7 +69,7 @@ export function renderPrivilegios(elemento, valor) {
 export async function guardaUsuario(evt, forma, id) {
   try {
     evt.preventDefault();
-    const data = new FormData(forma);
+    const formData = new FormData(forma);
     const firestore = firebase.firestore();
     await firestore.collection("Usuario").doc(id).set({
       pasId: data.get("pasatiempo") || null,

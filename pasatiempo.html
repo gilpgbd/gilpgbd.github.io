@@ -79,7 +79,7 @@
       async function guarda(evt) {
         try {
           evt.preventDefault();
-          const data = new FormData(forma);
+          const formData = new FormData(forma);
           await firestore.collection("Pasatiempo").doc(id).set({
             nombre: formData.get("nombre").trim(),
           });
