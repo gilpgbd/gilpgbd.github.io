@@ -32,6 +32,7 @@ export function noAutorizado() {
 }
 export async function terminaSesión() {
   try {
+    const auth = firebase.auth();
     await auth.signOut();
   } catch (e) {
     muestraError(e);
