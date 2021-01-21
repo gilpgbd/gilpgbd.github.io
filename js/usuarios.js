@@ -56,7 +56,7 @@ export function renderPrivilegios(elemento, valor) {
         });
       } else {
         html += /* html */
-          `<li>No hay usuarios registrados.</li>`;
+          `<li>No hay privilegios registrados.</li>`;
       }
       elemento.innerHTML = html;
     },
