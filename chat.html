@@ -19,18 +19,18 @@
   <body>
     <mi-nav></mi-nav>
     <form id="forma">
-    <header>
-      <h1>Chat</h1>
-      <input type="text" name="texto" required placeholder="Mensaje">
-      <button>Enviar</button>
-    </header>
+      <header>
+        <h1>Chat</h1>
+        <input type="text" name="texto" required placeholder="Mensaje">
+        <button>Enviar</button>
+      </header>
+      <ul id="mensajes" class="lista">
+        <li>
+          <mi-progreso></mi-progreso>
+        </li>
+      </ul>
+      <mi-footer></mi-footer>
     </form>
-    <ul id="mensajes" class="lista">
-      <li>
-        <mi-progreso></mi-progreso>
-      </li>
-    </ul>
-    <mi-footer></mi-footer>
     <script type="module">
       import { cod, muestraError } from "./js/util.js";
       import {
