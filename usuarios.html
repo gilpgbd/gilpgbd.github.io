@@ -55,7 +55,7 @@
       },
         muestraError);
       function muestraUsuarios() {
-        firestore.collection("Usuario").orderBy("nombre")
+        firestore.collection("Usuario")
           .onSnapshot(
             async querySnapshot => {
               let html = "";
