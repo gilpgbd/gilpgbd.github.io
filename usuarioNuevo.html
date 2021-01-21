@@ -82,8 +82,9 @@
 
       /** @param {Event} evt */
       async function guarda(evt) {
-        const id = data.get("cue").trim();
-        await guardaUsuario(evt, forma, id);
+        const formData = new FormData(forma);
+        const id = formData.get("cue").trim();
+        await guardaUsuario(evt, formData, id);
       }
     </script>
   </body>

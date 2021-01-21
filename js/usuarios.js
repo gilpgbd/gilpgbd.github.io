@@ -69,18 +69,17 @@ export function renderRoles(elemento, valor) {
 
 /**
  * @param {Event} evt
- * @param {HTMLFormElement} forma
+ * @param {FormData} formData
  * @param {string} id  */
-export async function guardaUsuario(evt, forma, id) {
+export async function guardaUsuario(evt, formData, id) {
   try {
     evt.preventDefault();
-    const formData = new FormData(forma);
     const firestore = firebase.firestore();
     await firestore.collection("Usuario").doc(id).set({
       pasId: formData.get("pasId") || null,
       rolIds: formData.getAll("rolIds")
     });
-    const avatar = data.get("avatar");
+    const avatar = formData.get("avatar");
     if (avatar && avatar.size > 0) {
       await subeStorage(id, modelo.avatar);
     }

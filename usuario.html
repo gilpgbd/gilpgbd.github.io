@@ -104,7 +104,7 @@
 
       /** @param {Event} evt */
       async function guarda(evt) {
-        await guardaUsuario(evt, forma, id);
+        await guardaUsuario(evt, new FormData(forma), id);
       }
 
       async function elimina() {
