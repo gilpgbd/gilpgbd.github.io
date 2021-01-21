@@ -43,7 +43,7 @@
       auth.onAuthStateChanged(usuarioAutorizado => {
         if (usuarioAutorizado && usuarioAutorizado.email) {
           usuario = usuarioAutorizado.email;
-          const roles = cargaRoles(usuario);
+          const roles = await cargaRoles(usuario);
           if (roles.has("Cliente")) {
             muestraMensajes()
             forma.addEventListener("submit", agrega);

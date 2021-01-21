@@ -43,9 +43,9 @@
       const params = new URL(location.href).searchParams;
       const id = params.get("id");
 
-      auth.onAuthStateChanged(usuario => {
+      auth.onAuthStateChanged(async usuario => {
         if (usuario && usuario.email) {
-          const roles = cargaRoles(usuario.email);
+          const roles = await cargaRoles(usuario.email);
           if (roles.has("Administrador")) {
             busca();
           } else {

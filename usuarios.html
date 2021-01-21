@@ -41,9 +41,9 @@
       import { urlStorage } from "./js/storage.js";
       const auth = firebase.auth();
       const firestore = firebase.firestore();
-      auth.onAuthStateChanged(usuario => {
+      auth.onAuthStateChanged(async usuario => {
         if (usuario && usuario.email) {
-          const roles = cargaRoles(usuario.email);
+          const roles = await cargaRoles(usuario.email);
           if (roles.has("Administrador")) {
             muestraUsuarios();
           } else {
