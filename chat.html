@@ -40,7 +40,7 @@
       let usuarioChat = "";
       const auth = firebase.auth();
       const firestore = firebase.firestore();
-      auth.onAuthStateChanged(usuario => {
+      auth.onAuthStateChanged(async usuario => {
         if (usuario && usuario.email) {
           usuarioChat = usuario.email;
           const roles = await cargaRoles(usuarioChat);
