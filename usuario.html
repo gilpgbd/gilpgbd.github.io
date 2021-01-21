@@ -63,7 +63,7 @@
       import {
         renderPasatiempos, renderRoles, guardaUsuario
       } from "./js/usuarios.js";
-      import { urlStorage } from "./js/storage.js";
+      import { urlStorage, eliminaStorage } from "./js/storage.js";
       const auth = firebase.auth();
       const firestore = firebase.firestore();
       const params = new URL(location.href).searchParams;
@@ -111,6 +111,7 @@
         try {
           if (confirm("Confirmar la eliminación")) {
             await firestore.collection("Usuario").doc(id).delete();
+            await eliminaStorage(id);
             muestraUsuarios();
           }
         } catch (e) {
