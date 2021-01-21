@@ -41,7 +41,7 @@ header {
   gap: 0.5rem;
 }
 
-heder input {
+header input {
   flex-grow: 1;
 }
 
