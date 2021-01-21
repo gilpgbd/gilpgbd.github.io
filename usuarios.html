@@ -63,7 +63,7 @@
                 /** @type {Promise<string>[]} */
                 let usuarios = [];
                 querySnapshot.forEach(docUsu => {
-                  usuarios.append(renderUsuario(docUsu));
+                  usuarios.push(renderUsuario(docUsu));
                 });
                 const renderDeUsuarios = await Promise.all(usuarios);
                 // Junta el todos los elemento del arreglo en una cadena.
