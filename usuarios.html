@@ -86,7 +86,7 @@
         const dataUsu = docUsu.data();
         const img = await urlStorage(docUsu.id);
         const pasatiempo = await renderPasatiempo(dataUsu.pasId)
-        const roles = await renderRoles(dataUsu.privIds);
+        const roles = await renderRoles(dataUsu.rolIds);
         const parámetros = new URLSearchParams();
         parámetros.append("id", docUsu.id);
         return (/* html */
@@ -123,8 +123,7 @@
         let html = "";
         if (ids && ids.length > 0) {
           for (const id of ids) {
-            const docRol =
-              await firestore.collection("Privilegio").doc(id).get();
+            const docRol = await firestore.collection("Rol").doc(id).get();
             html += renderRol(docRol);
           }
           return html;
