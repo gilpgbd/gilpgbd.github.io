@@ -84,7 +84,7 @@
        * @param {Object} docUsu */
       async function renderUsuario(docUsu) {
         const dataUsu = docUsu.data();
-        const img = urlStorage(docUsu.id);
+        const img = await urlStorage(docUsu.id);
         const pasatiempo = await renderPasatiempo(dataUsu.pasId)
         const roles = await renderRoles(dataUsu.privIds);
         const parámetros = new URLSearchParams();

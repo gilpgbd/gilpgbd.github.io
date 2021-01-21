@@ -90,7 +90,7 @@
           if (doc.exists) {
             const data = doc.data();
             forma.cue.value = id || "";
-            img.src = urlStorage(id);
+            img.src = await urlStorage(id);
             renderPasatiempos(forma.pasId, data.pasId)
             renderRoles(roles, data.rolIds);
             forma.addEventListener("submit", guarda);
