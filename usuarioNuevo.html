@@ -45,7 +45,7 @@
       <!-- Maneja una asociación a muchos. -->
       <fieldset>
         <legend>Roles</legend>
-        <ul id="roles" class="checks">
+        <ul id="listaRoles" class="checks">
           <li>
             <mi-progreso></mi-progreso>
           </li>
@@ -70,7 +70,7 @@
           if (roles.has("Administrador")) {
             forma.addEventListener("submit", guarda);
             renderPasatiempos(forma.pasId, "")
-            renderRoles(roles, []);
+            renderRoles(listaRoles, []);
           } else {
             noAutorizado();
           }

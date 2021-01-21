@@ -46,7 +46,7 @@
       <!-- Maneja una asociación a muchos. -->
       <fieldset>
         <legend>Roles</legend>
-        <ul id="roles" class="checks">
+        <ul id="listaRoles" class="checks">
           <li>
             <mi-progreso></mi-progreso>
           </li>
@@ -92,7 +92,7 @@
             forma.cue.value = id || "";
             img.src = await urlStorage(id);
             renderPasatiempos(forma.pasId, data.pasId)
-            renderRoles(roles, data.rolIds);
+            renderRoles(listaRoles, data.rolIds);
             forma.addEventListener("submit", guarda);
             eliminar.addEventListener("click", elimina);
           }
