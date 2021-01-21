@@ -4,10 +4,10 @@ import { cod, muestraError } from "./util.js";
 const SIN_PASATIEMPO = /* html */
   `<option value="">-- Sin Pasatiempo --</option>`;
 
-/**@param {Object} docPriv */
-export function renderPrivilegio(docPriv) {
-  const data = docPriv.data();
-  return (/* html */ `<em>${cod(docPriv.id)}</em><br>${cod(data.descripción)}`);
+/**@param {Object} docRol */
+export function renderRol(docRol) {
+  const data = docRol.data();
+  return (/* html */ `<em>${cod(docRol.id)}</em><br>${cod(data.descripción)}`);
 }
 
 /**
@@ -36,33 +36,33 @@ export function renderPasatiempos(select, valor) {
 /**
  * @param {HTMLElement} elemento
  * @param {string[]} valor */
-export function renderPrivilegios(elemento, valor) {
+export function renderRoles(elemento, valor) {
   const set = new Set(valor || []);
   const firestore = firebase.firestore();
-  firestore.collection("Privilegio").onSnapshot(
+  firestore.collection("Rol").onSnapshot(
     querySnapshot => {
       let html = "";
       if (querySnapshot.size > 0) {
-        querySnapshot.forEach(docPriv => {
-          const checked = set.has(docPriv.id) ? "checked" : "";
+        querySnapshot.forEach(docRol => {
+          const checked = set.has(docRol.id) ? "checked" : "";
           html += /* html */
             `<li>
             <label>
-              <input type="checkbox" name="privilegios"
-                  value="${cod(docPriv.id)}" ${checked}>
-              <span>${renderPrivilegio(docPriv)}</span>
+              <input type="checkbox" name="rolIds"
+                  value="${cod(docRol.id)}" ${checked}>
+              <span>${renderRol(docRol)}</span>
             </label>
           </li>`;
         });
       } else {
         html += /* html */
-          `<li>No hay privilegios registrados.</li>`;
+          `<li>No hay roles registrados.</li>`;
       }
       elemento.innerHTML = html;
     },
     error => {
       muestraError(error);
-      renderPrivilegios(elemento, valor);
+      renderRoles(elemento, valor);
     }
   );
 }
@@ -77,8 +77,8 @@ export async function guardaUsuario(evt, forma, id) {
     const formData = new FormData(forma);
     const firestore = firebase.firestore();
     await firestore.collection("Usuario").doc(id).set({
-      pasId: formData.get("pasatiempo") || null,
-      privIds: formData.getAll("privilegios")
+      pasId: formData.get("pasId") || null,
+      rolIds: formData.getAll("rolIds")
     });
     const avatar = data.get("avatar");
     if (avatar && avatar.size > 0) {

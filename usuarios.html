@@ -37,7 +37,7 @@
       import {
         iniciaSesión, cargaRoles, noAutorizado
       } from "./js/seguridad.js";
-      import { renderPrivilegio } from "./js/usuarios.js";
+      import { renderRol } from "./js/usuarios.js";
       import { urlStorage } from "./js/storage.js";
       const auth = firebase.auth();
       const firestore = firebase.firestore();
@@ -45,7 +45,7 @@
         if (usuario && usuario.email) {
           const roles = await cargaRoles(usuario.email);
           if (roles.has("Administrador")) {
-            muestraUsuarios();
+            renderUsuarios();
           } else {
             noAutorizado();
           }
@@ -54,7 +54,7 @@
         }
       },
         muestraError);
-      function muestraUsuarios() {
+      function renderUsuarios() {
         firestore.collection("Usuario")
           .onSnapshot(
             async querySnapshot => {
@@ -76,7 +76,7 @@
             },
             e => {
               procesaError(e);
-              muestraUsuarios();
+              renderUsuarios();
             }
           );
       }
@@ -86,7 +86,7 @@
         const dataUsu = docUsu.data();
         const img = urlStorage(docUsu.id);
         const pasatiempo = await renderPasatiempo(dataUsu.pasId)
-        const privilegios = await renderPrivilegios(dataUsu.privIds);
+        const roles = await renderRoles(dataUsu.privIds);
         const parámetros = new URLSearchParams();
         parámetros.append("id", docUsu.id);
         return (/* html */
@@ -98,7 +98,7 @@
               <span>
                 <strong>${cod(docUsu.id)}</strong><br>
                 ${cod(pasatiempo)}<br>
-                ${privilegios}
+                ${roles}
               </span>
             </a>
           </li>`);
@@ -117,19 +117,19 @@
         }
         return "-- Sin Pasatiempo --";
       }
-      /** Recupera el html de los privilegios en base a sus id
+      /** Recupera el html de los roles en base a sus id
        * @param {string[]} ids */
-      async function renderPrivilegios(ids) {
+      async function renderRoles(ids) {
         let html = "";
         if (ids && ids.length > 0) {
           for (const id of ids) {
-            const docPriv =
+            const docRol =
               await firestore.collection("Privilegio").doc(id).get();
-            html += renderPrivilegio(docPriv);
+            html += renderRol(docRol);
           }
           return html;
         } else {
-          return "-- Sin Privilegios --";
+          return "-- Sin Roles --";
         }
       }
     </script>

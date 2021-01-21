@@ -38,15 +38,15 @@
       <p>
         <label>
           Pasatiempo
-          <select name="pasatiempo">
+          <select name="pasId">
             <option>Cargando…</option>
           </select>
         </label>
       </p>
       <!-- Maneja una asociación a muchos. -->
       <fieldset>
-        <legend>Privilegios</legend>
-        <ul id="privilegios" class="checks">
+        <legend>Roles</legend>
+        <ul id="roles" class="checks">
           <li>
             <mi-progreso></mi-progreso>
           </li>
@@ -61,7 +61,7 @@
         iniciaSesión, cargaRoles, noAutorizado
       } from "./js/seguridad.js";
       import {
-        renderPasatiempos, renderPrivilegios, guardaUsuario
+        renderPasatiempos, renderRoles, guardaUsuario
       } from "./js/usuarios.js";
       import { urlStorage } from "./js/storage.js";
       const auth = firebase.auth();
@@ -91,8 +91,8 @@
             const data = doc.data();
             forma.cue.value = id || "";
             img.src = urlStorage(id);
-            renderPasatiempos(forma.pasatiempo, data.pasId)
-            renderPrivilegios(privilegios, data.privIds);
+            renderPasatiempos(forma.pasId, data.pasId)
+            renderRoles(roles, data.rolIds);
             forma.addEventListener("submit", guarda);
             eliminar.addEventListener("click", elimina);
           }
