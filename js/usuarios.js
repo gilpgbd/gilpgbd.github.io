@@ -42,17 +42,22 @@ export function renderPrivilegios(elemento, valor) {
   firestore.collection("Privilegio").onSnapshot(
     querySnapshot => {
       let html = "";
-      querySnapshot.forEach(docPriv => {
-        const checked = set.has(docPriv.id) ? "checked" : "";
-        html += /* html */
-          `<li>
+      if (querySnapshot.size > 0) {
+        querySnapshot.forEach(docPriv => {
+          const checked = set.has(docPriv.id) ? "checked" : "";
+          html += /* html */
+            `<li>
             <label>
               <input type="checkbox" name="privilegios"
                   value="${cod(docPriv.id)}" ${checked}>
               <span>${renderPrivilegio(docPriv)}</span>
             </label>
           </li>`;
-      });
+        });
+      } else {
+        html += /* html */
+          `<li>No hay usuarios registrados.</li>`;
+      }
       elemento.innerHTML = html;
     },
     error => {
