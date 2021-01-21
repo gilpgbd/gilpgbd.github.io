@@ -60,7 +60,7 @@
       /** Busca y muestra los datos que corresponden al id recibido. */
       async function busca() {
         try {
-          const doc = await firebase.collection("Pasatiempo").doc(id).get();
+          const doc = await firestore.collection("Pasatiempo").doc(id).get();
           if (doc.exists) {
             const data = doc.data();
             forma.nombre.value = data.nombre || "";

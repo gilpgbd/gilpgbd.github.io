@@ -86,7 +86,7 @@
 
       async function busca() {
         try {
-          const doc = await firebase.collection("Usuario").doc(id).get();
+          const doc = await firestore.collection("Usuario").doc(id).get();
           if (doc.exists) {
             const data = doc.data();
             forma.cue.value = id || "";
