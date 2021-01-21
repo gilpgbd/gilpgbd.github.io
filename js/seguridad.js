@@ -20,7 +20,7 @@ export async function cargaRoles(email) {
   let doc = await firestore.collection("Usuario").doc(email).get();
   if (doc.exists) {
     const data = doc.data();
-    return new Set(data.roles || []);
+    return new Set(data.rolIds || []);
   } else {
     return new Set();
   }
