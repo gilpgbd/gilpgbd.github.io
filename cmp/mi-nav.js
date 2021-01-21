@@ -9,9 +9,9 @@ class MiNav extends HTMLElement {
       </ul>`;
     this.ul = this.querySelector("ul");
     const auth = firebase.auth();
-    auth.onAuthStateChanged(usuario => {
+    auth.onAuthStateChanged(async usuario => {
       if (usuario && usuario.email) {
-        const roles = cargaRoles(usuario.email);
+        const roles = await cargaRoles(usuario.email);
         // Enlaces para solo para clientes.
         if (roles.has("Cliente")) {
           html += /* html */
