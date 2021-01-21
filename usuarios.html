@@ -121,7 +121,7 @@
        * @param {string[]} ids */
       async function renderPrivilegios(ids) {
         let html = "";
-        if (ids.length > 0) {
+        if (ids && ids.length > 0) {
           for (const id of ids) {
             const docPriv =
               await firestore.collection("Privilegio").doc(id).get();
