@@ -87,7 +87,7 @@
       async function renderUsuario(docUsu) {
         const dataUsu = docUsu.data();
         const img = await urlStorage(docUsu.id);
-        const pasatiempo = await renderPasatiempo(dataUsu.pasId)
+        const pasatiempo = await renderPasatiempo(dataUsu.pasatiempoId)
         const roles = await renderRoles(dataUsu.rolIds);
         const parámetros = new URLSearchParams();
         parámetros.append("id", docUsu.id);

@@ -40,7 +40,7 @@
       <p>
         <label>
           Pasatiempo
-          <select name="pasId">
+          <select name="pasatiempoId">
             <option>Cargando…</option>
           </select>
         </label>
@@ -93,7 +93,7 @@
             const data = doc.data();
             forma.cue.value = id || "";
             img.src = await urlStorage(id);
-            renderPasatiempos(forma.pasId, data.pasId)
+            renderPasatiempos(forma.pasatiempoId, data.pasatiempoId)
             renderRoles(listaRoles, data.rolIds);
             forma.addEventListener("submit", guarda);
             eliminar.addEventListener("click", elimina);

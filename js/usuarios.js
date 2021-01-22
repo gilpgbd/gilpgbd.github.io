@@ -79,7 +79,7 @@ export async function guardaUsuario(evt, formData, id) {
     evt.preventDefault();
     const firestore = firebase.firestore();
     await firestore.collection("Usuario").doc(id).set({
-      pasId: formData.get("pasId") || null,
+      pasatiempoId: formData.get("pasatiempoId") || null,
       rolIds: formData.getAll("rolIds")
     });
     const avatar = formData.get("avatar");
