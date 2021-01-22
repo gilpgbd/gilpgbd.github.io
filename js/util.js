@@ -1,8 +1,8 @@
 /** Muestra un error en la consola y un cuadro de alerta con el mensaje.
- * @param {Error} error descripción del error. */
-export function muestraError(error) {
-  console.error(error);
-  alert(error.message);
+ * @param {Error} e descripción del error. */
+export function muestraError(e) {
+  console.error(e);
+  alert(e.message);
 }
 
 /** Codifica un texto para que escape los caracteres especiales y no se

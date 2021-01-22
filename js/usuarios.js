@@ -30,8 +30,8 @@ export function renderPasatiempos(select, valor) {
       });
       select.innerHTML = html;
     },
-    error => {
-      muestraError(error);
+    e => {
+      muestraError(e);
       renderPasatiempos(select, valor);
     }
   );
@@ -63,8 +63,8 @@ export function renderRoles(elemento, valor) {
       }
       elemento.innerHTML = html;
     },
-    error => {
-      muestraError(error);
+    e => {
+      muestraError(e);
       renderRoles(elemento, valor);
     }
   );
@@ -87,7 +87,7 @@ export async function guardaUsuario(evt, formData, id) {
       await subeStorage(id, avatar);
     }
     muestraUsuarios();
-  } catch (error) {
-    muestraError(error);
+  } catch (e) {
+    muestraError(e);
   }
 }
