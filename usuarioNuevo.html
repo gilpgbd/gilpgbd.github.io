@@ -63,7 +63,7 @@
         iniciaSesión, cargaRoles, noAutorizado
       } from "./js/seguridad.js";
       import {
-        renderPasatiempos, renderRoles, guardaUsuario
+        rnPasatiempos, renderRoles, guardaUsu
       } from "./js/usuarios.js";
       const auth = firebase.auth();
       const firestore = firebase.firestore();
@@ -72,7 +72,7 @@
           const roles = await cargaRoles(usuario.email);
           if (roles.has("Administrador")) {
             forma.addEventListener("submit", guarda);
-            renderPasatiempos(forma.pasatiempoId, "")
+            rnPasatiempos(forma.pasatiempoId, "")
             renderRoles(listaRoles, []);
           } else {
             noAutorizado();
@@ -87,7 +87,7 @@
       async function guarda(evt) {
         const formData = new FormData(forma);
         const id = formData.get("cue").trim();
-        await guardaUsuario(evt, formData, id);
+        await guardaUsu(evt, formData, id);
       }
     </script>
   </body>

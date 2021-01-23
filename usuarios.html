@@ -58,7 +58,7 @@
         noAutorizado
       } from "./js/seguridad.js";
       import {
-        renderRol
+        rnRol
       } from "./js/usuarios.js";
       import {
         urlStorage
@@ -147,10 +147,10 @@
                    Avatar">
               </span>
               <span class="texto">
-                <span
+                <strong
                  class="primario">
                   ${cod(doc.id)}
-                </span>
+                </strong>
                 <span
                  class="secundario">
                   ${pasatiempo}
@@ -191,14 +191,12 @@
         if (ids &&
           ids.length > 0) {
           for (const id of ids) {
-            const docRol =
+            const doc =
               await firestore.
                 collection("Rol").
                 doc(id).
                 get();
-            html +=
-              renderRol(docRol) +
-              "<br>";
+            html += rnRol(doc);
           }
           return html;
         } else {

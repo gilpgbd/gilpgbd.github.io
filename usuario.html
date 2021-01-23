@@ -63,7 +63,7 @@
         iniciaSesión, cargaRoles, noAutorizado
       } from "./js/seguridad.js";
       import {
-        renderPasatiempos, renderRoles, guardaUsuario
+        rnPasatiempos, renderRoles, guardaUsu
       } from "./js/usuarios.js";
       import { urlStorage, eliminaStorage } from "./js/storage.js";
       const auth = firebase.auth();
@@ -93,7 +93,7 @@
             const data = doc.data();
             forma.cue.value = id || "";
             img.src = await urlStorage(id);
-            renderPasatiempos(forma.pasatiempoId, data.pasatiempoId)
+            rnPasatiempos(forma.pasatiempoId, data.pasatiempoId)
             renderRoles(listaRoles, data.rolIds);
             forma.addEventListener("submit", guarda);
             eliminar.addEventListener("click", elimina);
@@ -106,7 +106,7 @@
 
       /** @param {Event} evt */
       async function guarda(evt) {
-        await guardaUsuario(evt, new FormData(forma), id);
+        await guardaUsu(evt, new FormData(forma), id);
       }
 
       async function elimina() {

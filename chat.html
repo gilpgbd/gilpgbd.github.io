@@ -210,15 +210,16 @@
          * de código. */
         html += /* html */
           `<li class="fila">
-            <div class="primario">
+            <strong
+              class="primario">
               ${cod(
             data.usuarioId)}
-            </div>
-            <div
+            </strong>
+            <span
               class="secundario">
               ${cod(
               data.texto)}
-            </div>
+            </span>
           </li>`;
       }
       /* Función que se invoca

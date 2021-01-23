@@ -24,8 +24,6 @@ a.fila:active {
 
 .primario {
   display: block;
-  /* Negritas. */
-  font-weight: bold;
   font-size: 1rem;
 }
 
@@ -34,7 +32,7 @@ a.fila:active {
   font-size: 0.75rem;
 }
 
-.checks label,
+label.fila,
 .fila.conImagen {
   display: flex;
   gap: 1rem;
