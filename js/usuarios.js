@@ -42,6 +42,7 @@ export function renderPasatiempos(select, valor) {
  * @param {string[]} valor */
 export function renderRoles(elemento, valor) {
   const set = new Set(valor || []);
+  // @ts-ignore
   const firestore = firebase.firestore();
   firestore.collection("Rol").onSnapshot(
     querySnapshot => {
