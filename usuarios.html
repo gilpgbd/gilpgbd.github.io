@@ -2,7 +2,9 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport"
+      content="width=device-width,
+       initial-scale=1.0">
     <title>Usuarios</title>
     <script
       src="https://www.gstatic.com/firebasejs/8.2.3/firebase-app.js"></script>
@@ -13,125 +15,199 @@
     <!-- Agrega el manejo de storage. -->
     <script
       src="https://www.gstatic.com/firebasejs/8.2.3/firebase-storage.js"></script>
-    <script src="js/init.js"></script>
-    <script type="module" src="cmp/mi-nav.js"></script>
-    <script type="module" src="cmp/mi-footer.js"></script>
-    <script type="module" src="cmp/mi-progreso.js"></script>
-    <link rel="stylesheet" href="css/estilos.css">
+    <script src="js/init.js">
+    </script>
+    <script type="module"
+      src="cmp/mi-nav.js">
+      </script>
+    <script type="module"
+      src="cmp/mi-footer.js">
+      </script>
+    <script type="module"
+      src="cmp/mi-progreso.js">
+      </script>
+    <link rel="stylesheet"
+      href="css/estilos.css">
   </head>
   <body>
     <mi-nav></mi-nav>
     <header>
       <h1>Usuarios</h1>
       <div class="herramientas">
-        <a href="usuarioNuevo.html">Agregar…</a>
+        <a href="usuarioNuevo.html">
+          Agregar…</a>
       </div>
     </header>
-    <ul id="lista" class="lista con_imagen">
+    <ul id="lista" class="lista">
       <li>
-        <mi-progreso></mi-progreso>
+        <mi-progreso>
+        </mi-progreso>
       </li>
     </ul>
     <mi-footer></mi-footer>
     <script type="module">
-      import { cod, muestraError } from "./js/util.js";
-      import { muestraPasatiempos } from "./js/navegacion.js";
       import {
-        iniciaSesión, cargaRoles, noAutorizado
+        cod, muestraError
+      } from "./js/util.js";
+      import {
+        muestraPasatiempos
+      } from "./js/navegacion.js";
+      import {
+        iniciaSesión,
+        cargaRoles,
+        noAutorizado
       } from "./js/seguridad.js";
-      import { renderRol } from "./js/usuarios.js";
-      import { urlStorage } from "./js/storage.js";
-      const auth = firebase.auth();
-      const firestore = firebase.firestore();
-      auth.onAuthStateChanged(async usuario => {
-        if (usuario && usuario.email) {
-          const roles = await cargaRoles(usuario.email);
-          if (roles.has("Administrador")) {
-            renderUsuarios();
+      import {
+        renderRol
+      } from "./js/usuarios.js";
+      import {
+        urlStorage
+      } from "./js/storage.js";
+      const auth =
+        firebase.auth();
+      const firestore =
+        firebase.firestore();
+      let html = "";
+      auth.onAuthStateChanged(
+        protege, muestraError);
+
+      async function protege(
+        usuario) {
+        if (usuario &&
+          usuario.email) {
+          const roles =
+            await cargaRoles(
+              usuario.email);
+          if (roles.has(
+            "Administrador")) {
+            consulta();
           } else {
             noAutorizado();
           }
         } else {
           iniciaSesión();
         }
-      },
-        muestraError);
-      function renderUsuarios() {
+      }
+      function consulta() {
         firestore.collection("Usuario")
           .onSnapshot(
-            async querySnapshot => {
-              let html = "";
-              if (querySnapshot.size > 0) {
-                /** @type {Promise<string>[]} */
-                let usuarios = [];
-                querySnapshot.forEach(docUsu => {
-                  usuarios.push(renderUsuario(docUsu));
-                });
-                const renderDeUsuarios = await Promise.all(usuarios);
-                // Junta el todos los elemento del arreglo en una cadena.
-                html += renderDeUsuarios.join("");
-              } else {
-                html += /* html */
-                  `<li>No hay usuarios registrados.</li>`;
-              }
-              lista.innerHTML = html;
-            },
-            e => {
-              procesaError(e);
-              renderUsuarios();
-            }
-          );
+            rnLista,
+            errConsulta);
       }
-      /** Recupera el html de un usuario en base a su documento.
-       * @param {Object} docUsu */
-      async function renderUsuario(docUsu) {
-        const dataUsu = docUsu.data();
-        const img = await urlStorage(docUsu.id);
-        const pasatiempo = await renderPasatiempo(dataUsu.pasatiempoId)
-        const roles = await renderRoles(dataUsu.rolIds);
-        const parámetros = new URLSearchParams();
-        parámetros.append("id", docUsu.id);
+      function rnLista(res) {
+        html = "";
+        if (res.size > 0) {
+          /** @type {Promise<string>[]} */
+          let usuarios = [];
+          res.forEach(
+            doc => usuarios.
+              push(rnFila(doc)));
+          const renderDeUsuarios =
+            await Promise.all(
+              usuarios);
+          /* Junta el todos los
+           * elemento del arreglo
+           * en una cadena. */
+          html +=
+            renderDeUsuarios.
+              join("");
+        } else {
+          html += /* html */
+            `<li>
+              No hay usuarios
+              registrados.
+            </li>`;
+        }
+        lista.innerHTML = html;
+      }
+      async function rnFila(doc) {
+        const data = doc.data();
+        const img = cod(
+          await urlStorage(
+            doc.id));
+        const pasatiempo =
+          cod(await rnPas(
+            data.pasatiempoId));
+        const roles =
+          await rnRls(
+            data.rolIds);
+        const parámetros =
+          new URLSearchParams();
+        parámetros.append(
+          "id", doc.id);
         return (/* html */
           `<li>
-            <a href="usuario.html?${parámetros}">
+            <a class="fila
+              conImagen"
+              href="usuario.html?${parámetros}">
               <span class="marco">
-                <img src="${cod(img)}" alt="Falta el Avatar">
+                <img src="${img}"
+                  alt="Falta el
+                   Avatar">
               </span>
-              <span>
-                <strong>${cod(docUsu.id)}</strong><br>
-                ${cod(pasatiempo)}<br>
-                ${roles}
+              <span class="texto">
+                <span
+                 class="primario">
+                  ${cod(doc.id)}
+                </span>
+                <span
+                 class="secundario">
+                  ${pasatiempo}
+                  <br>
+                  ${roles}
+                </span>
               </span>
             </a>
           </li>`);
       }
-      /** Recupera el html del pasatiempo en base a su id
+      /** Recupera el html de un
+       * pasatiempo en base a su
+       * id.
        * @param {string} id */
-      async function renderPasatiempo(id) {
-        let html = "";
+      async function rnPas(id) {
         if (id) {
-          const docPas =
-            await firestore.collection("Pasatiempo").doc(id).get();
-          if (docPas.exists) {
-            const data = docPas.data();
-            return cod(data.nombre);
+          const doc =
+            await firestore.
+              collection(
+                "Pasatiempo").
+              doc(id).
+              get();
+          if (doc.exists) {
+            const data =
+              doc.data();
+            return cod(
+              data.nombre);
           }
         }
-        return "-- Sin Pasatiempo --";
+        return (
+          "-- Sin Pasatiempo --");
       }
-      /** Recupera el html de los roles en base a sus id
+      /** Recupera el html de los
+       * roles en base a sus id
        * @param {string[]} ids */
-      async function renderRoles(ids) {
+      async function rnRls(ids) {
         let html = "";
-        if (ids && ids.length > 0) {
+        if (ids &&
+          ids.length > 0) {
           for (const id of ids) {
-            const docRol = await firestore.collection("Rol").doc(id).get();
-            html += renderRol(docRol) + "<br>";
+            const docRol =
+              await firestore.
+                collection("Rol").
+                doc(id).
+                get();
+            html +=
+              renderRol(docRol) +
+              "<br>";
           }
           return html;
         } else {
-          return "-- Sin Roles --";
+          return (
+            "-- Sin Roles --");
         }
+      }
+      function errConsulta(e) {
+        procesaError(e);
+        consulta();
       }
     </script>
   </body>

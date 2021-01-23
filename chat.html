@@ -2,7 +2,9 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport"
+      content="width=device-width,
+       initial-scale=1.0">
     <title>Chat</title>
     <script
       src="https://www.gstatic.com/firebasejs/8.2.3/firebase-app.js"></script>
@@ -10,11 +12,19 @@
       src="https://www.gstatic.com/firebasejs/8.2.3/firebase-auth.js"></script>
     <script
       src="https://www.gstatic.com/firebasejs/8.2.3/firebase-firestore.js"></script>
-    <script src="js/init.js"></script>
-    <script type="module" src="cmp/mi-nav.js"></script>
-    <script type="module" src="cmp/mi-footer.js"></script>
-    <script type="module" src="cmp/mi-progreso.js"></script>
-    <link rel="stylesheet" href="css/estilos.css">
+    <script src="js/init.js">
+    </script>
+    <script type="module"
+      src="cmp/mi-nav.js">
+      </script>
+    <script type="module"
+      src="cmp/mi-footer.js">
+      </script>
+    <script type="module"
+      src="cmp/mi-progreso.js">
+      </script>
+    <link rel="stylesheet"
+      href="css/estilos.css">
   </head>
   <body>
     <mi-nav></mi-nav>
@@ -22,113 +32,209 @@
       <header>
         <h1>Chat</h1>
         <div class="herramientas">
-          <input type="text" name="texto" required placeholder="Mensaje">
+          <input name="texto"
+            required
+            placeholder="Mensaje">
           <button>Enviar</button>
         </div>
       </header>
-      <ul id="mensajes" class="lista">
+      <ul id="lista"
+        class="lista">
         <li>
-          <mi-progreso></mi-progreso>
+          <mi-progreso>
+          </mi-progreso>
         </li>
       </ul>
       <mi-footer></mi-footer>
     </form>
     <script type="module">
-      import { cod, muestraError } from "./js/util.js";
       import {
-        iniciaSesión, cargaRoles, noAutorizado
+        cod, muestraError
+      } from "./js/util.js";
+      import {
+        iniciaSesión,
+        cargaRoles,
+        noAutorizado
       } from "./js/seguridad.js";
-      /** Nombre de usuario atenticado por Firebase. */
-      let usuarioChat = "";
-      const auth = firebase.auth();
-      const firestore = firebase.firestore();
-      auth.onAuthStateChanged(async usuario => {
-        if (usuario && usuario.email) {
-          usuarioChat = usuario.email;
-          const roles = await cargaRoles(usuarioChat);
-          if (roles.has("Cliente")) {
-            muestraMensajes()
-            forma.addEventListener("submit", agrega);
+      /** Nombre de usuario
+       * autenticado por Firebase.
+       */
+      const auth =
+        firebase.auth();
+      const firestore =
+        firebase.firestore();
+      let usuarioId = "";
+      let html = "";
+      auth.onAuthStateChanged(
+        protege, muestraError);
+
+      /** @param {Object} usuario */
+      async function protege(
+        usuario) {
+        if (usuario &&
+          usuario.email) {
+          usuarioId =
+            usuario.email;
+          const roles =
+            await cargaRoles(
+              usuarioId);
+          if (roles.has(
+            "Cliente")) {
+            consulta();
+            forma.
+              addEventListener(
+                "submit", agrega);
           } else {
             noAutorizado();
           }
         } else {
           iniciaSesión();
         }
-      },
-        muestraError);
-
-      /** Agrega un usuario a la base de datos.
+      }
+      /** Agrega un usuario a la
+       * base de datos.
        * @param {Event} evt */
       async function agrega(evt) {
         try {
           evt.preventDefault();
-          const formData = new FormData(forma);
-          /* "Mensaje" es el nombre de la colección a la que se agregan los datos.
-           * "usuario", "texto" y "timestamp" son los nombres de los campos en el
-           * documento.
-           * El timestamp contiene la fecha y hora en que se agrega el registro.*/
+          const formData =
+            new FormData(forma);
+          const texto = formData.
+            get("texto").trim();
+          const timestamp =
+            firebase.firestore.
+              FieldValue.
+              serverTimestamp();
+          /* Crea un objeto con
+           * los campos que se
+           * agregan a la base de
+           * datos. Los campos son
+           * "usuarioId", "texto"
+           * y "timestamp".
+           * El timestamp contiene
+           * la fecha y hora en
+           * que se agrega el
+           * registro.*/
           const modelo = {
-            usuario: usuarioChat,
-            texto: formData.get("texto").trim(),
-            timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            usuarioId,
+            texto,
+            timestamp
           };
-          await firestore.collection("Mensaje").add(modelo);
+          /* El modelo se agrega a
+           * la colección
+           * "Mensaje". */
+          await firestore.
+            collection("Mensaje").
+            add(modelo);
           forma.texto.value = "";
         } catch (e) {
           muestraError(e);
         }
       }
-      /** Muestra los mensaje almacenados en la collection "Mensaje". Se
-       * actualiza automáticamente. */
-      function muestraMensajes() {
-        /* Consulta que se actualiza automáticamente. Pide todos los registros
-         * de la colección "Mensaje" ordenados por el campo "timestamp" de forma
+      /** Muestra los mensajes
+       * almacenados en la
+       * collection "Mensaje". Se
+       * actualiza
+       * automáticamente. */
+      function consulta() {
+        /* Consulta que se
+         * actualiza
+         * automáticamente. Pide
+         * todos los registros de
+         * la colección "Mensaje"
+         * ordenados por el campo
+         * "timestamp" de forma
          * descendente. */
-        firestore.collection("Mensaje").orderBy("timestamp", "desc")
+        firestore.
+          collection("Mensaje").
+          orderBy(
+            "timestamp", "desc")
           .onSnapshot(
-            /** Función que muestra los datos enviados por el servidor. Si los
-             * datos cambian en el servidor, se vuelve a invocar esta función y
-             * recibe los datos actualizados.
-             * @param {Object} querySnapshot estructura parecida a un Array, que
-             * contiene una copia de los datos en el servidor. */
-            querySnapshot => {
-              let html = "";
-              if (querySnapshot.size > 0) {
-                /* Cuando el número de registros devueltos por la consulta es
-                 * mayor que 0, Revisa uno por uno los registros de la consulta
-                 * y los muestra. El iterador "doc" apunta a un registro de la
-                 * base de datos. */
-                querySnapshot.forEach(doc => {
-                  // recupera los datos almacenados en el registro.
-                  const data = doc.data();
-                  /* Agrega un li con los datos del registro, que se codifican
-                   * para evitar inyección de código. */
-                  html += /* html */
-                    `<li>
-                      <span class="mensaje">
-                        <strong>${cod(data.usuario)}</strong><br>
-                        ${cod(data.texto)}
-                      </span>
-                    </li>`;
-                });
-              } else {
-                /* Cuando el número de registros devueltos por la consulta es
-                 * mayor que 0, agrega un texto HTML. */
-                html += /* html */
-                  `<li>No hay mensajes registrados.</li>`;
-              }
-              mensajes.innerHTML = html;
-            },
-            /* Función que se invoca cuando hay un error. Muestra el error. Al
-             * invocar esta función la conexión se cancela. Por lo mismo, se
-             * vuelve a conectar. */
-            e => {
-              procesaError(e);
-              // Intenta conectarse otra vez.
-              muestraMensajes();
-            }
-          );
+            rnLista,
+            errConsulta);
+      }
+      /** Función que
+       * muestra los datos
+       * enviados por el servidor.
+       * Si los datos cambian en
+       * el servidor, se vuelve a
+       * invocar esta función y
+       * recibe los datos
+       * actualizados.
+       * @param {Object} res estructura
+       *  parecida a un Array, que
+       *  contiene una copia de
+       *  los datos del servidor.
+       */
+      function rnLista(res) {
+        html = "";
+        if (res.size > 0) {
+          /* Cuando el número de
+           * documentos devueltos
+           * por la consulta es
+           * mayor que 0, revisa
+           * uno por uno los
+           * documentos de la
+           * consulta y los
+           * muestra. El iterador
+           * "doc" apunta a un
+           * documento de la base
+           * de datos. */
+          res.forEach(rnFila);
+        } else {
+          /* Cuando el número de
+           * registros devueltos
+           * por la consulta es
+           * mayor que 0, agrega
+           * un texto HTML. */
+          html += /* html */
+            `<li>
+              No hay mensajes
+              registrados.
+            </li>`;
+        }
+        lista.innerHTML = html;
+      }
+      /** Agrega el texto HTML
+       * que corresponde a un
+       * documento de un mensaje.
+       * @param {Object} doc */
+      function rnFila(doc) {
+        /* Recupera los datos del
+         * documento. */
+        const data = doc.data();
+        /* Agrega un li con los
+         * datos del documento,
+         * los cuales se codifican
+         * para evitar inyección
+         * de código. */
+        html += /* html */
+          `<li class="fila">
+            <div class="primario">
+              ${cod(
+            data.usuarioId)}
+            </div>
+            <div
+              class="secundario">
+              ${cod(
+              data.texto)}
+            </div>
+          </li>`;
+      }
+      /* Función que se invoca
+       * cuando hay un error al
+       * recuperar los mensajes.
+       * Muestra el error. Al
+       * invocar esta función, la
+       * conexión se cancela; por
+       * lo mismo, intenta
+       * conectarse otra vez.
+       * @param {Error} e */
+      function errConsulta(e) {
+        procesaError(e);
+        /* Intenta conectarse otra
+         * vez. */
+        consulta();
       }
     </script>
   </body>

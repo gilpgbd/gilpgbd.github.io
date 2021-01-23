@@ -2,38 +2,68 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport"
+      content="width=device-width,
+       initial-scale=1.0">
     <title>Sesión</title>
-    <!-- Carga el núcleo de Firebase JS SDK -->
+    <!--
+      Carga el núcleo de Firebase
+      JS SDK
+    -->
     <script
       src="https://www.gstatic.com/firebasejs/8.2.3/firebase-app.js"></script>
-    <!-- Agrega el manejo de autenticación. -->
+    <!--
+      Agrega el manejo de
+      autenticación.
+    -->
     <script
       src="https://www.gstatic.com/firebasejs/8.2.3/firebase-auth.js"></script>
-    <!-- Agrega el manejo de bases de datos. -->
+    <!--
+      Agrega el manejo de bases de
+      datos.
+    -->
     <script
       src="https://www.gstatic.com/firebasejs/8.2.3/firebase-firestore.js"></script>
-    <!-- Configura la app usando la información del sitio de Firebase. -->
-    <script src="js/init.js"></script>
-    <script type="module" src="cmp/mi-nav.js"></script>
-    <script type="module" src="cmp/mi-footer.js"></script>
-    <script type="module" src="cmp/mi-progreso.js"></script>
-    <link rel="stylesheet" href="css/estilos.css">
+    <!--
+      Configura la app usando la
+      información del sitio de
+      Firebase.
+    -->
+    <script src="js/init.js">
+    </script>
+    <script type="module"
+      src="cmp/mi-nav.js">
+      </script>
+    <script type="module"
+      src="cmp/mi-footer.js">
+      </script>
+    <script type="module"
+      src="cmp/mi-progreso.js">
+      </script>
+    <link rel="stylesheet"
+      href="css/estilos.css">
   </head>
   <body>
     <mi-nav></mi-nav>
     <header>
       <h1>Sesión</h1>
       <div class="herramientas">
-        <button id="terminarSesión">Terminar Sesión</button>
+        <button
+          id="terminarSesión">
+          Terminar Sesión
+        </button>
       </div>
     </header>
-    <figure><img id="avatar" src="" alt="Avatar"></figure>
+    <figure>
+      <img id="avatar" src=""
+        alt="Avatar">
+    </figure>
     <p>
       <label>
         Email
         <output id="email">
-          <mi-progreso></mi-progreso>
+          <mi-progreso>
+          </mi-progreso>
         </output>
       </label>
     </p>
@@ -41,37 +71,70 @@
       <label>
         Nombre
         <output id="nombre">
-          <mi-progreso></mi-progreso>
+          <mi-progreso>
+          </mi-progreso>
         </output>
       </label>
     </p>
     <mi-footer></mi-footer>
     <script type="module">
-      import { muestraError } from "./js/util.js";
-      import { iniciaSesión, terminaSesión } from "./js/seguridad.js";
-      /** Conexión al sistema de autenticación de Firebase. */
-      const auth = firebase.auth();
-      /** Escucha cambios de usuario. Recibe una función que se invoca cada que
-       * hay un cambio de usuario.
-       * @param {(usuarioAutorizado:Object)=>void} cambioDeUsuario función que
-       *   se invoca cuando hay un cambio de usuario. 
-       * @param {(e:Error)=>void} muestraError función que se invoca
-       *   cuando hay un error al verificar el usuario. */
-      auth.onAuthStateChanged(cambioDeUsuario, muestraError);
+      import {
+        muestraError
+      } from "./js/util.js";
+      import {
+        iniciaSesión,
+        terminaSesión
+      } from "./js/seguridad.js";
+      /** Conexión al sistema de
+       * autenticación de
+       * Firebase. */
+      const auth =
+        firebase.auth();
+      /* Escucha cambios de
+       * usuario.
+       * El primer parámetro es
+       * una función que se invoca
+       * cada que hay un cambio de
+       * usuario y recibe los
+       * datos del usuario.
+       * El segundo parámetro es
+       * una función que se invoca
+       * cuando se presenta
+       * un error en un cambio de
+       * usuario y recibe un
+       * Error. */
+      auth.onAuthStateChanged(
+        muestra, muestraError);
 
-      /** Actualiza los datos del usuario o manda a iniciar sesión en caso de
-       * que no lo haya realizado,
-       * @param {Object} usuarioAutorizado modelo con las características del
-       *  usuario o null si no ha iniciado sesión. */
-      async function cambioDeUsuario(usuarioAutorizado) {
-        if (usuarioAutorizado && usuarioAutorizado.email) {
+      /** Muestra los datos del
+       * usuario o manda a iniciar
+       * sesión en caso de que no
+       * la haya empezado,
+       * @param {Object} usuario modelo
+       *  con las características
+       *  del usuario o null si no
+       *  ha iniciado sesión. */
+      async function muestra(
+        usuario) {
+        if (usuario &&
+          usuario.email) {
           // Usuario aceptado.
-          email.value = usuarioAutorizado.email || "";
-          nombre.value = usuarioAutorizado.displayName || "";
-          avatar.src = usuarioAutorizado.photoURL || "";
-          terminarSesión.addEventListener("click", terminaSesión);
+          email.value =
+            usuario.email || "";
+          nombre.value =
+            usuario.displayName ||
+            "";
+          avatar.src =
+            usuario.photoURL ||
+            "";
+          terminarSesión.
+            addEventListener(
+              "click",
+              terminaSesión);
         } else {
-          // No ha iniciado sesión. Pide datos para iniciar sesión.
+          /* No ha iniciado
+           * sesión. lanza inicio
+           * de sesión. */
           iniciaSesión();
         }
       }

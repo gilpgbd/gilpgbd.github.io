@@ -15,6 +15,7 @@ export function renderRol(docRol) {
  * @param {HTMLSelectElement} select
  * @param {string} valor */
 export function renderPasatiempos(select, valor) {
+  // @ts-ignore
   const firestore = firebase.firestore();
   valor = valor || "";
   firestore.collection("Pasatiempo").orderBy("nombre").onSnapshot(
@@ -77,12 +78,14 @@ export function renderRoles(elemento, valor) {
 export async function guardaUsuario(evt, formData, id) {
   try {
     evt.preventDefault();
+    // @ts-ignore
     const firestore = firebase.firestore();
     await firestore.collection("Usuario").doc(id).set({
       pasatiempoId: formData.get("pasatiempoId") || null,
       rolIds: formData.getAll("rolIds")
     });
     const avatar = formData.get("avatar");
+    // @ts-ignore
     if (avatar && avatar.size > 0) {
       await subeStorage(id, avatar);
     }

@@ -2,7 +2,9 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport"
+      content="width=device-width,
+       initial-scale=1.0">
     <title>Pasatiempos</title>
     <script
       src="https://www.gstatic.com/firebasejs/8.2.3/firebase-app.js"></script>
@@ -10,72 +12,114 @@
       src="https://www.gstatic.com/firebasejs/8.2.3/firebase-auth.js"></script>
     <script
       src="https://www.gstatic.com/firebasejs/8.2.3/firebase-firestore.js"></script>
-    <script
-      src="https://www.gstatic.com/firebasejs/8.2.3/firebase-storage.js"></script>
-    <script src="js/init.js"></script>
-    <script type="module" src="cmp/mi-nav.js"></script>
-    <script type="module" src="cmp/mi-footer.js"></script>
-    <script type="module" src="cmp/mi-progreso.js"></script>
-    <link rel="stylesheet" href="css/estilos.css">
+    <script src="js/init.js">
+    </script>
+    <script type="module"
+      src="cmp/mi-nav.js">
+      </script>
+    <script type="module"
+      src="cmp/mi-footer.js">
+      </script>
+    <script type="module"
+      src="cmp/mi-progreso.js">
+      </script>
+    <link rel="stylesheet"
+      href="css/estilos.css">
   </head>
   <body>
     <mi-nav></mi-nav>
     <header>
       <h1>Pasatiempos</h1>
       <div class="herramientas">
-        <a href="pasatiempoNuevo.html">Agregar…</a>
+        <a href="pasatiempoNuevo.html">
+          Agregar…</a>
       </div>
     </header>
     <ul id="lista" class="lista">
       <li>
-        <mi-progreso></mi-progreso>
+        <mi-progreso>
+        </mi-progreso>
       </li>
     </ul>
     <mi-footer></mi-footer>
     <script type="module">
-      import { cod, muestraError } from "./js/util.js";
       import {
-        iniciaSesión, cargaRoles, noAutorizado
+        cod, muestraError
+      } from "./js/util.js";
+      import {
+        iniciaSesión,
+        cargaRoles,
+        noAutorizado
       } from "./js/seguridad.js";
-      const auth = firebase.auth();
-      const firestore = firebase.firestore();
-      auth.onAuthStateChanged(async usuario => {
-        if (usuario && usuario.email) {
-          const roles = await cargaRoles(usuario.email);
-          if (roles.has("Administrador")) {
-            renderPasatiempos();
+      const auth =
+        firebase.auth();
+      const firestore =
+        firebase.firestore();
+      let html = "";
+      auth.onAuthStateChanged(
+        protege, muestraError);
+
+        async function protege(
+        usuario) {
+        if (usuario &&
+          usuario.email) {
+          const roles =
+            await cargaRoles(
+              usuario.email);
+          if (roles.has(
+            "Administrador")) {
+            consulta();
           } else {
             noAutorizado();
           }
         } else {
           iniciaSesión();
         }
-      },
-        muestraError);
-      function renderPasatiempos() {
-        firestore.collection("Pasatiempo").orderBy("nombre")
+      }
+      function consulta() {
+        firestore.
+          collection("Pasatiempo").
+          orderBy("nombre")
           .onSnapshot(
-            querySnapshot => {
-              let html = "";
-              if (querySnapshot.size > 0) {
-                querySnapshot.forEach(doc => {
-                  const data = doc.data();
-                  const parámetros = new URLSearchParams();
-                  parámetros.append("id", doc.id);
-                  html += /* html */
-                    `<li><a href="pasatiempo.html?${parámetros}"><strong>${cod(data.nombre)}</strong></a></li>`;
-                });
-              } else {
-                html += /* html */
-                  `<li>No hay pasatiempos registrados.</li>`;
-              }
-              lista.innerHTML = html;
-            },
-            e => {
-              muestraError(e);
-              muestraMensajes();
-            }
+            rnLista,
+            errConsulta
           );
+      }
+      function rnLista(res) {
+        html = "";
+        if (res.size > 0) {
+          res.forEach(rnFla);
+        } else {
+          html += /* html */
+            `<li>
+              No hay pasatiempos
+              registrados.
+            </li>`;
+        }
+        mensajes.innerHTML = html;
+      }
+      function rnFla(doc) {
+        const data = doc.data();
+        const nombre =
+          cod(data.nombre);
+        const parámetros =
+          new URLSearchParams();
+        parámetros.
+          append("id", doc.id);
+        html += /* html */
+          `<li>
+            <a class="fila"
+              href="pasatiempo.html?${parámetros}">
+              <span
+                class="primario">
+                ${nombre}
+              </span>
+            </a>
+          </li>`;
+      }
+      function errConsulta(e) {
+        procesaError(e);
+        consulta();
       }
     </script>
   </body>

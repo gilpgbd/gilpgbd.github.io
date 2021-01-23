@@ -1,0 +1,58 @@
+.lista,
+.checks {
+  list-style-type: none;
+  padding: 0;
+}
+
+.lista {
+  margin: 1rem 0;
+}
+
+.checks {
+  margin: 0;
+}
+
+.lista .fila {
+  display: block;
+  padding: 1rem;
+}
+
+.lista a:active {
+  background-color:
+    var(--col-active);
+}
+
+.lista .primario {
+  display: block;
+  /* Negritas. */
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.lista .secundario {
+  display: block;
+  font-size: 0.75rem;
+}
+
+.checks label,
+.conImagen {
+  display: flex;
+  gap: 1rem;
+}
+
+.conImagen {
+  align-items: initial;
+}
+
+.conImagen .marco {
+  display: block;
+  width: 30%;
+}
+
+.conImagen img {
+  width: 100%;
+}
+
+.conImagen .texto {
+  display: block;
+}
