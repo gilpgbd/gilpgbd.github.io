@@ -7,9 +7,8 @@
 export async function
   subeStorage(nombre, archivo) {
   const storage =
-    // @ts-ignore
-    await firebase.storage();
-  storage.ref(nombre).
+    firebase.storage();
+  await storage.ref(nombre).
     put(archivo);
 }
 /**
@@ -20,8 +19,7 @@ export async function
   urlStorage(nombre) {
   try {
     const storage =
-      // @ts-ignore
-      await firebase.storage();
+      firebase.storage();
     return await storage.
       ref(nombre).
       getDownloadURL();
@@ -37,8 +35,7 @@ export async function
 export async function
   eliminaStorage(nombre) {
   const storage =
-    // @ts-ignore
-    await firebase.storage();
+    firebase.storage();
   return await storage.
     ref(nombre).delete();
 }

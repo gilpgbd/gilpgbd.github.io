@@ -5,13 +5,11 @@ import {
 export function iniciaSesión() {
   /** Conexión al sistema de
    * autenticación de Firebase. */
-  // @ts-ignore
   const auth = firebase.auth();
   /** Tipo de autenticación de
    * usuarios. En este caso es con
    * Google. */
   const provider =
-    // @ts-ignore
     new firebase.auth.
       GoogleAuthProvider();
   /* Configura el proveedor de
@@ -29,7 +27,6 @@ export function iniciaSesión() {
 export async function
   cargaRoles(email) {
   const firestore =
-    // @ts-ignore
     firebase.firestore();
   let doc =
     await firestore.
@@ -53,7 +50,6 @@ export function noAutorizado() {
 export async function
   terminaSesión() {
   try {
-    // @ts-ignore
     const auth = firebase.auth();
     await auth.signOut();
   } catch (e) {
