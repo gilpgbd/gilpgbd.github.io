@@ -12,47 +12,47 @@
   margin: 0;
 }
 
-.lista .fila {
+.fila {
   display: block;
   padding: 1rem;
 }
 
-.lista a:active {
+a.fila:active {
   background-color:
     var(--col-active);
 }
 
-.lista .primario {
+.primario {
   display: block;
   /* Negritas. */
   font-weight: bold;
   font-size: 1rem;
 }
 
-.lista .secundario {
+.secundario {
   display: block;
   font-size: 0.75rem;
 }
 
 .checks label,
-.conImagen {
+.fila.conImagen {
   display: flex;
   gap: 1rem;
 }
 
-.conImagen {
+.fila.conImagen {
   align-items: initial;
 }
 
-.conImagen .marco {
+.fila.conImagen .texto {
+  display: block;
+}
+
+.marco {
   display: block;
   width: 30%;
 }
 
-.conImagen img {
+.marco img {
   width: 100%;
-}
-
-.conImagen .texto {
-  display: block;
 }
