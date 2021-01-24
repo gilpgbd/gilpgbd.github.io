@@ -119,9 +119,10 @@ export function
             value="${cod(doc.id)}"
             ${checked}>
         <span class="texto">
-          <em class="primario">
+          <strong
+           class="primario">
             ${cod(doc.id)}
-          </em>
+          </strong>
           <span
            class="secundario">
           ${cod(data.descripción)}
