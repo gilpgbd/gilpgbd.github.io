@@ -14,9 +14,6 @@ import {
   iniciaSesión,
   noAutorizado
 } from "./seguridad.js";
-import {
-  htmlRol
-} from "./usuarios.js";
 
 /** @type {HTMLUListElement} */
 const lista = document.
@@ -112,7 +109,7 @@ async function htmlFila(doc) {
           </strong>
           <span
               class="secundario">
-            ${pasatiempo}
+            ${pasatiempo}<br>
             ${roles}
           </span>
         </span>
@@ -136,15 +133,11 @@ async function buscaPasatiempo(id) {
             Pasatiempo} */
       const data = doc.data();
       return (/* html */
-        `<span class="primario">
-          ${cod(data.nombre)}
-        </span>`);
+        `${cod(data.nombre)}`);
     }
   }
   return (/* html */
-    `<span class="secundario">
-      -- Sin Pasatiempo --
-    </span>`);
+    `-- Sin Pasatiempo --`);
 }
 /** Recupera el html de los
  * roles en base a sus id
@@ -159,14 +152,20 @@ async function buscaRoles(ids) {
           collection("Rol").
           doc(id).
           get();
-      html += htmlRol(doc);
+      /**
+       * @type {
+      import("./tipos.js").Rol} */
+      const data = doc.data();
+      html += /* html */
+        `<em>${cod(doc.id)}</em>
+        <br>
+        ${cod(data.descripción)}
+        <br>`;
     }
     return html;
   } else {
     return (/* html */
-      `<span class="secundario">
-        -- Sin Roles --
-      </span>`);
+      `-- Sin Roles --`);
   }
 }
 /** @param {Error} e */

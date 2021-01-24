@@ -18,24 +18,6 @@ const SIN_PASATIEMPO = /* html */
 
 /**
  * @param {
-    import("../lib/tiposFire.js").
-    DocumentSnapshot} doc */
-export function htmlRol(doc) {
-  /**
-   * @type {
-      import("./tipos.js").Rol} */
-  const data = doc.data();
-  return (/* html */
-    `<em class="primario">
-      ${cod(doc.id)}
-    </em>
-    <span class="secundario">
-      ${cod(data.descripción)}
-    </span>`);
-}
-
-/**
- * @param {
     HTMLSelectElement} select
  * @param {string} valor */
 export function
@@ -122,6 +104,10 @@ export function
  * @param {Set<string>} set */
 export function
   checkRol(doc, set) {
+  /**
+   * @type {
+      import("./tipos.js").Rol} */
+  const data = doc.data();
   const checked =
     set.has(doc.id) ?
       "checked" : "";
@@ -133,7 +119,13 @@ export function
             value="${cod(doc.id)}"
             ${checked}>
         <span class="texto">
-          ${htmlRol(doc)}
+          <em class="primario">
+            ${cod(doc.id)}
+          </em>
+          <span
+           class="secundario">
+          ${cod(data.descripción)}
+          </span>
         </span>
       </label>
     </li>`);
