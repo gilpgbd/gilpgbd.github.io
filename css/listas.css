@@ -54,3 +54,8 @@ label.fila,
 .marco img {
   width: 100%;
 }
+
+.vacio {
+  font-size: 0.75rem;
+  text-align: center;
+}

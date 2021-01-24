@@ -55,9 +55,9 @@ function htmlLista(snap) {
       html += htmlFila(doc));
   } else {
     html += /* html */
-      `<li>
-        No hay pasatiempos
-        registrados.
+      `<li class="vacio">
+        -- No hay pasatiempos
+        registrados. --
       </li>`;
   }
   lista.innerHTML = html;

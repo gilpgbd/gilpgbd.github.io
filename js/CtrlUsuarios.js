@@ -70,9 +70,9 @@ async function htmlLista(snap) {
     html += htmlFilas.join("");
   } else {
     html += /* html */
-      `<li>
-        No hay usuarios
-        registrados.
+      `<li class="vacio">
+        -- No hay usuarios
+        registrados. --
       </li>`;
   }
   lista.innerHTML = html;

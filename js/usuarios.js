@@ -101,9 +101,9 @@ export function
               doc, set));
         } else {
           html += /* html */
-            `<li>
-              No hay roles
-              registrados.
+            `<li class="vacio">
+              -- No hay roles
+              registrados. --
             </li>`;
         }
         elemento.innerHTML = html;
