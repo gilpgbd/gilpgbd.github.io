@@ -42,11 +42,11 @@ label.fila,
   align-items: initial;
 }
 
-.fila.conImagen .texto {
+.fila .texto {
   display: block;
 }
 
-.marco {
+.fila .marco {
   display: block;
   width: 30%;
 }

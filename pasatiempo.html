@@ -2,7 +2,9 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport"
+      content="width=device-width,
+       initial-scale=1.0">
     <title>Pasatiempo</title>
     <script
       src="https://www.gstatic.com/firebasejs/8.2.3/firebase-app.js"></script>
@@ -10,97 +12,45 @@
       src="https://www.gstatic.com/firebasejs/8.2.3/firebase-auth.js"></script>
     <script
       src="https://www.gstatic.com/firebasejs/8.2.3/firebase-firestore.js"></script>
-    <script src="js/init.js"></script>
-    <script type="module" src="cmp/mi-nav.js"></script>
-    <script type="module" src="cmp/mi-footer.js"></script>
-    <link rel="stylesheet" href="css/estilos.css">
+    <script src="js/init.js">
+    </script>
+    <script type="module"
+      src="cmp/mi-nav.js">
+      </script>
+    <script type="module"
+      src="cmp/mi-footer.js">
+      </script>
+    <link rel="stylesheet"
+      href="css/estilos.css">
   </head>
   <body>
     <form id="forma">
-      <mi-nav id="miNav"></mi-nav>
+      <mi-nav></mi-nav>
       <header>
         <h1>Pasatiempo</h1>
         <div class="herramientas">
-          <a href="pasatiempos.html">Cancelar</a>
+          <a href="pasatiempos.html">
+            Cancelar</a>
           <button>Guardar</button>
-          <button id="eliminar" type="button">Eliminar</button>
+          <button id="eliminar"
+            type="button">
+            Eliminar
+          </button>
         </div>
       </header>
       <p>
         <label>
           Nombre
-          <input name="nombre" type="text" value="Cargando…">
+          <input name="nombre"
+            type="text"
+            required
+            value="Cargando…">
         </label>
       </p>
       <mi-footer></mi-footer>
     </form>
-    <script type="module">
-      import { cod, muestraError } from "./js/util.js";
-      import { muestraPasatiempos } from "./js/navegacion.js";
-      import {
-        iniciaSesión, cargaRoles, noAutorizado
-      } from "./js/seguridad.js";
-      const auth = firebase.auth();
-      const firestore = firebase.firestore();
-      const params = new URL(location.href).searchParams;
-      const id = params.get("id");
-
-      auth.onAuthStateChanged(async usuario => {
-        if (usuario && usuario.email) {
-          const roles = await cargaRoles(usuario.email);
-          if (roles.has("Administrador")) {
-            busca();
-          } else {
-            noAutorizado();
-          }
-        } else {
-          iniciaSesión();
-        }
-      },
-        muestraError);
-
-      /** Busca y muestra los datos que corresponden al id recibido. */
-      async function busca() {
-        try {
-          const doc = await firestore.collection("Pasatiempo").doc(id).get();
-          if (doc.exists) {
-            const data = doc.data();
-            forma.nombre.value = data.nombre || "";
-            forma.addEventListener("submit", guarda);
-            eliminar.addEventListener("click", elimina);
-          } else {
-            throw new Error("No se encontró el pasatiempo.");
-          }
-        } catch (e) {
-          muestraError(e);
-          muestraPasatiempos();
-        }
-      }
-
-      /** @param {Event} evt */
-      async function guarda(evt) {
-        try {
-          evt.preventDefault();
-          const formData = new FormData(forma);
-          await firestore.collection("Pasatiempo").doc(id).set({
-            nombre: formData.get("nombre").trim(),
-          });
-          muestraPasatiempos();
-        } catch (e) {
-          muestraError(e);
-        }
-      }
-
-      async function elimina() {
-        try {
-          if (confirm("Confirmar la eliminación")) {
-            await firestore.collection("Pasatiempo").doc(id).delete();
-            muestraPasatiempos();
-          }
-        } catch (e) {
-          muestraError(e);
-        }
-      }
-    </script>
+    <script type="module"
+      src="js/CtrlPasatiempo.js">
+      </script>
   </body>
 </html>

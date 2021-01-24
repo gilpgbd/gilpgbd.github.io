@@ -77,67 +77,8 @@
       </label>
     </p>
     <mi-footer></mi-footer>
-    <script type="module">
-      import {
-        muestraError
-      } from "./js/util.js";
-      import {
-        iniciaSesión,
-        terminaSesión
-      } from "./js/seguridad.js";
-      /** Conexión al sistema de
-       * autenticación de
-       * Firebase. */
-      const auth =
-        firebase.auth();
-      /* Escucha cambios de
-       * usuario.
-       * El primer parámetro es
-       * una función que se invoca
-       * cada que hay un cambio de
-       * usuario y recibe los
-       * datos del usuario.
-       * El segundo parámetro es
-       * una función que se invoca
-       * cuando se presenta
-       * un error en un cambio de
-       * usuario y recibe un
-       * Error. */
-      auth.onAuthStateChanged(
-        muestra, muestraError);
-
-      /** Muestra los datos del
-       * usuario o manda a iniciar
-       * sesión en caso de que no
-       * la haya empezado,
-       * @param {Object} usuario modelo
-       *  con las características
-       *  del usuario o null si no
-       *  ha iniciado sesión. */
-      async function muestra(
-        usuario) {
-        if (usuario &&
-          usuario.email) {
-          // Usuario aceptado.
-          email.value =
-            usuario.email || "";
-          nombre.value =
-            usuario.displayName ||
-            "";
-          avatar.src =
-            usuario.photoURL ||
-            "";
-          terminarSesión.
-            addEventListener(
-              "click",
-              terminaSesión);
-        } else {
-          /* No ha iniciado
-           * sesión. lanza inicio
-           * de sesión. */
-          iniciaSesión();
-        }
-      }
-    </script>
+    <script type="module"
+      src="js/CtrlSesion.js">
+      </script>
   </body>
 </html>

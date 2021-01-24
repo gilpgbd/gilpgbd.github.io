@@ -35,92 +35,15 @@
           Agregar…</a>
       </div>
     </header>
-    <ul id="lista" class="lista">
+    <ul class="lista">
       <li>
         <mi-progreso>
         </mi-progreso>
       </li>
     </ul>
     <mi-footer></mi-footer>
-    <script type="module">
-      import {
-        cod, muestraError
-      } from "./js/util.js";
-      import {
-        iniciaSesión,
-        cargaRoles,
-        noAutorizado
-      } from "./js/seguridad.js";
-      const auth =
-        firebase.auth();
-      const firestore =
-        firebase.firestore();
-      let html = "";
-      auth.onAuthStateChanged(
-        protege, muestraError);
-
-        async function protege(
-        usuario) {
-        if (usuario &&
-          usuario.email) {
-          const roles =
-            await cargaRoles(
-              usuario.email);
-          if (roles.has(
-            "Administrador")) {
-            consulta();
-          } else {
-            noAutorizado();
-          }
-        } else {
-          iniciaSesión();
-        }
-      }
-      function consulta() {
-        firestore.
-          collection("Pasatiempo").
-          orderBy("nombre")
-          .onSnapshot(
-            rnLista,
-            errConsulta
-          );
-      }
-      function rnLista(res) {
-        html = "";
-        if (res.size > 0) {
-          res.forEach(rnFla);
-        } else {
-          html += /* html */
-            `<li>
-              No hay pasatiempos
-              registrados.
-            </li>`;
-        }
-        lista.innerHTML = html;
-      }
-      function rnFla(doc) {
-        const data = doc.data();
-        const nombre =
-          cod(data.nombre);
-        const parámetros =
-          new URLSearchParams();
-        parámetros.
-          append("id", doc.id);
-        html += /* html */
-          `<li>
-            <a class="fila"
-              href="pasatiempo.html?${parámetros}">
-              <strong
-                class="primario">
-                ${nombre}
-              </strong>
-            </a>
-          </li>`;
-      }
-      function errConsulta(e) {
-        procesaError(e);
-        consulta();
-      }
-    </script>
+    <script type="module"
+      src="js/CtrlPasatiempos.js">
+      </script>
   </body>
 </html>

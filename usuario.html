@@ -2,7 +2,9 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport"
+      content="width=device-width,
+       initial-scale=1.0">
     <title>Usuario</title>
     <script
       src="https://www.gstatic.com/firebasejs/8.2.3/firebase-app.js"></script>
@@ -12,114 +14,86 @@
       src="https://www.gstatic.com/firebasejs/8.2.3/firebase-firestore.js"></script>
     <script
       src="https://www.gstatic.com/firebasejs/8.2.3/firebase-storage.js"></script>
-    <script src="js/init.js"></script>
-    <script type="module" src="cmp/mi-nav.js"></script>
-    <script type="module" src="cmp/mi-footer.js"></script>
-    <script type="module" src="cmp/mi-progreso.js"></script>
-    <link rel="stylesheet" href="css/estilos.css">
+    <script src="js/init.js">
+    </script>
+    <script type="module"
+      src="cmp/mi-nav.js">
+      </script>
+    <script type="module"
+      src="cmp/mi-footer.js">
+      </script>
+    <script type="module"
+      src="cmp/mi-progreso.js">
+      </script>
+    <link rel="stylesheet"
+      href="css/estilos.css">
   </head>
   <body>
     <form id="forma">
       <mi-nav></mi-nav>
       <header>
-        <h1><output name="cue">Usuario <mi-progreso></mi-progreso></output></h1>
+        <h1>
+          <output name="cue">
+            Usuario
+            <mi-progreso>
+            </mi-progreso>
+          </output>
+        </h1>
         <div class="herramientas">
-          <a href="usuarios.html">Cancelar</a>
+          <a href="usuarios.html">
+            Cancelar</a>
           <button>Guardar</button>
-          <button id="eliminar" type="button">Eliminar</button>
+          <button id="eliminar"
+            type="button">
+            Eliminar
+          </button>
         </div>
       </header>
-      <figure id="figure"><img id="img" alt="Falta el Avatar"></figure>
+      <figure id="figure">
+        <img
+          alt="Falta el Avatar">
+      </figure>
       <p>
         <label>
           Avatar
-          <input name="avatar" type="file" accept=".png,.jpg,.jpeg,.gif">
+          <input name="avatar"
+            type="file"
+            accept=".png,.jpg,.jpeg,.gif">
         </label>
       </p>
-      <!-- Maneja una asociación a uno. -->
+      <!--
+        Maneja una asociación a
+        uno.
+      -->
       <p>
         <label>
           Pasatiempo
-          <select name="pasatiempoId">
-            <option>Cargando…</option>
+          <select
+            name="pasatiempoId">
+            <option>
+              Cargando…
+            </option>
           </select>
         </label>
       </p>
-      <!-- Maneja una asociación a muchos. -->
+      <!--
+        Maneja una asociación a
+        muchos.
+      -->
       <fieldset>
         <legend>Roles</legend>
-        <ul id="listaRoles" class="checks">
+        <ul id="listaRoles"
+          class="checks">
           <li>
-            <mi-progreso></mi-progreso>
+            <mi-progreso>
+            </mi-progreso>
           </li>
         </ul>
       </fieldset>
       <mi-footer></mi-footer>
     </form>
-    <script type="module">
-      import { muestraError } from "./js/util.js";
-      import { muestraUsuarios } from "./js/navegacion.js";
-      import {
-        iniciaSesión, cargaRoles, noAutorizado
-      } from "./js/seguridad.js";
-      import {
-        rnPasatiempos, renderRoles, guardaUsu
-      } from "./js/usuarios.js";
-      import { urlStorage, eliminaStorage } from "./js/storage.js";
-      const auth = firebase.auth();
-      const firestore = firebase.firestore();
-      const params = new URL(location.href).searchParams;
-      const id = params.get("id");
-
-      auth.onAuthStateChanged(async usuario => {
-        if (usuario && usuario.email) {
-          const roles = await cargaRoles(usuario.email);
-          if (roles.has("Administrador")) {
-            forma.addEventListener("submit", guarda);
-            busca();
-          } else {
-            noAutorizado();
-          }
-        } else {
-          iniciaSesión();
-        }
-      },
-        muestraError);
-
-      async function busca() {
-        try {
-          const doc = await firestore.collection("Usuario").doc(id).get();
-          if (doc.exists) {
-            const data = doc.data();
-            forma.cue.value = id || "";
-            img.src = await urlStorage(id);
-            rnPasatiempos(forma.pasatiempoId, data.pasatiempoId)
-            renderRoles(listaRoles, data.rolIds);
-            forma.addEventListener("submit", guarda);
-            eliminar.addEventListener("click", elimina);
-          }
-        } catch (e) {
-          muestraError(e);
-          muestraUsuarios();
-        }
-      }
-
-      /** @param {Event} evt */
-      async function guarda(evt) {
-        await guardaUsu(evt, new FormData(forma), id);
-      }
-
-      async function elimina() {
-        try {
-          if (confirm("Confirmar la eliminación")) {
-            await firestore.collection("Usuario").doc(id).delete();
-            await eliminaStorage(id);
-            muestraUsuarios();
-          }
-        } catch (e) {
-          muestraError(e);
-        }
-      }
-    </script>
+    <script type="module"
+      src="js/CtrlUsuario.js">
+      </script>
   </body>
 </html>

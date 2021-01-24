@@ -2,7 +2,9 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport"
+      content="width=device-width,
+       initial-scale=1.0">
     <title>Usuario Nuevo</title>
     <script
       src="https://www.gstatic.com/firebasejs/8.2.3/firebase-app.js"></script>
@@ -12,11 +14,19 @@
       src="https://www.gstatic.com/firebasejs/8.2.3/firebase-firestore.js"></script>
     <script
       src="https://www.gstatic.com/firebasejs/8.2.3/firebase-storage.js"></script>
-    <script src="js/init.js"></script>
-    <script type="module" src="cmp/mi-nav.js"></script>
-    <script type="module" src="cmp/mi-footer.js"></script>
-    <script type="module" src="cmp/mi-progreso.js"></script>
-    <link rel="stylesheet" href="css/estilos.css">
+    <script src="js/init.js">
+    </script>
+    <script type="module"
+      src="cmp/mi-nav.js">
+      </script>
+    <script type="module"
+      src="cmp/mi-footer.js">
+      </script>
+    <script type="module"
+      src="cmp/mi-progreso.js">
+      </script>
+    <link rel="stylesheet"
+      href="css/estilos.css">
   </head>
   <body>
     <form id="forma">
@@ -24,71 +34,63 @@
       <header>
         <h1>Usuario Nuevo</h1>
         <div class="herramientas">
-          <a href="usuarios.html">Cancelar</a>
-          <button type="submit">Guardar</button>
+          <a href="usuarios.html">
+            Cancelar</a>
+          <button type="submit">
+            Guardar
+          </button>
         </div>
       </header>
-      <p><label>Cue <input name="cue" type="email" required></label></p>
+      <p>
+        <label>
+          Cue
+          <input name="cue"
+            type="email"
+            required>
+        </label>
+      </p>
       <p>
         <label>
           Avatar
-          <input name="avatar" type="file" required
+          <input name="avatar"
+            type="file"
+            required
             accept=".png,.jpg,.jpeg,.gif">
         </label>
       </p>
-      <!-- Maneja una asociación a uno. -->
+      <!--
+        Maneja una asociación a
+        uno.
+      -->
       <p>
         <label>
           Pasatiempo
-          <select name="pasatiempoId">
-            <option>Cargando…</option>
+          <select
+            name="pasatiempoId">
+            <option>
+              Cargando…
+            </option>
           </select>
         </label>
       </p>
-      <!-- Maneja una asociación a muchos. -->
+      <!--
+        Maneja una asociación a
+        muchos.
+      -->
       <fieldset>
         <legend>Roles</legend>
-        <ul id="listaRoles" class="checks">
+        <ul id="listaRoles"
+          class="checks">
           <li>
-            <mi-progreso></mi-progreso>
+            <mi-progreso>
+            </mi-progreso>
           </li>
         </ul>
       </fieldset>
       <mi-footer></mi-footer>
     </form>
-    <script type="module">
-      import { muestraError } from "./js/util.js";
-      import { muestraPasatiempos } from "./js/navegacion.js";
-      import {
-        iniciaSesión, cargaRoles, noAutorizado
-      } from "./js/seguridad.js";
-      import {
-        rnPasatiempos, renderRoles, guardaUsu
-      } from "./js/usuarios.js";
-      const auth = firebase.auth();
-      const firestore = firebase.firestore();
-      auth.onAuthStateChanged(async usuario => {
-        if (usuario && usuario.email) {
-          const roles = await cargaRoles(usuario.email);
-          if (roles.has("Administrador")) {
-            forma.addEventListener("submit", guarda);
-            rnPasatiempos(forma.pasatiempoId, "")
-            renderRoles(listaRoles, []);
-          } else {
-            noAutorizado();
-          }
-        } else {
-          iniciaSesión();
-        }
-      },
-        muestraError);
-
-      /** @param {Event} evt */
-      async function guarda(evt) {
-        const formData = new FormData(forma);
-        const id = formData.get("cue").trim();
-        await guardaUsu(evt, formData, id);
-      }
-    </script>
+    <script type="module"
+      src="js/CtrlUsuarioNuevo.js">
+      </script>
   </body>
 </html>
