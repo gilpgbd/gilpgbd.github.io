@@ -18,8 +18,9 @@ import {
   htmlRol
 } from "./usuarios.js";
 
-const lista =
-  document.querySelector("ul");
+/** @type {HTMLUListElement} */
+const lista = document.
+  querySelector("#lista");
 const firestore = getFirestore();
 getAuth().onAuthStateChanged(
   protege, muestraError);

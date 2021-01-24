@@ -16,8 +16,9 @@ const firestore = getFirestore();
 let usuarioId = "";
 /** @type {HTMLFormElement} */
 const forma = document["forma"];
-const lista =
-  document.querySelector("ul");
+/** @type {HTMLUListElement} */
+const lista = document.
+  querySelector("#lista");
 getAuth().onAuthStateChanged(
   protege, muestraError);
 

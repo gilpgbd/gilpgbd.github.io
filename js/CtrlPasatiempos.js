@@ -12,8 +12,9 @@ import {
   noAutorizado
 } from "./seguridad.js";
 
-const lista =
-  document.querySelector("ul");
+/** @type {HTMLUListElement} */
+const lista = document.
+  querySelector("#lista");
 getAuth().
   onAuthStateChanged(
     protege, muestraError);
