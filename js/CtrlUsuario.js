@@ -2,17 +2,26 @@ import {
   getAuth,
   getFirestore
 } from "../lib/fabrica.js";
-import { eliminaStorage, urlStorage } from "../lib/storage.js";
+import {
+  eliminaStorage,
+  urlStorage
+} from "../lib/storage.js";
 import {
   muestraError
 } from "../lib/util.js";
-import { muestraUsuarios } from "./navegacion.js";
+import {
+  muestraUsuarios
+} from "./navegacion.js";
 import {
   cargaRoles,
   iniciaSesión,
   noAutorizado
 } from "./seguridad.js";
-import { checksRoles, guardaUsuario, selectPasatiempos } from "./usuarios.js";
+import {
+  checksRoles,
+  guardaUsuario,
+  selectPasatiempos
+} from "./usuarios.js";
 
 const params = new URL(location.href).searchParams;
 const id = params.get("id");

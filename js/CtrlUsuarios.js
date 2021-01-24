@@ -136,9 +136,9 @@ async function buscaPasatiempo(id) {
             Pasatiempo} */
       const data = doc.data();
       return (/* html */
-        `<div>
+        `<span class="primario">
           ${cod(data.nombre)}
-        </div>`);
+        </span>`);
     }
   }
   return (/* html */
