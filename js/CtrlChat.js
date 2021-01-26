@@ -12,6 +12,7 @@ import {
   iniciaSesión,
   noAutorizado
 } from "./seguridad.js";
+
 const firestore = getFirestore();
 let usuarioId = "";
 /** @type {HTMLFormElement} */
@@ -19,6 +20,7 @@ const forma = document["forma"];
 /** @type {HTMLUListElement} */
 const lista = document.
   querySelector("#lista");
+  
 getAuth().onAuthStateChanged(
   protege, muestraError);
 
