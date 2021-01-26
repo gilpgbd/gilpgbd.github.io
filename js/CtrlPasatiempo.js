@@ -103,8 +103,8 @@ async function guarda(evt) {
 
 async function elimina() {
   try {
-    if (confirm(
-      "Confirmar la eliminación")) {
+    if (confirm("Confirmar la " +
+      "eliminación")) {
       await firestore.
         collection("Pasatiempo").
         doc(id).delete();

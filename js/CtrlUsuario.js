@@ -23,7 +23,9 @@ import {
   selectPasatiempos
 } from "./usuarios.js";
 
-const params = new URL(location.href).searchParams;
+const params =
+  new URL(location.href).
+    searchParams;
 const id = params.get("id");
 const firestore = getFirestore();
 /** @type {HTMLFormElement} */
@@ -93,8 +95,8 @@ async function guarda(evt) {
 
 async function elimina() {
   try {
-    if (confirm(
-      "Confirmar la eliminación")) {
+    if (confirm("Confirmar la " +
+      "eliminación")) {
       await firestore.
         collection("Usuario").
         doc(id).delete();

@@ -119,7 +119,8 @@ async function htmlFila(doc) {
 /** Recupera el html de un
  * pasatiempo en base a su id.
  * @param {string} id */
-async function buscaPasatiempo(id) {
+async function
+  buscaPasatiempo(id) {
   if (id) {
     const doc =
       await firestore.

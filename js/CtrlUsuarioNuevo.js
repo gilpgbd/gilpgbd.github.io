@@ -10,9 +10,12 @@ import {
   iniciaSesión,
   noAutorizado
 } from "./seguridad.js";
-import { checksRoles, guardaUsuario, selectPasatiempos } from "./usuarios.js";
+import {
+  checksRoles,
+  guardaUsuario,
+  selectPasatiempos
+} from "./usuarios.js";
 
-const firestore = getFirestore();
 /** @type {HTMLFormElement} */
 const forma = document["forma"];
 /** @type {HTMLUListElement} */
