@@ -13,9 +13,7 @@ import {
   muestraUsuarios
 } from "./navegacion.js";
 import {
-  cargaRoles,
-  iniciaSesión,
-  noAutorizado
+  tieneRol
 } from "./seguridad.js";
 import {
   checksRoles,
@@ -45,18 +43,9 @@ getAuth().onAuthStateChanged(
     "../lib/tiposFire.js").User}
     usuario */
 async function protege(usuario) {
-  if (usuario && usuario.email) {
-    const roles =
-      await cargaRoles(
-        usuario.email);
-    if (roles.has(
-      "Administrador")) {
-      busca();
-    } else {
-      noAutorizado();
-    }
-  } else {
-    iniciaSesión();
+  if (tieneRol(usuario,
+    ["Administrador"])) {
+    busca();
   }
 }
 

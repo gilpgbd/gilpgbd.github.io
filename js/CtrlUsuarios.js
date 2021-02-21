@@ -10,9 +10,7 @@ import {
   muestraError
 } from "../lib/util.js";
 import {
-  cargaRoles,
-  iniciaSesión,
-  noAutorizado
+  tieneRol
 } from "./seguridad.js";
 
 /** @type {HTMLUListElement} */
@@ -26,18 +24,9 @@ getAuth().onAuthStateChanged(
     "../lib/tiposFire.js").User}
     usuario */
 async function protege(usuario) {
-  if (usuario && usuario.email) {
-    const roles =
-      await cargaRoles(
-        usuario.email);
-    if (roles.has(
-      "Administrador")) {
-      consulta();
-    } else {
-      noAutorizado();
-    }
-  } else {
-    iniciaSesión();
+  if (tieneRol(usuario,
+    ["Administrador"])) {
+    consulta();
   }
 }
 function consulta() {

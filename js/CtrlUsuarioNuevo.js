@@ -1,14 +1,12 @@
 import {
-  getAuth, getFirestore
+  getAuth
 } from "../lib/fabrica.js";
 import {
   getString,
   muestraError
 } from "../lib/util.js";
 import {
-  cargaRoles,
-  iniciaSesión,
-  noAutorizado
+  tieneRol
 } from "./seguridad.js";
 import {
   checksRoles,
@@ -28,22 +26,13 @@ getAuth().onAuthStateChanged(
     "../lib/tiposFire.js").User}
     usuario */
 async function protege(usuario) {
-  if (usuario && usuario.email) {
-    const roles =
-      await cargaRoles(
-        usuario.email);
-    if (roles.has(
-      "Administrador")) {
-      forma.addEventListener(
-        "submit", guarda);
-      selectPasatiempos(
-        forma.pasatiempoId, "");
-      checksRoles(listaRoles, []);
-    } else {
-      noAutorizado();
-    }
-  } else {
-    iniciaSesión();
+  if (tieneRol(usuario,
+    ["Administrador"])) {
+    forma.addEventListener(
+      "submit", guarda);
+    selectPasatiempos(
+      forma.pasatiempoId, "");
+    checksRoles(listaRoles, []);
   }
 }
 

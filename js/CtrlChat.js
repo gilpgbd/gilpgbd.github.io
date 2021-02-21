@@ -8,9 +8,7 @@ import {
   muestraError
 } from "../lib/util.js";
 import {
-  cargaRoles,
-  iniciaSesión,
-  noAutorizado
+  tieneRol
 } from "./seguridad.js";
 
 const firestore = getFirestore();
@@ -20,7 +18,7 @@ const forma = document["forma"];
 /** @type {HTMLUListElement} */
 const lista = document.
   querySelector("#lista");
-  
+
 getAuth().onAuthStateChanged(
   protege, muestraError);
 
@@ -28,19 +26,11 @@ getAuth().onAuthStateChanged(
     "../lib/tiposFire.js").User}
     usuario */
 async function protege(usuario) {
-  if (usuario && usuario.email) {
-    usuarioId = usuario.email;
-    const roles =
-      await cargaRoles(usuarioId);
-    if (roles.has("Cliente")) {
-      consulta();
-      forma.addEventListener(
-        "submit", agrega);
-    } else {
-      noAutorizado();
-    }
-  } else {
-    iniciaSesión();
+  if (tieneRol(usuario,
+    ["Cliente"])) {
+    consulta();
+    forma.addEventListener(
+      "submit", agrega);
   }
 }
 /** Agrega un usuario a la base de

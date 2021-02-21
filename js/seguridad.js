@@ -28,11 +28,28 @@ export async function
     signInWithRedirect(provider);
 }
 
-export function noAutorizado() {
-  //Despliega un cuadro de alerta.
-  alert("No autorizado.");
-  // Abre la página index.html.
-  location.href = "index.html";
+/** @param {import(
+    "../lib/tiposFire.js").User}
+    usuario
+ * @param {string[]} roles
+ * @returns {Promise<boolean>} */
+export async function
+  tieneRol(usuario, roles) {
+  if (usuario && usuario.email) {
+    const rolIds =
+      await cargaRoles(
+        usuario.email);
+    for (const rol of roles) {
+      if (rolIds.has(rol)) {
+        return true;
+      }
+    }
+    alert("No autorizado.");
+    location.href = "index.html";
+  } else {
+    iniciaSesión();
+  }
+  return false;
 }
 
 export async function
