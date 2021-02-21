@@ -6,7 +6,6 @@ import {
   muestraError
 } from "../lib/util.js";
 
-
 export async function
   iniciaSesión() {
   /** Tipo de autenticación de
