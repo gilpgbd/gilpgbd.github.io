@@ -6,6 +6,10 @@ import {
   muestraError
 } from "../lib/util.js";
 
+const firestore = getFirestore();
+const daoUsuario = firestore.
+  collection("Usuario");
+
 export async function
   iniciaSesión() {
   /** Tipo de autenticación de
@@ -66,8 +70,7 @@ export async function
 export async function
   cargaRoles(email) {
   let doc =
-    await getFirestore().
-      collection("Usuario").
+    await daoUsuario.
       doc(email).
       get();
   if (doc.exists) {
