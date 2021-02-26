@@ -20,10 +20,11 @@ class MiNav extends HTMLElement {
     this.ul =
       this.querySelector("ul");
     getAuth().onAuthStateChanged(
-      async usuario => this.
+      usuario => this.
         cambiaUsuario(usuario),
       muestraError);
   }
+
   /**
    * @param {import(
       "../lib/tiposFire.js").User}
@@ -62,5 +63,6 @@ class MiNav extends HTMLElement {
     }
   }
 }
+
 customElements.define(
   "mi-nav", MiNav);

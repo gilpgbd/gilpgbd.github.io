@@ -1,4 +1,5 @@
 @import "mi-nav.css";
+@import "mi-footer.css";
 @import "listas.css";
 
 :root {
@@ -39,13 +40,6 @@ header input {
 
 h1 {
   margin: 0.5rem 0;
-}
-
-mi-footer {
-  display: block;
-  margin: 1rem;
-  font-size: small;
-  text-align: center;
 }
 
 figure img {

@@ -5,7 +5,7 @@ import {
   subeStorage
 } from "../lib/storage.js";
 import {
-  cod, muestraError
+  cod, getForánea, muestraError
 } from "../lib/util.js";
 import {
   muestraUsuarios
@@ -16,6 +16,14 @@ const SIN_PASATIEMPO = /* html */
     -- Sin Pasatiempo --
   </option>`;
 
+const firestore = getFirestore();
+const daoRol = firestore.
+  collection("Rol");
+const daoPasatiempo = firestore.
+  collection("Pasatiempo");
+const daoUsuario = firestore.
+  collection("Usuario");
+
 /**
  * @param {
     HTMLSelectElement} select
@@ -24,8 +32,7 @@ export function
   selectPasatiempos(select,
     valor) {
   valor = valor || "";
-  getFirestore().
-    collection("Pasatiempo").
+  daoPasatiempo.
     orderBy("nombre").
     onSnapshot(
       snap => {
@@ -72,31 +79,30 @@ export function
   checksRoles(elemento, valor) {
   const set =
     new Set(valor || []);
-  getFirestore().
-    collection("Rol").
-    onSnapshot(
-      snap => {
-        let html = "";
-        if (snap.size > 0) {
-          snap.forEach(doc =>
-            html += checkRol(
-              doc, set));
-        } else {
-          html += /* html */
-            `<li class="vacio">
+  daoRol.onSnapshot(
+    snap => {
+      let html = "";
+      if (snap.size > 0) {
+        snap.forEach(doc =>
+          html +=
+          checkRol(doc, set));
+      } else {
+        html += /* html */
+          `<li class="vacio">
               -- No hay roles
               registrados. --
             </li>`;
-        }
-        elemento.innerHTML = html;
-      },
-      e => {
-        muestraError(e);
-        checksRoles(
-          elemento, valor);
       }
-    );
+      elemento.innerHTML = html;
+    },
+    e => {
+      muestraError(e);
+      checksRoles(
+        elemento, valor);
+    }
+  );
 }
+
 /**
  * @param {
     import("../lib/tiposFire.js").
@@ -117,14 +123,14 @@ export function
         <input type="checkbox"
             name="rolIds"
             value="${cod(doc.id)}"
-            ${checked}>
+          ${checked}>
         <span class="texto">
           <strong
-           class="primario">
+              class="primario">
             ${cod(doc.id)}
           </strong>
           <span
-           class="secundario">
+              class="secundario">
           ${cod(data.descripción)}
           </span>
         </span>
@@ -142,13 +148,11 @@ export async function
   try {
     evt.preventDefault();
     const pasatiempoId =
-      formData.
-        get("pasatiempoId") ||
-      null;
+      getForánea(formData,
+        "pasatiempoId");
     const rolIds =
       formData.getAll("rolIds");
-    await getFirestore().
-      collection("Usuario").
+    await daoUsuario.
       doc(id).
       set({
         pasatiempoId,
@@ -156,8 +160,7 @@ export async function
       });
     const avatar =
       formData.get("avatar");
-    await subeStorage(
-      id, avatar);
+    await subeStorage(id, avatar);
     muestraUsuarios();
   } catch (e) {
     muestraError(e);

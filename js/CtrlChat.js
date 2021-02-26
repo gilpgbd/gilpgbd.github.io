@@ -11,7 +11,8 @@ import {
   tieneRol
 } from "./seguridad.js";
 
-const firestore = getFirestore();
+const daoMensaje = getFirestore().
+  collection("Mensaje");
 let usuarioId = "";
 /** @type {HTMLFormElement} */
 const forma = document["forma"];
@@ -34,6 +35,7 @@ async function protege(usuario) {
       "submit", agrega);
   }
 }
+
 /** Agrega un usuario a la base de
  * datos.
  * @param {Event} evt */
@@ -60,14 +62,13 @@ async function agrega(evt) {
     /* El modelo se agrega a
      * la colección
      * "Mensaje". */
-    await firestore.
-      collection("Mensaje").
-      add(modelo);
+    await daoMensaje.add(modelo);
     forma.texto.value = "";
   } catch (e) {
     muestraError(e);
   }
 }
+
 /** Muestra los mensajes
  * almacenados en la collection
  * "Mensaje". Se actualiza
@@ -81,14 +82,14 @@ function consulta() {
    *  "timestamp"
    * de forma
    *  descendente. */
-  firestore.
-    collection("Mensaje").
+  daoMensaje.
     orderBy("timestamp", "desc").
     onSnapshot(
       htmlLista, errConsulta);
 }
-/** Función que muestra los datos
- * enviados por el servidor.
+
+/** Muestra los datos enviados por
+ * el servidor.
  * Si los datos cambian en el
  * servidor, se vuelve a invocar
  * esta función y recibe los datos
@@ -127,6 +128,7 @@ function htmlLista(snap) {
   }
   lista.innerHTML = html;
 }
+
 /** Agrega el texto HTML
  * que corresponde a un
  * documento de un mensaje.
@@ -153,6 +155,7 @@ function htmlFila(doc) {
       </span>
     </li>`);
 }
+
 /** Función que se invoca cuando
  * hay un error al recuperar los
  * mensajes y muestra el error. Al

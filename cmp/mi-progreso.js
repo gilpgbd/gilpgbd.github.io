@@ -7,5 +7,6 @@ class MiProgeso
       </progress>`;
   }
 }
+
 customElements.define(
   "mi-progreso", MiProgeso);

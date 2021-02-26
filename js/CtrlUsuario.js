@@ -25,12 +25,10 @@ const params =
   new URL(location.href).
     searchParams;
 const id = params.get("id");
-const firestore = getFirestore();
+const daoUsuario = getFirestore().
+  collection("Usuario");
 /** @type {HTMLFormElement} */
 const forma = document["forma"];
-/** @type {HTMLButtonElement} */
-const eliminar = document.
-  querySelector("#eliminar");
 const img = document.
   querySelector("img");
 /** @type {HTMLUListElement} */
@@ -51,8 +49,7 @@ async function protege(usuario) {
 
 async function busca() {
   try {
-    const doc = await firestore.
-      collection("Usuario").
+    const doc = await daoUsuario.
       doc(id).
       get();
     if (doc.exists) {
@@ -67,8 +64,9 @@ async function busca() {
         listaRoles, data.rolIds);
       forma.addEventListener(
         "submit", guarda);
-      eliminar.addEventListener(
-        "click", elimina);
+      forma.eliminar.
+        addEventListener(
+          "click", elimina);
     }
   } catch (e) {
     muestraError(e);
@@ -86,8 +84,7 @@ async function elimina() {
   try {
     if (confirm("Confirmar la " +
       "eliminación")) {
-      await firestore.
-        collection("Usuario").
+      await daoUsuario.
         doc(id).delete();
       await eliminaStorage(id);
       muestraUsuarios();

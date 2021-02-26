@@ -13,16 +13,15 @@ import {
   tieneRol
 } from "./seguridad.js";
 
-const firestore = getFirestore();
+const daoPasatiempo =
+  getFirestore().
+    collection("Pasatiempo");
 const params =
   new URL(location.href).
     searchParams;
 const id = params.get("id");
 /** @type {HTMLFormElement} */
 const forma = document["forma"];
-/** @type {HTMLButtonElement} */
-const eliminar = document.
-  querySelector("#eliminar");
 
 getAuth().onAuthStateChanged(
   protege, muestraError);
@@ -36,13 +35,15 @@ async function protege(usuario) {
     busca();
   }
 }
+
 /** Busca y muestra los datos que
  * corresponden al id recibido. */
 async function busca() {
   try {
-    const doc = await firestore.
-      collection("Pasatiempo").
-      doc(id).get();
+    const doc =
+      await daoPasatiempo.
+        doc(id).
+        get();
     if (doc.exists) {
       /**
        * @type {
@@ -53,8 +54,9 @@ async function busca() {
         data.nombre || "";
       forma.addEventListener(
         "submit", guarda);
-      eliminar.addEventListener(
-        "click", elimina);
+      forma.eliminar.
+        addEventListener(
+          "click", elimina);
     } else {
       throw new Error(
         "No se encontró.");
@@ -80,8 +82,7 @@ async function guarda(evt) {
     const modelo = {
       nombre
     };
-    await firestore.
-      collection("Pasatiempo").
+    await daoPasatiempo.
       doc(id).
       set(modelo);
     muestraPasatiempos();
@@ -94,9 +95,9 @@ async function elimina() {
   try {
     if (confirm("Confirmar la " +
       "eliminación")) {
-      await firestore.
-        collection("Pasatiempo").
-        doc(id).delete();
+      await daoPasatiempo.
+        doc(id).
+        delete();
       muestraPasatiempos();
     }
   } catch (e) {

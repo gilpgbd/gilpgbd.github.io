@@ -13,6 +13,10 @@ import {
 /** @type {HTMLUListElement} */
 const lista = document.
   querySelector("#lista");
+const daoPasatiempo =
+  getFirestore().
+    collection("Pasatiempo");
+
 getAuth().
   onAuthStateChanged(
     protege, muestraError);
@@ -26,13 +30,14 @@ async function protege(usuario) {
     consulta();
   }
 }
+
 function consulta() {
-  getFirestore().
-    collection("Pasatiempo").
+  daoPasatiempo.
     orderBy("nombre")
     .onSnapshot(
       htmlLista, errConsulta);
 }
+
 /**
  * @param {import(
     "../lib/tiposFire.js").
@@ -51,6 +56,7 @@ function htmlLista(snap) {
   }
   lista.innerHTML = html;
 }
+
 /**
  * @param {import(
     "../lib/tiposFire.js").
@@ -74,6 +80,7 @@ function htmlFila(doc) {
       </a>
     </li>`);
 }
+
 /** @param {Error} e */
 function errConsulta(e) {
   muestraError(e);

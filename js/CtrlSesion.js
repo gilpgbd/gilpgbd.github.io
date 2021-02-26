@@ -9,19 +9,11 @@ import {
   terminaSesión
 } from "./seguridad.js";
 
-/** @type {HTMLOutputElement} */
-const email = document.
-  querySelector("#email");
-/** @type {HTMLOutputElement} */
-const nombre = document.
-  querySelector("#nombre");
+/** @type {HTMLFormElement} */
+const forma = document["forma"];
 /** @type {HTMLImageElement} */
 const avatar = document.
   querySelector("#avatar");
-/** @type {HTMLButtonElement} */
-const terminarSesión = document.
-  querySelector(
-    "#terminarSesión");
 
 /* Escucha cambios de usuario.
  * El primer parámetro es una
@@ -49,13 +41,13 @@ async function
   muestraSesión(usuario) {
   if (usuario && usuario.email) {
     // Usuario aceptado.
-    email.value =
+    forma.email.value =
       usuario.email || "";
-    nombre.value =
+    forma.nombre.value =
       usuario.displayName || "";
     avatar.src =
       usuario.photoURL || "";
-    terminarSesión.
+    forma.terminarSesión.
       addEventListener(
         "click", terminaSesión);
   } else {

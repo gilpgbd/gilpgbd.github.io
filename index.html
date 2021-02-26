@@ -47,38 +47,41 @@
     href="css/estilos.css">
 </head>
 <body>
-  <mi-nav></mi-nav>
-  <header>
-    <h1>Sesión</h1>
-    <div class="herramientas">
-      <button id="terminarSesión">
-        Terminar Sesión
-      </button>
-    </div>
-  </header>
-  <figure>
-    <img id="avatar" src=""
-      alt="Avatar">
-  </figure>
-  <p>
-    <label>
-      Email
-      <output id="email">
-        <mi-progreso>
-        </mi-progreso>
-      </output>
-    </label>
-  </p>
-  <p>
-    <label>
-      Nombre
-      <output id="nombre">
-        <mi-progreso>
-        </mi-progreso>
-      </output>
-    </label>
-  </p>
-  <mi-footer></mi-footer>
+  <form name="forma">
+    <mi-nav></mi-nav>
+    <header>
+      <h1>Sesión</h1>
+      <div class="herramientas">
+        <button
+          name="terminarSesión">
+          Terminar Sesión
+        </button>
+      </div>
+    </header>
+    <figure>
+      <img id="avatar" src=""
+        alt="Avatar">
+    </figure>
+    <p>
+      <label>
+        Email
+        <output name="email">
+          <mi-progreso>
+          </mi-progreso>
+        </output>
+      </label>
+    </p>
+    <p>
+      <label>
+        Nombre
+        <output name="nombre">
+          <mi-progreso>
+          </mi-progreso>
+        </output>
+      </label>
+    </p>
+    <mi-footer></mi-footer>
+  </form>
   <script type="module"
     src="js/CtrlSesion.js">
     </script>

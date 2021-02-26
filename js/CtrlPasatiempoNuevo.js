@@ -13,7 +13,9 @@ import {
   tieneRol
 } from "./seguridad.js";
 
-const firestore = getFirestore();
+const daoPasatiempo =
+  getFirestore().
+    collection("Pasatiempo");
 /** @type {HTMLFormElement} */
 const forma = document["forma"];
 getAuth().onAuthStateChanged(
@@ -29,6 +31,7 @@ async function protege(usuario) {
       "submit", guarda);
   }
 }
+
 /** @param {Event} evt */
 async function guarda(evt) {
   try {
@@ -44,8 +47,7 @@ async function guarda(evt) {
     const modelo = {
       nombre
     };
-    await firestore.
-      collection("Pasatiempo").
+    await daoPasatiempo.
       add(modelo);
     muestraPasatiempos();
   } catch (e) {
